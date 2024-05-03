@@ -10,7 +10,7 @@ const RoomSchema = new Schema(
       type: Number,
       required: true,
     },
-    price: {
+    price1: {
       type: Number,
       required: true,
     },
