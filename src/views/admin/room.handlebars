@@ -63,6 +63,7 @@
   aria-hidden="true"
 >
   <div class="modal-dialog modal-xl">
+    <form action="/api/themPhong" method="post">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Them phong</h5>
@@ -74,42 +75,43 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form>
+        
           <div class="row">
             <div class="col-6">
               <div class="mb-3">
-                <label for="" class="col-form-label">Số Phòng :</label>
-                <input type="text" class="form-control" id="" />
+                <label for="roomNumber" class="col-form-label">Số Phòng :</label>
+                <input type="text" class="form-control" id="roomNumber" name="roomNumber" />
               </div>
               <div class="mb-3">
-                <label for="" class="col-form-label">Số Tầng :</label>
-                <input type="text" class="form-control" id="" />
+                <label for="floor" class="col-form-label">Số Tầng :</label>
+                <input type="text" class="form-control" id="floor" name="floor" />
               </div>
               <div class="mb-3">
                 <label for="" class="col-form-label">Diện Tích :</label>
-                <input type="text" class="form-control" id="" />
+                <input type="number" class="form-control" id="" />
               </div>
               <div class="mb-3">
-                <label for="" class="col-form-label">Giá :</label>
-                <input type="text" class="form-control" id="" />
+                <label for="price" class="col-form-label">Giá :</label>
+                <input type="text" class="form-control" id="price" name="price" />
               </div>
             </div>
             <div class="col-6">
               <div class="mb-3">
                 <label for="" class="col-form-label">Trạng Thái :</label>
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" name="status">
                   <option selected>Chọn</option>
-                  <option value="">Đang Thuê</option>
-                  <option value="">Đang Trống</option>
-                  <option value="">Đã Cọc</option>
+                  <option value="Đang Thuê">Đang Thuê</option>
+                  <option value="Đang Trống">Đang Trống</option>
+                  <option value="Đã Cọc">Đã Cọc</option>
                 </select>
               </div>
               <div class="mb-3">
-                <label for="" class="col-form-label">Ghi Chú :</label>
+                <label for="" class="col-form-label">Mô Tả :</label>
                 <textarea
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="3"
+                  name="description"
                 ></textarea>
               </div>
               <div class="mb-3">
@@ -120,8 +122,9 @@
                       <input
                         class="form-check-input"
                         type="checkbox"
-                        value=""
+                        value="Có Gác"
                         id=""
+                        name="amenities"
                       />
                       <label class="form-check-label" for="">
                         Có Gác
@@ -131,8 +134,9 @@
                       <input
                         class="form-check-input"
                         type="checkbox"
-                        value=""
+                        value="Máy Nước Nóng"
                         id=""
+                        name="amenities"
                       />
                       <label class="form-check-label" for="">
                         Máy Nước Nóng
@@ -144,8 +148,9 @@
                       <input
                         class="form-check-input"
                         type="checkbox"
-                        value=""
+                        value="Máy Lạnh"
                         id=""
+                        name="amenities"
                       />
                       <label class="form-check-label" for="">
                         Máy Lạnh
@@ -155,8 +160,9 @@
                       <input
                         class="form-check-input"
                         type="checkbox"
-                        value=""
+                        value="Bếp"
                         id=""
+                        name="amenities"
                       />
                       <label class="form-check-label" for="">
                         Bếp
@@ -168,8 +174,9 @@
                       <input
                         class="form-check-input"
                         type="checkbox"
-                        value=""
+                        value="Máy Giặt"
                         id=""
+                        name="amenities"
                       />
                       <label class="form-check-label" for="">
                         Máy Giặt
@@ -180,12 +187,13 @@
               </div>
             </div>
           </div>
-        </form>
+        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Them</button>
+        <button type="submit" class="btn btn-primary">Them</button>
       </div>
     </div>
+    </form>
   </div>
 </div>
 
@@ -226,7 +234,7 @@
               </div>
               <div class="mb-3">
                 <label for="" class="col-form-label">Diện Tích :</label>
-                <input type="text" class="form-control" id="" />
+                <input type="text" class="form-control" id="" name="area" />
               </div>
               <div class="mb-3">
                 <label for="" class="col-form-label">Giá :</label>
@@ -244,7 +252,7 @@
                 </select>
               </div>
               <div class="mb-3">
-                <label for="" class="col-form-label">Ghi Chú :</label>
+                <label for="" class="col-form-label">Mô tả :</label>
                 <textarea
                   class="form-control"
                   id="exampleFormControlTextarea1"

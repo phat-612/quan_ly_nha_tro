@@ -15,5 +15,6 @@ router.get("/admin/themKhach", AdminController.themKhach);
 router.get("/", SiteController.index);
 // routes api
 router.post("/api/themKhachThue", ApiController.themKhachThue);
+router.post("/api/themPhong", ApiController.themPhong);
 
 module.exports = router;
