@@ -7,10 +7,10 @@ const RoomSchema = new Schema(
       required: true,
     },
     floor: {
-      type: Number,
+      type: String,
       required: true,
     },
-    price1: {
+    price: {
       type: Number,
       required: true,
     },
@@ -18,13 +18,19 @@ const RoomSchema = new Schema(
       type: Number,
       required: true,
     },
-    status: {
-      type: String,
+    isEmpty: {
+      type: Boolean,
+      default: true,
+    },
+    // sức chứa
+    capacity: {
+      type: Number,
       required: true,
     },
-    amenities: [
+    idAmenities: [
       {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "Amenity",
       },
     ],
     description: {

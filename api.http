@@ -1,0 +1,26 @@
+POST http://localhost:3000/api/themTienNghi
+Content-Type: application/json
+
+{
+    "amenities":[
+        {
+            "name": "Giường"
+        }
+    ]
+}
+###
+POST http://localhost:3000/api/themHopDong
+Content-Type: application/json
+
+{
+    "tenantId": ["663457baac0610543bc93830"],
+    "roomId": "6635371436b1a06bf78d0ce1",
+    "startDate": "10-22-2021",
+    "endDate": "11-22-2022",
+    "deposit": 1000000,
+    "waterPrice": 10000,
+    "electricPrice": 3000,
+    "roomPrice": 1000000,
+    "oldWater": 0,
+    "oldElectric": 0
+}

@@ -2,23 +2,45 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const ContractSchema = new Schema(
   {
-    tenantId: {
-      type: Schema.Types.ObjectId,
-      ref: "Tenant",
-      required: true,
-    },
+    tenantId: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Tenant",
+        required: true,
+      },
+    ],
     roomId: {
       type: Schema.Types.ObjectId,
       ref: "Room",
       required: true,
     },
-    rentalMonth: {
-      thang1n2024: {
-        type: Schema.Types.ObjectId,
-      },
-      thang2n2024: {
-        type: Schema.Types.ObjectId,
-      },
+    startDate: {
+      type: Date,
+      required: true,
+    },
+    endDate: {
+      type: Date,
+      required: true,
+    },
+    status: {
+      type: Boolean,
+      default: true,
+    },
+    waterPrice: {
+      type: Number,
+      required: true,
+    },
+    electricPrice: {
+      type: Number,
+      required: true,
+    },
+    roomPrice: {
+      type: Number,
+      required: true,
+    },
+    deposit: {
+      type: Number,
+      required: true,
     },
   },
   { timestamps: true }
