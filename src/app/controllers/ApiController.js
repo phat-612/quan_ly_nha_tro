@@ -19,6 +19,10 @@ class ApiController {
       res.redirect("/admin/quanlykhachthue");
     });
   }
+  // api phong
+  themPhong(req, res, next) {
+    console.log(req.body);
+  }
 }
 
 module.exports = new ApiController();
