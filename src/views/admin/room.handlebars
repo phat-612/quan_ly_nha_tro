@@ -38,7 +38,8 @@
           </select>
         </td>
         <td>
-          <button type="button" class="btn btn-primary"><i
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+      data-bs-target="#modalXem"><i
               class="bi bi-eye-fill"
             ></i></button>
           <button type="button" class="btn btn-success"><i
@@ -57,6 +58,145 @@
 <div
   class="modal fade"
   id="modalThem"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Them phong</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="" class="col-form-label">Số Phòng :</label>
+                <input type="text" class="form-control" id="" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Số Tầng :</label>
+                <input type="text" class="form-control" id="" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Diện Tích :</label>
+                <input type="text" class="form-control" id="" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Giá :</label>
+                <input type="text" class="form-control" id="" />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="" class="col-form-label">Trạng Thái :</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Chọn</option>
+                  <option value="">Đang Thuê</option>
+                  <option value="">Đang Trống</option>
+                  <option value="">Đã Cọc</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Ghi Chú :</label>
+                <textarea
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Tiện Ích :</label>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id=""
+                      />
+                      <label class="form-check-label" for="">
+                        Có Gác
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id=""
+                      />
+                      <label class="form-check-label" for="">
+                        Máy Nước Nóng
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id=""
+                      />
+                      <label class="form-check-label" for="">
+                        Máy Lạnh
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id=""
+                      />
+                      <label class="form-check-label" for="">
+                        Bếp
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id=""
+                      />
+                      <label class="form-check-label" for="">
+                        Máy Giặt
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Them</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{{!-- modal xem chi tiet  --}}
+
+<div
+  class="modal fade"
+  id="modalXem"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
@@ -182,7 +322,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Them</button>
+        <button type="button" class="btn btn-success">Sửa</button>
       </div>
     </div>
   </div>
