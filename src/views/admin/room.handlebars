@@ -237,7 +237,7 @@
                 ></textarea>
               </div>
               <div class="mb-3">
-                <label for="" class="col-form-label">Tiện Ích :</label>
+                <label for="{{this._id}}" class="col-form-label">Tiện Ích :</label>
                 <div class="row">
                   {{#each amenities}}
                     <div class="form-check col-4 my-1">
@@ -245,7 +245,7 @@
                         class="form-check-input checkboxAmeniti"
                         type="checkbox"
                         value="{{this._id}}"
-                        id="{{this.name}}"
+                        id="{{this._id}}"
                         name="idAmenities"
                         disabled
                       />

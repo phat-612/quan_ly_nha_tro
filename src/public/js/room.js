@@ -29,9 +29,20 @@ $(document).ready(function () {
       const value = button.attr("data-bs-idAmenities" + i);
 
       idAmeniti[key] = value;
-
-      console.log(idAmeniti[key]);
+      idAmenitiesArr.push(idAmeniti[key]);
     }
+    console.log(idAmenitiesArr);
+
+    const defaultidAmenitiesArr = [];
+    $(".checkboxAmeniti").each(function () {
+      const checkboxAmenitis = $(this).val();
+      defaultidAmenitiesArr.push(checkboxAmenitis);
+    });
+    console.log(defaultidAmenitiesArr);
+
+    const commonElements = idAmenitiesArr.filter((element) =>
+      defaultidAmenitiesArr.includes(element)
+    );
 
     inpXemroomNumber.value = roomNumber;
     inpXemfloor.value = floor;
@@ -45,8 +56,13 @@ $(document).ready(function () {
       inpXemisEmpty.textContent = "Đã Thuê";
     }
 
+    commonElements.forEach((e) => {
+      document.getElementById(e).setAttribute("checked", true);
+    });
+
     updateBtninModal.addEventListener("click", () => {
       document.querySelector(".titleXCT").textContent = "Sửa Chi Tiết";
+
       inpXemroomNumber.removeAttribute("disabled");
       inpXemfloor.removeAttribute("disabled");
       inpXemarea.removeAttribute("disabled");
