@@ -42,6 +42,7 @@
               data-bs-area="{{this.area}}"
               data-bs-capacity="{{this.capacity}}"
               data-bs-description="{{this.description}}"
+              data-bs-idAmeniti_length="{{this.idAmenities.length}}"
               {{#each this.idAmenities}}
               data-bs-idAmenities{{@index}}="{{this}}"
               {{/each}}
@@ -241,11 +242,12 @@
                   {{#each amenities}}
                     <div class="form-check col-4 my-1">
                       <input
-                        class="form-check-input"
+                        class="form-check-input checkboxAmeniti"
                         type="checkbox"
                         value="{{this._id}}"
                         id="{{this.name}}"
                         name="idAmenities"
+                        disabled
                       />
                       <label class="form-check-label" for="{{this.name}}">
                         {{this.name}}
@@ -259,8 +261,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success updateBtninModal">Sửa</button>
+        <button type="submit" class="btn btn-success saveBtninModal" hidden >Lưu</button>
         <button type="button" class="btn btn-danger cancelBtninModal" hidden >Hủy</button>
-        <button type="button" class="btn btn-success saveBtninModal" hidden >Lưu</button>
       </div>
       </form>
     </div>
