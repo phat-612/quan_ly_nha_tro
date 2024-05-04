@@ -1,0 +1,266 @@
+<div class="container">
+  <nav class="my-4">
+    <button
+      type="button"
+      class="btn btn-success"
+      data-bs-toggle="modal"
+      data-bs-target="#modalThem"
+    >Thêm Phòng</button>
+  </nav>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Số Tầng</th>
+        <th scope="col">Số Phòng</th>
+        <th scope="col">Giá</th>
+        <th scope="col">Diện Tích</th>
+        <th scope="col" class="col-2">Tình Trạng</th>
+        <th scope="col">Hành Động</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each rooms}}
+        <tr>
+          <td>{{this.floor}}</td>
+          <td>{{this.roomNumber}}</td>
+          <td>{{this.price}} VND</td>
+          <td>{{this.area}} m^2</td>
+          <td>
+            {{showStatusRoom this.isEmpty}}
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-primary btnXemRoom"
+              data-bs-toggle="modal"
+              data-bs-target="#modalXem"
+              data-bs-id="{{this._id}}"
+              data-bs-isEmpty="{{this.isEmpty}}"
+              data-bs-roomNumber="{{this.roomNumber}}"
+              data-bs-floor="{{this.floor}}"
+              data-bs-price="{{this.price}}"
+              data-bs-area="{{this.area}}"
+              data-bs-capacity="{{this.capacity}}"
+              data-bs-description="{{this.description}}"
+              {{#each this.idAmenities}}
+              data-bs-idAmenities{{@index}}="{{this}}"
+              {{/each}}
+            ><i class="bi bi-eye-fill"></i></button>
+            <button type="button" class="btn btn-success"><i
+                class="bi bi-wrench"
+              ></i></button>
+            <button type="button" class="btn btn-danger"><i
+                class="bi bi-trash-fill"
+              ></i></button>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+{{! modal them phong }}
+<div
+  class="modal fade"
+  id="modalThem"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <form action="/api/themPhong" method="post">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Them phong</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="roomNumber" class="col-form-label">Số Phòng :</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="roomNumber"
+                  name="roomNumber"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="floor" class="col-form-label">Số Tầng :</label>
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  name="floor"
+                >
+                  <option value="Trệt">Trệt</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Diện Tích :</label>
+                <input type="number" class="form-control" id="" name="area" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Số Người Tối Đa :</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id=""
+                  name="capacity"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="price" class="col-form-label">Giá :</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="price"
+                  name="price"
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="" class="col-form-label">Mô Tả :</label>
+                <textarea
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  name="description"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Tiện Ích :</label>
+                <div class="row">
+                  {{#each amenities}}
+                    <div class="form-check col-4 my-1">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="{{this._id}}"
+                        id="{{this.name}}"
+                        name="idAmenities"
+                      />
+                      <label class="form-check-label" for="{{this.name}}">
+                        {{this.name}}
+                      </label>
+                    </div>
+                  {{/each}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Them</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{{! modal xem chi tiet  }}
+
+<div
+  class="modal fade"
+  id="modalXem"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xem Chi Tiet</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="" class="col-form-label">Số Phòng :</label>
+                <input type="text" class="form-control inpXemroomNumber" disabled="disabled" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Số Tầng :</label>
+                <input type="text" class="form-control inpXemfloor" disabled="disabled" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Diện Tích :</label>
+                <input type="text" class="form-control inpXemarea" disabled="disabled" name="area" />
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Số Người Tối Đa :</label>
+                <input
+                  type="number"
+                  class="form-control inpXemcapacity"
+                  disabled="disabled"
+                  name="capacity"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Giá :</label>
+                <input type="text" class="form-control inpXemprice" disabled="disabled" />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="" class="col-form-label">Trạng Thái :</label>
+                <p class="form-control inpXemisEmpty"></p>
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Mô tả :</label>
+                <textarea
+                  class="form-control inpXemdescription"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  disabled="disabled"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="" class="col-form-label">Tiện Ích :</label>
+                <div class="row">
+                  {{#each amenities}}
+                    <div class="form-check col-4 my-1">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="{{this._id}}"
+                        id="{{this.name}}"
+                        name="idAmenities"
+                      />
+                      <label class="form-check-label" for="{{this.name}}">
+                        {{this.name}}
+                      </label>
+                    </div>
+                  {{/each}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success">Sửa</button>
+      </div>
+    </div>
+  </div>
+</div>

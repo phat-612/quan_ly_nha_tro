@@ -1,0 +1,20 @@
+<div class="container mt-4"><table class="table">
+    <thead>
+      <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Phòng</th>
+        <th scope="col">Giá</th>
+        <th scope="col">Trạng thái</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each hopdong}}
+        <tr>
+          <th scope="row">1</th>
+          <td>{{this.roomId.roomNumber}}</td>
+          <td>{{this.priceRoom}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

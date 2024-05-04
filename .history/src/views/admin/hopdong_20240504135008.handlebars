@@ -1,0 +1,103 @@
+<form id="themHopdong" method="post" action="/api/luuHopdong">
+  <div class="container mt-4">
+    <div class="row mb-4">
+      <div class="col">
+        <h1 class="text-center">Hợp Đồng Thuê Trọ</h1>
+        <div class="form-outline">
+          <label class="form-label" for="form6Example1">Tên khách thuê</label>
+          <select name="tenantId" id="form6Example1" class="form-control">
+            <option value="" selected>Chọn khách thuê</option>
+            {{#each tenants}}
+              <option value="{{this._id}}">{{this.name}}</option>
+            {{/each}}
+          </select>
+          <button
+            id="addGuest"
+            type="button"
+            class="btn btn-secondary btn-block mb-4"
+          >Thêm khách</button>
+        </div>
+        <div id="guestList"></div>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="chonPhong">Chọn phòng</label>
+          <select id="chonPhong" name="roomId" class="form-control">
+            <option value="" selected>Chọn phòng</option>
+            {{#each rooms}}
+              <option
+                value="{{this._id}}"
+                data-price="{{this.price}}"
+              >{{this.roomNumber}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="giaPhong">Giá phòng</label>
+          <input
+            type="number"
+            name="roomPrice"
+            id="giaPhong"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="startDate">Ngày bắt đầu</label>
+          <input type="date" name="startDate" class="form-control" />
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="endDate">Ngày kết thúc</label>
+          <input type="date" name="endDate" id="endDate" class="form-control" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form6Example6">Giá điện</label>
+          <input
+            type="number"
+            name="electricPrice"
+            id="form6Example7"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form6Example7">Giá nước</label>
+          <input
+            type="number"
+            name="waterPrice"
+            id="form6Example8"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-outline mb-4">
+      <label class="form-label" for="form6Example8">Tiền cọc</label>
+      <input
+        type="number"
+        name="deposit"
+        id="form6Example9"
+        class="form-control"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary btn-block mb-4">Tạo hợp đồng</button>
+  </div>
+</form>
