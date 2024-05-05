@@ -5,28 +5,28 @@
       class="bi bi-plus-lg"
     >
     </i>Thêm khách thuê</a>
-  <table class="table">
+  <table class="table table-hover table-striped">
     <thead>
       <tr>
-        <th scope="col">STT</th>
+        <th scope="col" class="text-center">STT</th>
         <th scope="col">Họ tên</th>
         <th scope="col">Giới tính</th>
-        <th scope="col">Số điện thoại</th>
-        <th scope="col">CCCD</th>
-        <th scope="col">Phòng</th>
-        <th scope="col">Hành Động</th>
+        <th scope="col" class="text-center">Số điện thoại</th>
+        <th scope="col" class="text-center">CCCD</th>
+        <th scope="col" class="text-center">Phòng</th>
+        <th scope="col" class="text-center">Hành Động</th>
       </tr>
     </thead>
     <tbody>
       {{#each tenants}}
         <tr>
-          <td>{{showSTT @index}}</td>
+          <td class="text-center">{{showSTT @index}}</td>
           <td>{{name}}</td>
           <td>{{showGioiTinh gender}}</td>
-          <td>{{phone}}</td>
-          <td>{{cccd.number}}</td>
-          <td>-</td>
-          <td>
+          <td class="text-center">{{phone}}</td>
+          <td class="text-center">{{cccd.number}}</td>
+          <td class="text-center">-</td>
+          <td class="text-center">
             <a
               href="/admin/xemThongTinKhach/{{_id}}"
               type="button"
@@ -40,9 +40,15 @@
               class="btn btn-success me-1"
             ><i class="bi bi-wrench"></i>
             </a>
-            <button type="button" title="Xóa" class="btn btn-danger me-1">
-              <i class="bi bi-trash-fill"></i>
-            </button>
+            <form
+              action="/api/xoaKhachThue/{{_id}}"
+              method="post"
+              class="d-inline-block m-0"
+            >
+              <button type="submit" title="Xóa" class="btn btn-danger me-1">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </form>
           </td>
         </tr>
       {{/each}}

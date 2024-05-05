@@ -50,6 +50,19 @@ class ApiController {
       res.redirect("/admin/quanlykhachthue");
     });
   }
+  xoaKhachThue(req, res) {
+    const id = req.params.id;
+    Contract.findOne({ tenantId: id }).then((contract) => {
+      if (contract) {
+        // thông báo không thể xóa
+        return res.redirect("back");
+      }
+      Tenant.deleteOne({ _id: id }).then(() => {
+        res.redirect("back");
+      });
+    });
+  }
+
   // api tiện nghi
   themTienNghi(req, res) {
     const amenity = new Amenity(req.body);

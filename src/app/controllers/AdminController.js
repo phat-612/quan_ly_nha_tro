@@ -3,6 +3,9 @@ const Amenity = require("../models/Amenity");
 const Room = require("../models/Room");
 const Contract = require("../models/Contract");
 class AdminController {
+  home(req, res) {
+    res.render("admin/home", { layout: "admin" });
+  }
   room(req, res, next) {
     Room.find({}).then((rooms) => {
       Amenity.find({}).then((amenities) => {
@@ -26,10 +29,10 @@ class AdminController {
           idAmenities: tenant._id,
         }).then((contracts) => {
           const roomIds = contracts.map((contract) => contract.roomId);
-          console.log("----------------");
-          console.log(tenant.name);
-          console.log(roomIds);
-          console.log("----------------");
+          // console.log("----------------");
+          // console.log(tenant.name);
+          // console.log(roomIds);
+          // console.log("----------------");
         });
       });
       res.render("admin/quanLyKhach", {

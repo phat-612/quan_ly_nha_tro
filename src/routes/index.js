@@ -7,6 +7,7 @@ const router = express.Router();
 
 // routes admin
 // /admin/room
+router.get("/admin", AdminController.home);
 router.get("/admin/room", AdminController.room);
 router.get("/admin/quanlykhachthue", AdminController.quanLyKhachThue);
 router.get("/admin/xemThongTinKhach/:id", AdminController.xemThongTinKhach);
@@ -21,6 +22,7 @@ router.get("/", SiteController.index);
 // routes api
 router.post("/api/themKhachThue", ApiController.themKhachThue);
 router.post("/api/suaThongTinKhach/:id", ApiController.suaThongTinKhach);
+router.post("/api/xoaKhachThue/:id", ApiController.xoaKhachThue);
 router.post("/api/themPhong", ApiController.themPhong);
 router.post("/api/themTienNghi", ApiController.themTienNghi);
 router.post("/api/suaTienNghi/:id", ApiController.suaTienNghi);
