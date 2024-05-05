@@ -1,12 +1,20 @@
 <div class="container-xxl ps-4 mt-4">
-  <h4 class="mb-3" style="color: brown; text-transform: uppercase;">Thêm khách
-    thuê</h4>
+  <h4 class="mb-3" style="color: brown; text-transform: uppercase;"><a
+      href="/admin/quanlykhachthue"
+      title="Quay lại trang quản lý"
+    ><i class="bi bi-chevron-double-left text-dark me-1"></i></a>
+    Xem thông khách thuê</h4>
   <hr class="mt-0 mb-4" />
   <div class="row">
     <div class="">
       <!-- Account details card-->
       <div class="card mb-4">
-        <div class="card-header">Thông tin khách thuê</div>
+        <div class="card-header d-flex justify-content-between">
+          <p class="mb-0">Thông tin khách thuê</p>
+          <button class="btn btn-success" title="Sửa thông tin" type="button"><i
+              class="bi bi-wrench"
+            ></i></button>
+        </div>
         <div class="card-body">
           <form action="/api/themKhachThue" method="post">
             <!-- Form Row-->
@@ -15,12 +23,12 @@
               <div class="col-md-6">
                 <label class="small mb-1" for="inputFirstName">Họ tên</label>
                 <input
+                  disabled
                   class="form-control"
                   id="inputFirstName"
                   type="text"
                   placeholder="Nhập họ tên"
-                  value=""
-                  required
+                  value="{{tenant.name}}"
                   name="name"
                 />
               </div>
@@ -28,12 +36,12 @@
               <div class="col-md-6">
                 <label class="small mb-1" for="inputLocation">Địa chỉ thường trú</label>
                 <input
+                  disabled
                   class="form-control"
                   id="inputLocation"
                   type="text"
                   placeholder="Nhập địa chỉ thường trú"
-                  value=""
-                  required
+                  value="{{tenant.address}}"
                   name="address"
                 />
               </div>
@@ -44,12 +52,12 @@
               <div class="col-md-6">
                 <label class="small mb-1" for="inputEmailAddress">Email</label>
                 <input
+                  disabled
                   class="form-control"
                   id="inputEmailAddress"
                   type="email"
                   placeholder="Nhập địa chỉ email"
-                  value=""
-                  required
+                  value="{{tenant.email}}"
                   name="email"
                 />
               </div>
@@ -57,12 +65,12 @@
               <div class="col-md-6">
                 <label class="small mb-1" for="inputPhone">Số điện thoại</label>
                 <input
+                  disabled
                   class="form-control"
                   id="inputPhone"
                   type="tel"
                   placeholder="Nhập số điện thoại"
-                  value=""
-                  required
+                  value="{{tenant.phone}}"
                   name="phone"
                 />
               </div>
@@ -73,27 +81,26 @@
               <div class="col-md-6">
                 <label class="small mb-1" for="selectGioiTinh">Giới tính</label>
                 <select
+                  disabled
                   class="form-select"
                   id="selectGioiTinh"
                   name="gender"
                   aria-label="Default select example"
-                  required
                 >
-                  <option selected>Chọn giới tính</option>
-                  <option value="0">Nam</option>
-                  <option value="1">Nữ</option>
+                  <option value="0" {{isSelected 0 tenant.gender}}>Nam</option>
+                  <option value="1" {{isSelected 1 tenant.gender}}>Nữ</option>
                 </select>
               </div>
               <!-- Form Group (birthday)-->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputBirthday">Ngày sinh</label>
                 <input
+                  disabled
                   class="form-control"
                   id="inputBirthday"
                   type="date"
                   name="dayOfBirth"
-                  value=""
-                  required
+                  value="{{showDate tenant.dayOfBirth}}"
                 />
               </div>
             </div>
@@ -103,12 +110,12 @@
               <div class="col-md-6">
                 <label class="small mb-1" for="inputCCCD">CCCD</label>
                 <input
+                  disabled
                   class="form-control"
                   id="inputCCCD"
                   type="text"
                   placeholder="Nhập số CCCD"
-                  value=""
-                  required
+                  value="{{tenant.cccd.number}}"
                   name="cccdNumber"
                 />
               </div>
@@ -116,20 +123,14 @@
               <div class="col-md-6">
                 <label class="small mb-1" for="inputdateIDC">Ngày cấp</label>
                 <input
+                  disabled
                   class="form-control"
                   id="inputdateIDC"
                   type="date"
-                  value=""
-                  required
+                  value="{{showDate tenant.cccd.date}}"
                   name="cccdDate"
                 />
               </div>
-            </div>
-
-            <!-- changes button-->
-            <div class="mt-4">
-              <button class="btn btn-secondary me-2" type="button">Hủy</button>
-              <button class="btn btn-primary" type="submit">Thêm</button>
             </div>
           </form>
         </div>

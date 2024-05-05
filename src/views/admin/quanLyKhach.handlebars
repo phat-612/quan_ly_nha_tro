@@ -18,29 +18,33 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>Nguyễn Văn A</td>
-        <td>Nam</td>
-        <td>0123456789</td>
-        <td>0913014773</td>
-        <td>101</td>
-        <td>
-          <button
-            type="button"
-            title="Xem thông tin chi tiết"
-            class="btn btn-outline-dark me-1"
-          ><i class="bi bi-eye-fill"></i></button>
-          <button
-            type="button"
-            title="Sửa thông tin"
-            class="btn btn-success me-1"
-          ><i class="bi bi-wrench"></i></button>
-          <button type="button" title="Xóa" class="btn btn-danger me-1"><i
-              class="bi bi-trash-fill"
-            ></i></button>
-        </td>
-      </tr>
+      {{#each tenants}}
+        <tr>
+          <td>{{showSTT @index}}</td>
+          <td>{{name}}</td>
+          <td>{{showGioiTinh gender}}</td>
+          <td>{{phone}}</td>
+          <td>{{cccd.number}}</td>
+          <td>-</td>
+          <td>
+            <a
+              href="/admin/xemThongTinKhach/{{_id}}"
+              type="button"
+              title="Xem thông tin chi tiết"
+              class="btn btn-outline-dark me-1"
+            ><i class="bi bi-eye-fill"></i></a>
+            <button
+              type="button"
+              title="Sửa thông tin"
+              class="btn btn-success me-1"
+            ><i class="bi bi-wrench"></i>
+            </button>
+            <button type="button" title="Xóa" class="btn btn-danger me-1">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </td>
+        </tr>
+      {{/each}}
     </tbody>
   </table>
 </div>

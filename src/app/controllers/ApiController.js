@@ -15,7 +15,7 @@ class ApiController {
         date: req.body.cccdDate,
       },
       dayOfBirth: req.body.dayOfBirth,
-      gender: req.body.gioiTinh,
+      gender: req.body.gender,
     };
     const newTenant = new Tenant(data);
     newTenant.save().then(() => {
@@ -23,14 +23,41 @@ class ApiController {
     });
   }
   // api tiện nghi
-  themTienNghi(req, res, next) {
-    // return console.log(req.body);
-    const datas = req.body.amenities;
-    datas.forEach((amenity) => {
-      const newAmenity = new Amenity(amenity);
-      newAmenity.save();
+  themTienNghi(req, res) {
+    const amenity = new Amenity(req.body);
+    amenity.save().then(() => {
+      res.redirect("back");
     });
-    res.json({ status: "success" });
+  }
+  suaTienNghi(req, res) {
+    const id = req.params.id;
+    const name = req.body.name;
+    Amenity.updateOne(
+      { _id: id },
+      {
+        name: name,
+      }
+    ).then(() => {
+      res.redirect("back");
+    });
+  }
+  xoaTienNghi(req, res) {
+    const id = req.params.id;
+    const isUsed = req.body.isUsed;
+    Amenity.deleteOne({ _id: id }).then(() => {
+      if (!isUsed) {
+        return res.redirect("back");
+      }
+      // xóa tiện nghi khỏi phòng
+      Room.updateMany(
+        {},
+        {
+          $pull: { idAmenities: id },
+        }
+      ).then(() => {
+        return res.redirect("back");
+      });
+    });
   }
   // api phong
   themPhong(req, res, next) {

@@ -20,29 +20,23 @@ $(document).ready(function () {
     const area = button.attr("data-bs-area");
     const capacity = button.attr("data-bs-capacity");
     const description = button.attr("data-bs-description");
-    const idAmeniti_length = button.attr("data-bs-idAmeniti_length");
 
-    const idAmenitiesArr = [];
-    const idAmeniti = {};
-    for (let i = 0; i < idAmeniti_length; i++) {
-      const key = "idAmeniti" + i;
-      const value = button.attr("data-bs-idAmenities" + i);
-
-      idAmeniti[key] = value;
-      idAmenitiesArr.push(idAmeniti[key]);
-    }
-    console.log(idAmenitiesArr);
-
+    const idAmenities = button.attr("data-bs-idAmenities").split(",");
     const defaultidAmenitiesArr = [];
     $(".checkboxAmeniti").each(function () {
       const checkboxAmenitis = $(this).val();
       defaultidAmenitiesArr.push(checkboxAmenitis);
     });
-    console.log(defaultidAmenitiesArr);
-
-    const commonElements = idAmenitiesArr.filter((element) =>
-      defaultidAmenitiesArr.includes(element)
+    const checkAmenities = defaultidAmenitiesArr.filter((e) =>
+      idAmenities.includes(e)
     );
+
+    defaultidAmenitiesArr.forEach((e) => {
+      $(`#modalXem #${e}`).prop("checked", false);
+    });
+    checkAmenities.forEach((e) => {
+      $(`#modalXem #${e}`).prop("checked", true);
+    });
 
     inpXemroomNumber.value = roomNumber;
     inpXemfloor.value = floor;
@@ -50,15 +44,12 @@ $(document).ready(function () {
     inpXemcapacity.value = capacity;
     inpXemprice.value = price;
     inpXemdescription.value = description;
-    if (isEmpty) {
+
+    if (isEmpty == "true") {
       inpXemisEmpty.textContent = "Phòng Trống";
     } else {
       inpXemisEmpty.textContent = "Đã Thuê";
     }
-
-    commonElements.forEach((e) => {
-      document.getElementById(e).setAttribute("checked", true);
-    });
 
     updateBtninModal.addEventListener("click", () => {
       document.querySelector(".titleXCT").textContent = "Sửa Chi Tiết";

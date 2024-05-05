@@ -9,9 +9,11 @@ const router = express.Router();
 // /admin/room
 router.get("/admin/room", AdminController.room);
 router.get("/admin/quanlykhachthue", AdminController.quanLyKhachThue);
+router.get("/admin/xemThongTinKhach/:id", AdminController.xemThongTinKhach);
 router.get("/admin/themKhach", AdminController.themKhach);
 router.get("/admin/hopdong", AdminController.hopdong);
 router.get("/admin/showhopdong", AdminController.showhopdong);
+router.get("/admin/showTienNghi", AdminController.showTienNghi);
 
 // routes user
 router.get("/", SiteController.index);
@@ -19,6 +21,8 @@ router.get("/", SiteController.index);
 router.post("/api/themKhachThue", ApiController.themKhachThue);
 router.post("/api/themPhong", ApiController.themPhong);
 router.post("/api/themTienNghi", ApiController.themTienNghi);
+router.post("/api/suaTienNghi/:id", ApiController.suaTienNghi);
+router.post("/api/xoaTienNghi/:id", ApiController.xoaTienNghi);
 
 // test api
 router.post("/api/themHopDong", ApiController.themHopDong);

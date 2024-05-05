@@ -10,6 +10,7 @@
   <table class="table">
     <thead>
       <tr>
+        <th>STT</th>
         <th scope="col">Số Tầng</th>
         <th scope="col">Số Phòng</th>
         <th scope="col">Giá</th>
@@ -21,6 +22,7 @@
     <tbody>
       {{#each rooms}}
         <tr>
+          <td>{{showSTT @index}}</td>
           <td>{{this.floor}}</td>
           <td>{{this.roomNumber}}</td>
           <td>{{this.price}} VND</td>
@@ -43,11 +45,9 @@
               data-bs-capacity="{{this.capacity}}"
               data-bs-description="{{this.description}}"
               data-bs-idAmeniti_length="{{this.idAmenities.length}}"
-              {{#each this.idAmenities}}
-              data-bs-idAmenities{{@index}}="{{this}}"
-              {{/each}}
+              data-bs-idAmenities="{{this.idAmenities}}"
             ><i class="bi bi-eye-fill"></i></button>
-            <button type="button" class="btn btn-success"><i
+            <button type="button" class="btn btn-warning"><i
                 class="bi bi-wrench"
               ></i></button>
             <button type="button" class="btn btn-danger"><i
