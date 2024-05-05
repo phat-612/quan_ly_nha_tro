@@ -22,6 +22,34 @@ class ApiController {
       res.redirect("/admin/quanlykhachthue");
     });
   }
+  suaThongTinKhach(req, res) {
+    const id = req.params.id;
+    let fullName = req.body.name;
+    let addresss = req.body.address;
+    let email = req.body.email;
+    let phone = req.body.phone;
+    let gender = req.body.gender;
+    let dayOfBirth = req.body.dayOfBirth;
+    let cccdNumber = req.body.cccdNumber;
+    let cccdDate = req.body.cccdDate;
+    Tenant.updateOne(
+      { _id: id },
+      {
+        name: fullName,
+        address: addresss,
+        email: email,
+        phone: phone,
+        gender: gender,
+        dayOfBirth: dayOfBirth,
+        cccd: {
+          number: cccdNumber,
+          date: cccdDate,
+        },
+      }
+    ).then(() => {
+      res.redirect("/admin/quanlykhachthue");
+    });
+  }
   // api tiện nghi
   themTienNghi(req, res) {
     const amenity = new Amenity(req.body);

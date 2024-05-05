@@ -47,6 +47,15 @@ class AdminController {
       });
     });
   }
+  suaThongTinKhach(req, res) {
+    const id = req.params.id;
+    Tenant.findOne({ _id: id }).then((tenant) => {
+      res.render("admin/suattkhach", {
+        layout: "admin",
+        tenant: tenant.toObject(),
+      });
+    });
+  }
   showhopdong(req, res) {
     Contract.find({})
       .populate("roomId", "roomNumber")

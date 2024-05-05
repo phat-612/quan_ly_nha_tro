@@ -3,7 +3,7 @@
       href="/admin/quanlykhachthue"
       title="Quay lại trang quản lý"
     ><i class="bi bi-chevron-double-left text-dark me-1"></i></a>
-    Xem thông khách thuê</h4>
+    Xem thông tin khách thuê</h4>
   <hr class="mt-0 mb-4" />
   <div class="row">
     <div class="">
@@ -11,12 +11,15 @@
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between">
           <p class="mb-0">Thông tin khách thuê</p>
-          <button class="btn btn-success" title="Sửa thông tin" type="button"><i
-              class="bi bi-wrench"
-            ></i></button>
+          <a
+            href="/admin/suaThongTinKhach/{{tenant._id}}"
+            class="btn btn-success"
+            title="Sửa thông tin"
+            type="button"
+          ><i class="bi bi-wrench"></i></a>
         </div>
         <div class="card-body">
-          <form action="/api/themKhachThue" method="post">
+          <form method="post">
             <!-- Form Row-->
             <div class="row gx-3 mb-3">
               <!-- Form Group (fullname)-->

@@ -11,6 +11,7 @@ router.get("/admin/room", AdminController.room);
 router.get("/admin/quanlykhachthue", AdminController.quanLyKhachThue);
 router.get("/admin/xemThongTinKhach/:id", AdminController.xemThongTinKhach);
 router.get("/admin/themKhach", AdminController.themKhach);
+router.get("/admin/suaThongTinKhach/:id", AdminController.suaThongTinKhach);
 router.get("/admin/hopdong", AdminController.hopdong);
 router.get("/admin/showhopdong", AdminController.showhopdong);
 router.get("/admin/showTienNghi", AdminController.showTienNghi);
@@ -19,6 +20,7 @@ router.get("/admin/showTienNghi", AdminController.showTienNghi);
 router.get("/", SiteController.index);
 // routes api
 router.post("/api/themKhachThue", ApiController.themKhachThue);
+router.post("/api/suaThongTinKhach/:id", ApiController.suaThongTinKhach);
 router.post("/api/themPhong", ApiController.themPhong);
 router.post("/api/themTienNghi", ApiController.themTienNghi);
 router.post("/api/suaTienNghi/:id", ApiController.suaTienNghi);
