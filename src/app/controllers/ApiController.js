@@ -100,7 +100,7 @@ class ApiController {
       });
     });
   }
-  // api phong
+  // api phong =======================================
   ///api them phong
   themPhong(req, res, next) {
     const room = new Room(req.body);
@@ -110,10 +110,24 @@ class ApiController {
   }
   ///api cap nhat phong
   updatePhong(req, res, next) {
-    const newRoom = req.body;
-    console.log(newRoom);
+    Room.updateOne(
+      {
+        _id: req.body.id,
+      },
+      {
+        roomNumber: req.body.roomNumber,
+        floor: req.body.floor,
+        area: req.body.area,
+        capacity: req.body.capacity,
+        price: req.body.price,
+        idAmenities: req.body.idAmenities,
+        description: req.body.description,
+      }
+    ).then(() => {
+      res.redirect("back");
+    });
   }
-  // api test
+  // api test =========================================
   themHopDong(req, res) {
     const data = req.body;
     const newContract = new Contract(data);

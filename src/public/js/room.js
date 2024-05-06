@@ -9,6 +9,8 @@ $(document).ready(function () {
   const cancelBtninModal = document.querySelector(".cancelBtninModal");
   const saveBtninModal = document.querySelector(".saveBtninModal");
   const inpXemisEmpty = document.querySelector(".inpXemisEmpty");
+  const hiddenInpId = document.querySelector(".hiddenInpId");
+  const updateRoomBtninModal = document.querySelector(".updateRoomBtninModal");
 
   $(".btnXemRoom").click((e) => {
     const button = $(e.currentTarget);
@@ -38,6 +40,7 @@ $(document).ready(function () {
       $(`#modalXem #${e}`).prop("checked", true);
     });
 
+    hiddenInpId.value = id;
     inpXemroomNumber.value = roomNumber;
     inpXemfloor.value = floor;
     inpXemarea.value = area;
@@ -80,5 +83,58 @@ $(document).ready(function () {
         $(".checkboxAmeniti").prop("disabled", true);
       });
     });
+  });
+
+  $(".updateRoomBtn").click((e) => {
+    const button = $(e.currentTarget);
+    const id = button.attr("data-bs-id");
+    const isEmpty = button.attr("data-bs-isEmpty");
+    const roomNumber = button.attr("data-bs-roomNumber");
+    const floor = button.attr("data-bs-floor");
+    const price = button.attr("data-bs-price");
+    const area = button.attr("data-bs-area");
+    const capacity = button.attr("data-bs-capacity");
+    const description = button.attr("data-bs-description");
+
+    const idAmenities = button.attr("data-bs-idAmenities").split(",");
+    const defaultidAmenitiesArr = [];
+    $(".checkboxAmeniti").each(function () {
+      const checkboxAmenitis = $(this).val();
+      defaultidAmenitiesArr.push(checkboxAmenitis);
+    });
+    const checkAmenities = defaultidAmenitiesArr.filter((e) =>
+      idAmenities.includes(e)
+    );
+
+    defaultidAmenitiesArr.forEach((e) => {
+      $(`#modalXem #${e}`).prop("checked", false);
+    });
+    checkAmenities.forEach((e) => {
+      $(`#modalXem #${e}`).prop("checked", true);
+    });
+
+    hiddenInpId.value = id;
+    inpXemroomNumber.value = roomNumber;
+    inpXemfloor.value = floor;
+    inpXemarea.value = area;
+    inpXemcapacity.value = capacity;
+    inpXemprice.value = price;
+    inpXemdescription.value = description;
+
+    if (isEmpty == "true") {
+      inpXemisEmpty.textContent = "Phòng Trống";
+    } else {
+      inpXemisEmpty.textContent = "Đã Thuê";
+    }
+
+    inpXemroomNumber.removeAttribute("disabled");
+    inpXemfloor.removeAttribute("disabled");
+    inpXemarea.removeAttribute("disabled");
+    inpXemprice.removeAttribute("disabled");
+    inpXemdescription.removeAttribute("disabled");
+    inpXemcapacity.removeAttribute("disabled");
+    $(".checkboxAmeniti").prop("disabled", false);
+    updateBtninModal.setAttribute("hidden", "true");
+    updateRoomBtninModal.removeAttribute("hidden");
   });
 });
