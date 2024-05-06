@@ -47,10 +47,28 @@
               data-bs-idAmeniti_length="{{this.idAmenities.length}}"
               data-bs-idAmenities="{{this.idAmenities}}"
             ><i class="bi bi-eye-fill"></i></button>
-            <button type="button" class="btn btn-warning"><i
+            <button 
+              type="button" 
+              class="btn btn-warning"
+              data-bs-toggle="modal"
+              data-bs-target="#modalXem"
+              data-bs-id="{{this._id}}"
+              data-bs-isEmpty="{{this.isEmpty}}"
+              data-bs-roomNumber="{{this.roomNumber}}"
+              data-bs-floor="{{this.floor}}"
+              data-bs-price="{{this.price}}"
+              data-bs-area="{{this.area}}"
+              data-bs-capacity="{{this.capacity}}"
+              data-bs-description="{{this.description}}"
+              data-bs-idAmeniti_length="{{this.idAmenities.length}}"
+              data-bs-idAmenities="{{this.idAmenities}}"
+            ><i
                 class="bi bi-wrench"
               ></i></button>
-            <button type="button" class="btn btn-danger"><i
+            <button 
+            type="button"
+            
+             class="btn btn-danger"><i
                 class="bi bi-trash-fill"
               ></i></button>
           </td>
@@ -172,7 +190,7 @@
   </div>
 </div>
 
-{{! modal xem chi tiet  }}
+{{! modal xem chi tiet phong }}
 
 <div
   class="modal fade"
@@ -193,16 +211,16 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form action="/api/" method="post" >
+        <form action="/api/updatePhong" method="post" >
           <div class="row">
             <div class="col-6">
               <div class="mb-3">
                 <label for="" class="col-form-label">Số Phòng :</label>
-                <input type="text" class="form-control inpXemroomNumber" disabled="disabled" />
+                <input type="text" class="form-control inpXemroomNumber" disabled="disabled" name="roomNumber" />
               </div>
               <div class="mb-3">
                 <label for="" class="col-form-label">Số Tầng :</label>
-                <input type="text" class="form-control inpXemfloor" disabled="disabled" />
+                <input type="text" class="form-control inpXemfloor" disabled="disabled" name="floor" />
               </div>
               <div class="mb-3">
                 <label for="" class="col-form-label">Diện Tích :</label>
@@ -219,7 +237,7 @@
               </div>
               <div class="mb-3">
                 <label for="" class="col-form-label">Giá :</label>
-                <input type="text" class="form-control inpXemprice" disabled="disabled" />
+                <input type="text" class="form-control inpXemprice" disabled="disabled" name="price" />
               </div>
             </div>
             <div class="col-6">
@@ -234,6 +252,7 @@
                   id="exampleFormControlTextarea1"
                   rows="3"
                   disabled="disabled"
+                  name="description"
                 ></textarea>
               </div>
               <div class="mb-3">

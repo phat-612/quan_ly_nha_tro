@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 module.exports = {
   showSTT: function (value) {
     return parseInt(value) + 1;
@@ -7,6 +9,9 @@ module.exports = {
   },
   isSelected: function (value, option) {
     return !!value == !!option ? "selected" : "";
+  },
+  isSelectedObjectId: function (value, option) {
+    return value.toString() == option.toString() ? "selected" : "";
   },
   showDate: function (date) {
     // 2024-03-21
@@ -30,5 +35,9 @@ module.exports = {
     let date = new Date(timestamp);
     let options = { year: "numeric", month: "long", day: "numeric" };
     return date.toLocaleDateString("vi-VN", options);
+  },
+  formatDate: function (date, format) {
+    const dateMoment = moment(date);
+    return dateMoment.format(format);
   },
 };

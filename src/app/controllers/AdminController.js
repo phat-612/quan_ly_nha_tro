@@ -2,6 +2,7 @@ const Tenant = require("../models/Tenant");
 const Amenity = require("../models/Amenity");
 const Room = require("../models/Room");
 const Contract = require("../models/Contract");
+const DetailContract = require("../models/DetailContract");
 class AdminController {
   home(req, res) {
     res.render("admin/home", { layout: "admin" });
@@ -23,21 +24,27 @@ class AdminController {
   }
   quanLyKhachThue(req, res) {
     Tenant.find({}).then((tenants) => {
+      tenants = tenants.map((tenant) => tenant.toObject());
       // tìm khách ở phòng nào
-      tenants.forEach((tenant) => {
-        Contract.find({
-          idAmenities: tenant._id,
-        }).then((contracts) => {
-          const roomIds = contracts.map((contract) => contract.roomId);
-          // console.log("----------------");
-          // console.log(tenant.name);
-          // console.log(roomIds);
-          // console.log("----------------");
-        });
+      const promise = tenants.map((tenant) => {
+        return Contract.find({
+          idTenants: tenant._id,
+        })
+          .populate("idRoom", "roomNumber")
+          .then((contracts) => {
+            const roomNumbers = contracts.map((contract) => {
+              return contract.idRoom.roomNumber;
+            });
+            tenant.roomNumbers = roomNumbers;
+            return tenant;
+          });
       });
-      res.render("admin/quanLyKhach", {
-        layout: "admin",
-        tenants: tenants.map((tenant) => tenant.toObject()),
+      Promise.all(promise).then((data) => {
+        // console.log(data);
+        res.render("admin/quanLyKhach", {
+          layout: "admin",
+          tenants: data,
+        });
       });
     });
   }
@@ -61,7 +68,7 @@ class AdminController {
   }
   showhopdong(req, res) {
     Contract.find({})
-      .populate("roomId", "roomNumber")
+      .populate("idRoom", "roomNumber")
       .then((hopdong) => {
         res.render("admin/showhopdong", {
           layout: "admin",
@@ -70,7 +77,7 @@ class AdminController {
       });
   }
   hopdong(req, res) {
-    Room.find({}).then((rooms) => {
+    Room.find({ isEmpty: true }).then((rooms) => {
       Tenant.find({}).then((tenants) => {
         res.render("admin/hopdong", {
           layout: "admin",
@@ -78,6 +85,69 @@ class AdminController {
           tenants: tenants.map((tenant) => tenant.toObject()),
           rooms: rooms.map((room) => room.toObject()),
         });
+      });
+    });
+  }
+  edithopdong(req, res) {
+    Contract.findById(req.params.id)
+      .populate("idRoom", "roomNumber")
+      .populate("idTenants", "name")
+      .then((contract) => {
+        DetailContract.findOne({
+          idContract: req.params.id,
+        }).then((detailcontract) => {
+          Room.find().then((rooms) => {
+            // truy vấn tất cả phòng
+            res.render("admin/edithopdong", {
+              layout: "admin",
+              js: "suahopdong",
+              contract: contract.toObject(),
+              detailcontract: detailcontract.toObject(),
+              rooms: rooms.map((room) => room.toObject()), // thêm danh sách phòng
+            });
+          });
+        });
+      });
+  }
+  chotThang(req, res) {
+    DetailContract.aggregate([
+      {
+        $lookup: {
+          from: "contracts",
+          localField: "idContract",
+          foreignField: "_id",
+          as: "contract",
+        },
+      },
+      {
+        $unwind: "$contract",
+      },
+      {
+        $lookup: {
+          from: "rooms",
+          localField: "contract.idRoom",
+          foreignField: "_id",
+          as: "room",
+        },
+      },
+      {
+        $unwind: "$room",
+      },
+      {
+        $project: {
+          roomNumber: "$room.roomNumber",
+          oldElectric: 1,
+          oldWater: 1,
+          startDate: 1,
+          endDate: 1,
+          idContract: 1,
+        },
+      },
+    ]).then((data) => {
+      res.render("admin/chotThang", {
+        layout: "admin",
+        js: "chotThang",
+        detailContracts: data,
       });
     });
   }

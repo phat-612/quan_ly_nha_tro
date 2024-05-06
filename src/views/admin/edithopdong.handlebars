@@ -1,0 +1,165 @@
+<form id="updatehopdong" method="post" action="/api/updatehopdong/{{contract._id}}">
+  <div class="container mt-4">
+    <div class="row mb-4">
+      <div class="col">
+        <h1 class="text-center">Hợp Đồng Thuê Trọ</h1>
+        <div class="form-outline">
+          <label class="form-label" for="idTenants">Tên khách thuê
+          </label>
+          <span class="text-danger" style="font-size: 0.8rem;">*</span>
+          <span style="font-size: 0.8rem; color: red;">Đây là nội dung không
+            được chỉnh sửa</span>
+          {{#each contract.idTenants}}
+            <input
+              type="text"
+              id=""
+              class="form-control"
+              value="{{this.name}}"
+              readonly
+            />
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="chonPhong">Chọn phòng</label>
+          <select id="chonPhong" name="idRoom" class="form-control" required>
+            {{#each rooms}}
+              <option
+                data-price="{{this.price}}"
+                value="{{this._id}}"
+                {{isSelectedObjectId this._id ../contract.idRoom._id}}
+              >{{this.roomNumber}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="giaPhong">Giá phòng</label>
+          <input
+            type="number"
+            name="roomPrice"
+            id="giaPhong"
+            class="form-control"
+            value="{{contract.roomPrice}}"
+            required
+          />  
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="startDate">Ngày bắt đầu</label>
+          <span class="text-danger" style="font-size: 0.8rem;">*</span>
+          <span style="font-size: 0.8rem; color: red;">Đây là nội dung không
+            được chỉnh sửa</span>
+          <input
+            type="text"
+        
+            class="form-control"
+            value="{{toLocaleString contract.startDate}}"
+            readonly
+          />
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="endDate">Ngày kết thúc</label>
+          <span class="text-danger" style="font-size: 0.8rem;">*</span>
+          <span style="font-size: 0.8rem; color: red;">Đây là nội dung không
+            được chỉnh sửa</span>
+          <input
+            type="text"
+            id="endDate"
+            class="form-control"
+            value="{{toLocaleString contract.endDate}}"
+            readonly
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form6Example6">Giá điện</label>
+          <input
+            type="number"
+            name="electricPrice"
+            id="form6Example7"
+            class="form-control"
+            value="{{contract.electricPrice}}"
+            required
+          />
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form6Example7">Giá nước</label>
+          <input
+            type="number"
+            name="waterPrice"
+            id="form6Example8"
+            class="form-control"
+            value="{{contract.waterPrice}}"
+            required
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form6Example9">Chỉ số điện cũ</label>
+          <span class="text-danger" style="font-size: 0.8rem;">*</span>
+          <span style="font-size: 0.8rem; color: red;">Đây là nội dung không
+            được chỉnh sửa</span>
+          <input
+            type="number"
+            
+            id="oldElectric"
+            class="form-control"
+            value="{{detailcontract.oldElectric}}"
+            readonly
+          />
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form6Example10">Chỉ số nước cũ</label>
+          <span class="text-danger" style="font-size: 0.8rem;">*</span>
+          <span style="font-size: 0.8rem; color: red;">Đây là nội dung không
+            được chỉnh sửa</span>
+          <input
+            type="number"
+          
+            id="oldWater"
+            class="form-control"
+            value="{{detailcontract.oldWater}}"
+            readonly
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-outline mb-4">
+      <label class="form-label" for="form6Example8">Tiền cọc</label>
+      <input
+        type="number"
+        name="deposit"
+        id="form6Example9"
+        class="form-control"
+        value="{{contract.deposit}}"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary btn-block mb-4">Sửa hợp đồng</button>
+  </div>
+</form>

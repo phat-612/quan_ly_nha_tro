@@ -8,13 +8,11 @@ $(document).ready(function () {
   // Thêm khách
   $("#addGuest").click(function () {
     var guestName = $("#form6Example1").val();
-
     var guestId = $("#guestNames option")
       .filter(function () {
         return $(this).html() === guestName;
       })
       .data("id");
-
     var isDuplicated = false;
 
     $(".guest-name span").each(function () {
@@ -23,12 +21,13 @@ $(document).ready(function () {
         return false;
       }
     });
+
     if (guestName && guestId && !isDuplicated) {
       var guestHTML =
         '<div class="guest-name d-flex align-items-center"><button type="button" class="btn btn-danger btn-sm removeGuest">Xóa</button> ' +
         '<span class="ml-2">' +
         guestName +
-        '</span><input type="hidden" name="tenantId" value="' +
+        '</span><input type="hidden" name="idTenants" value="' +
         guestId +
         '"></div>';
 
@@ -37,7 +36,7 @@ $(document).ready(function () {
     } else if (isDuplicated) {
       alert("Khách đã được chọn!");
     } else {
-      alert("Please select a guest");
+      alert("Vui lòng chọn một khách");
     }
   });
 
@@ -45,8 +44,23 @@ $(document).ready(function () {
   $(document).on("click", ".removeGuest", function (e) {
     e.preventDefault();
     $(this).closest(".guest-name").remove();
+    checkRequired(); // Kiểm tra lại thuộc tính 'required' khi xóa khách
   });
 
+  $("#form6Example1").on("input", checkRequired);
+
+  function checkRequired() {
+    var val = $("#form6Example1").val();
+    var opts = $("#guestNames").children();
+    for (var i = 0; i < opts.length; i++) {
+      if (opts[i].value === val) {
+        $("#form6Example1").removeAttr("required");
+        break;
+      } else {
+        $("#form6Example1").attr("required", true);
+      }
+    }
+  }
   // Xử lý form khi nó được gửi
   $("#themHopdong").submit(function (e) {
     e.preventDefault();

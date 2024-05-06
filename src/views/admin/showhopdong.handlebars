@@ -14,14 +14,14 @@
       {{#each hopdong}}
         <tr>
           <th scope="row">1</th>
-          <td>{{this.roomId.roomNumber}}</td>
+          <td>{{this.idRoom.roomNumber}}</td>
           <td>{{this.roomPrice}}</td>
           <td>{{toLocaleString this.startDate}}</td>
           <td>{{toLocaleString this.endDate}}</td>
           <td>{{this.deposit}}</td>
           <td>
             <a
-              href="../admin/details/{{this._id}}"
+              href="/admin/edithopdong/{{this._id}}"
               type="button"
               id="editButton"
               class="btn btn-primary"

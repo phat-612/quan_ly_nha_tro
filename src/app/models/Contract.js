@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const ContractSchema = new Schema(
   {
-    tenantId: [
+    idTenants: [
       {
         type: Schema.Types.ObjectId,
         ref: "Tenant",
         required: true,
       },
     ],
-    roomId: {
+    idRoom: {
       type: Schema.Types.ObjectId,
       ref: "Room",
       required: true,

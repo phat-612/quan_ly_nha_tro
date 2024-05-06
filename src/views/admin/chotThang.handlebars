@@ -1,0 +1,122 @@
+<div class="container">
+  <h1 class="text-center">Chốt điện nước hàng tháng</h1>
+  <table class="table">
+    <thead>
+      <tr>
+
+        <th scope="col"></th>
+        <th scope="col">Phòng</th>
+        <th scope="col">Từ ngày</th>
+        <th scope="col">Đến ngày</th>
+        <th scope="col">Chỉ số điện cũ</th>
+        <th scope="col">Chỉ số nước cũ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each detailContracts}}
+        <tr>
+          <td class="text-center"><button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#chotThangModal"
+              data-bs-idDetailContract="{{_id}}"
+              data-bs-idContract="{{idContract}}"
+              data-bs-oldElectric="{{oldElectric}}"
+              data-bs-oldWater="{{oldWater}}"
+            >Chốt tháng</button></td>
+          <td class="align-content-center">{{roomNumber}}</td>
+          <td class="align-content-center">{{formatDate
+              startDate
+              "DD/MM/YYYY"
+            }}</td>
+          <td class="align-content-center">{{formatDate
+              endDate
+              "DD/MM/YYYY"
+            }}</td>
+          <td class="align-content-center">{{oldElectric}}</td>
+          <td class="align-content-center">{{oldWater}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<div
+  class="modal fade"
+  id="chotThangModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Chốt chỉ số tháng</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+
+        <form action="/api/chotThang" method="post">
+          <input type="text" name="idDetailContract" hidden />
+          <input type="text" name="idContract" hidden />
+          <div class="row">
+            <div class="mb-3 col">
+              <label for="recipient-name" class="col-form-label">Chỉ số điện cũ:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="recipient-name"
+                name="oldElectric"
+                disabled
+              />
+            </div>
+            <div class="mb-3 col">
+              <label for="recipient-name" class="col-form-label">Chỉ số điện cũ:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="recipient-name"
+                name="oldWater"
+                disabled
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="mb-3 col">
+              <label for="newElectric" class="col-form-label">Chỉ số điện mới:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="newElectric"
+                name="newElectric"
+              />
+            </div>
+            <div class="mb-3 col">
+              <label for="newWater" class="col-form-label">Chỉ số nước mới:</label>
+              <input
+                id="newWater"
+                name="newWater"
+                type="text"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="float-end">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >Close</button>
+            <button type="submit" class="btn btn-primary">Chốt tháng</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

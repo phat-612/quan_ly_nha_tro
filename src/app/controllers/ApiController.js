@@ -52,7 +52,7 @@ class ApiController {
   }
   xoaKhachThue(req, res) {
     const id = req.params.id;
-    Contract.findOne({ tenantId: id }).then((contract) => {
+    Contract.findOne({ idTenants: id }).then((contract) => {
       if (contract) {
         // thông báo không thể xóa
         return res.redirect("back");
@@ -101,11 +101,17 @@ class ApiController {
     });
   }
   // api phong
+  ///api them phong
   themPhong(req, res, next) {
     const room = new Room(req.body);
     room.save().then(() => {
       res.redirect("back");
     });
+  }
+  ///api cap nhat phong
+  updatePhong(req, res, next) {
+    const newRoom = req.body;
+    console.log(newRoom);
   }
   // api test
   themHopDong(req, res) {
@@ -129,7 +135,7 @@ class ApiController {
         return newDetailContract.save();
       })
       .then(() => {
-        const roomPromise = Room.findById(data.roomId);
+        const roomPromise = Room.findById(data.idRoom);
         return roomPromise.then((room) => {
           if (room) {
             room.isEmpty = false;
@@ -140,6 +146,52 @@ class ApiController {
       .then(() => {
         res.redirect("/admin/showhopdong");
       });
+  }
+  updatehopdong(req, res) {
+    // Contract.updateOne(
+    //   { _id: req.body.id },
+    //   {
+    //     idRoom: req.body.idRoom,
+    //     roomPice: req.body.roomPrice,
+    //     electricPrice: req.body.electricPrice,
+    //     waterPrice: req.body.waterPrice,
+    //     deposit: req.body.deposit,
+    //   }
+    // ).then(() => {
+    //   res.redirect("/admin/showhopdong");
+    // });
+    res.send(req.body);
+  }
+  chotThang(req, res) {
+    const data = req.body;
+    // res.json(data);
+    const idDetailContract = data.idDetailContract;
+    const idContract = data.idContract;
+    const oldElectric = parseInt(data.oldElectric);
+    const oldWater = parseInt(data.oldWater);
+    const newElectric = parseInt(data.newElectric);
+    const newWater = parseInt(data.newWater);
+    Contract.findOne({
+      _id: idContract,
+    }).then((contract) => {
+      const total =
+        (newElectric - oldElectric) * contract.electricPrice +
+        (newWater - oldWater) * contract.waterPrice +
+        contract.roomPrice;
+      // cập nhật chi tiết hợp đồng
+      DetailContract.updateOne(
+        {
+          _id: idDetailContract,
+        },
+        {
+          total,
+          newElectric: data.newElectric,
+          newWater: data.newWater,
+          paid: 0,
+        }
+      );
+      // tạo chi tiết hợp đồng mới
+    });
   }
 }
 
