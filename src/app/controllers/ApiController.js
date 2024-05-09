@@ -135,16 +135,24 @@ class ApiController {
       .save()
       .then((response) => {
         const startDate = new Date(data.startDate);
+        let endDateYear =
+          startDate.getMonth() == 11 ? 1 : 0 + startDate.getFullYear();
+        console.log(endDateYear);
+        let endDateMonth =
+          startDate.getDate() >= 15 ? 1 : 0 + startDate.getMonth();
+        endDateMonth = startDate.getMonth() == 11 ? 0 : endDateMonth;
+        console.log(endDateMonth);
+        const endDate =
+          startDate.getMonth() === 11
+            ? new Date(endDateYear, endDateMonth, 15)
+            : new Date(endDateYear, endDateMonth, 15);
+        console.log(endDate);
         const newDetailContract = new DetailContract({
           idContract: response._id,
           oldElectric: data.oldElectric,
           oldWater: data.oldWater,
           startDate: data.startDate,
-          endDate: new Date(
-            startDate.getFullYear(),
-            startDate.getMonth() + 1,
-            startDate.getDate()
-          ),
+          endDate,
         });
         return newDetailContract.save();
       })
@@ -178,7 +186,7 @@ class ApiController {
   }
   chotThang(req, res) {
     const data = req.body;
-    // res.json(data);
+    // return res.json(data);
     const idDetailContract = data.idDetailContract;
     const idContract = data.idContract;
     const oldElectric = parseInt(data.oldElectric);
@@ -193,7 +201,7 @@ class ApiController {
         (newWater - oldWater) * contract.waterPrice +
         contract.roomPrice;
       // cập nhật chi tiết hợp đồng
-      DetailContract.updateOne(
+      DetailContract.findOneAndUpdate(
         {
           _id: idDetailContract,
         },
@@ -202,9 +210,42 @@ class ApiController {
           newElectric: data.newElectric,
           newWater: data.newWater,
           paid: 0,
+        },
+        {
+          new: true,
         }
-      );
-      // tạo chi tiết hợp đồng mới
+      ).then((updatedDocument) => {
+        // tạo chi tiết hợp đồng mới
+        const contractEndDate = contract.endDate;
+        const startDateDetail = updatedDocument.endDate;
+        if (startDateDetail >= contractEndDate) {
+          return res.redirect("/admin/chotThang");
+        }
+        let endDateDetailDay = updatedDocument.endDate.getDate();
+        let endDateDetailMonth = updatedDocument.endDate.getMonth();
+        let endDateDetailYear = updatedDocument.endDate.getFullYear();
+        let endDateDetail =
+          endDateDetailMonth === 11
+            ? new Date(endDateDetailYear + 1, 0, endDateDetailDay)
+            : new Date(
+                endDateDetailYear,
+                endDateDetailMonth + 1,
+                endDateDetailDay
+              );
+        endDateDetail =
+          endDateDetail >= contractEndDate ? contractEndDate : endDateDetail;
+        const newDetailContract = new DetailContract({
+          idContract: idContract,
+          oldElectric: newElectric,
+          oldWater: newWater,
+          startDate: updatedDocument.endDate,
+          endDate: endDateDetail,
+          isLastDetail: endDateDetail >= contractEndDate,
+        });
+        newDetailContract.save().then(() => {
+          res.redirect("/admin/chotThang");
+        });
+      });
     });
   }
 }

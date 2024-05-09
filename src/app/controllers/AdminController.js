@@ -112,6 +112,16 @@ class AdminController {
   chotThang(req, res) {
     DetailContract.aggregate([
       {
+        $sort: {
+          createdAt: -1, // sắp xếp theo thời gian tạo giảm dần
+        },
+      },
+      {
+        $match: {
+          total: { $exists: false },
+        },
+      },
+      {
         $lookup: {
           from: "contracts",
           localField: "idContract",
@@ -143,7 +153,18 @@ class AdminController {
           idContract: 1,
         },
       },
+
+      {
+        $group: {
+          _id: "$idContract", // nhóm theo idContract
+          detailContract: {
+            $first: "$$ROOT", // lấy ra chi tiết hợp đồng mới nhất
+          },
+        },
+      },
     ]).then((data) => {
+      data = data.map((item) => item.detailContract);
+      // return res.json(data);
       res.render("admin/chotThang", {
         layout: "admin",
         js: "chotThang",

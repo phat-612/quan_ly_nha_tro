@@ -33,6 +33,9 @@ const DetailContractSchema = new Schema(
     paid: {
       type: Number,
     },
+    isLastDetail: {
+      type: Boolean,
+    },
   },
   { timestamps: true }
 );
