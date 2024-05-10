@@ -29,11 +29,42 @@
             >Sửa</a>
             <button
               id="deleteButton"
-              class="btn btn-danger"
-              type="button"
+              class="btn btn-danger btn-delete"
+              type="submit"
+              data-id="{{this._id}}"
             >Xóa</button></td>
         </tr>
       {{/each}}
     </tbody>
   </table>
 </div>
+{{! xóa }}
+<div id="delete-hopdong-modal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Bộ bạn muốn xóa lắm à ?</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn xóa ?</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          id="btn-delete"
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >Xóa</button>
+        <button type="button" class="btn btn-danger">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+{{! delete }}
+<form name="hopdongDelete" method="POST" action=""></form>

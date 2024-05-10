@@ -32,6 +32,7 @@ router.post("/api/suaTienNghi/:id", ApiController.suaTienNghi);
 router.post("/api/xoaTienNghi/:id", ApiController.xoaTienNghi);
 router.post("/api/updatehopdong/:id", ApiController.updatehopdong);
 router.post("/api/chotThang", ApiController.chotThang);
+router.post("/api/xoahopdong/:id", ApiController.xoahopdong);
 
 // test api
 router.post("/api/themHopDong", ApiController.themHopDong);

@@ -137,16 +137,13 @@ class ApiController {
         const startDate = new Date(data.startDate);
         let endDateYear =
           startDate.getMonth() == 11 ? 1 : 0 + startDate.getFullYear();
-        console.log(endDateYear);
         let endDateMonth =
           startDate.getDate() >= 15 ? 1 : 0 + startDate.getMonth();
         endDateMonth = startDate.getMonth() == 11 ? 0 : endDateMonth;
-        console.log(endDateMonth);
         const endDate =
           startDate.getMonth() === 11
             ? new Date(endDateYear, endDateMonth, 15)
             : new Date(endDateYear, endDateMonth, 15);
-        console.log(endDate);
         const newDetailContract = new DetailContract({
           idContract: response._id,
           oldElectric: data.oldElectric,
@@ -170,19 +167,40 @@ class ApiController {
       });
   }
   updatehopdong(req, res) {
-    // Contract.updateOne(
-    //   { _id: req.body.id },
-    //   {
-    //     idRoom: req.body.idRoom,
-    //     roomPice: req.body.roomPrice,
-    //     electricPrice: req.body.electricPrice,
-    //     waterPrice: req.body.waterPrice,
-    //     deposit: req.body.deposit,
-    //   }
-    // ).then(() => {
-    //   res.redirect("/admin/showhopdong");
-    // });
-    res.send(req.body);
+    Contract.findOne({ _id: req.params.id }).then((contract) => {
+      // if (contract.idTenants.toString() !== req.body.idTenants) {
+      Contract.updateOne(
+        { _id: req.params.id },
+        {
+          $set: {
+            idTenants: req.body.idTenants,
+            idRoom: req.body.idRoom,
+            roomPrice: req.body.roomPrice,
+            electricPrice: req.body.electricPrice,
+            waterPrice: req.body.waterPrice,
+            deposit: req.body.deposit,
+          },
+        }
+      ).then(() => {
+        res.redirect("/admin/showhopdong");
+      });
+      // }
+    });
+  }
+  xoahopdong(req, res) {
+    Contract.deleteOne(req.body.id).then(() => {
+      Contract.findOne({
+        _id: req.body.id,
+      }).then((contract) => {
+        Room.updateOne(
+          { _id: contract.idRoom },
+          {
+            isEmpty: true,
+          }
+        );
+        res.redirect("back");
+      });
+    });
   }
   chotThang(req, res) {
     const data = req.body;

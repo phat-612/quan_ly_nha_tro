@@ -72,6 +72,7 @@ class AdminController {
       .then((hopdong) => {
         res.render("admin/showhopdong", {
           layout: "admin",
+          js: "showhopdong",
           hopdong: hopdong.map((hopdong) => hopdong.toObject()),
         });
       });
@@ -96,14 +97,17 @@ class AdminController {
         DetailContract.findOne({
           idContract: req.params.id,
         }).then((detailcontract) => {
-          Room.find().then((rooms) => {
-            // truy vấn tất cả phòng
-            res.render("admin/edithopdong", {
-              layout: "admin",
-              js: "suahopdong",
-              contract: contract.toObject(),
-              detailcontract: detailcontract.toObject(),
-              rooms: rooms.map((room) => room.toObject()), // thêm danh sách phòng
+          Room.find({ isEmpty: true }).then((rooms) => {
+            Tenant.find().then((tenants) => {
+              // truy vấn tất cả phòng
+              res.render("admin/edithopdong", {
+                layout: "admin",
+                js: "suahopdong",
+                contract: contract.toObject(),
+                detailcontract: detailcontract.toObject(),
+                tenants: tenants.map((tenant) => tenant.toObject()),
+                rooms: rooms.map((room) => room.toObject()), // thêm danh sách phòng
+              });
             });
           });
         });
