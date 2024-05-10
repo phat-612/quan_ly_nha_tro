@@ -97,7 +97,7 @@ class AdminController {
         DetailContract.findOne({
           idContract: req.params.id,
         }).then((detailcontract) => {
-          Room.find({ isEmpty: true }).then((rooms) => {
+          Room.find().then((rooms) => {
             Tenant.find().then((tenants) => {
               // truy vấn tất cả phòng
               res.render("admin/edithopdong", {

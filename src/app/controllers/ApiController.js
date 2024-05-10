@@ -167,39 +167,36 @@ class ApiController {
       });
   }
   updatehopdong(req, res) {
-    Contract.findOne({ _id: req.params.id }).then((contract) => {
-      // if (contract.idTenants.toString() !== req.body.idTenants) {
-      Contract.updateOne(
-        { _id: req.params.id },
-        {
-          $set: {
-            idTenants: req.body.idTenants,
-            idRoom: req.body.idRoom,
-            roomPrice: req.body.roomPrice,
-            electricPrice: req.body.electricPrice,
-            waterPrice: req.body.waterPrice,
-            deposit: req.body.deposit,
-          },
-        }
-      ).then(() => {
-        res.redirect("/admin/showhopdong");
-      });
-      // }
+    // return res.send(req.body);
+    Contract.updateOne(
+      { _id: req.params.id },
+      {
+        $set: {
+          idTenants: req.body.idTenants,
+          idRoom: req.body.idRoom,
+          roomPrice: req.body.roomPrice,
+          electricPrice: req.body.electricPrice,
+          waterPrice: req.body.waterPrice,
+          deposit: req.body.deposit,
+        },
+      }
+    ).then(() => {
+      res.redirect("/admin/showhopdong");
     });
   }
   xoahopdong(req, res) {
-    Contract.deleteOne(req.body.id).then(() => {
-      Contract.findOne({
-        _id: req.body.id,
-      }).then((contract) => {
-        Room.updateOne(
-          { _id: contract.idRoom },
-          {
-            isEmpty: true,
-          }
-        );
-        res.redirect("back");
-      });
+    Contract.findOne({ _id: req.params.id }).then((contract) => {
+      // console.log(req.params.id);
+      if (contract) {
+        Room.updateOne({ _id: contract.idRoom }, { isEmpty: true }).then(() => {
+          Contract.deleteOne({ _id: req.params.id }).then(() => {
+            res.redirect("back");
+          });
+        });
+      } else {
+        console.log("Không tìm thấy hợp đồng");
+        // Điều hướng hoặc xử lý lỗi ở đây.
+      }
     });
   }
   chotThang(req, res) {

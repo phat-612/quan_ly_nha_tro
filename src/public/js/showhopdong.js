@@ -5,7 +5,7 @@ $(document).ready(function () {
   var deleteModal = $("#delete-hopdong-modal");
 
   btnDelete.on("click", function (event) {
-    toBeDeleted = $(event.target).data("id");
+    toBeDeleted = $(this).data("id");
     // Hiện modal xác nhận
     deleteModal.modal("show");
   });
