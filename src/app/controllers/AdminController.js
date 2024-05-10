@@ -97,7 +97,9 @@ class AdminController {
         DetailContract.findOne({
           idContract: req.params.id,
         }).then((detailcontract) => {
-          Room.find().then((rooms) => {
+          Room.find({
+            $or: [{ isEmpty: true }, { _id: contract.idRoom }],
+          }).then((rooms) => {
             Tenant.find().then((tenants) => {
               // truy vấn tất cả phòng
               res.render("admin/edithopdong", {
@@ -106,7 +108,7 @@ class AdminController {
                 contract: contract.toObject(),
                 detailcontract: detailcontract.toObject(),
                 tenants: tenants.map((tenant) => tenant.toObject()),
-                rooms: rooms.map((room) => room.toObject()), // thêm danh sách phòng
+                rooms: rooms.map((room) => room.toObject()), // danh sách phòng
               });
             });
           });

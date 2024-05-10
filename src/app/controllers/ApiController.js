@@ -195,7 +195,6 @@ class ApiController {
         });
       } else {
         console.log("Không tìm thấy hợp đồng");
-        // Điều hướng hoặc xử lý lỗi ở đây.
       }
     });
   }
