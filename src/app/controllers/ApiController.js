@@ -188,10 +188,12 @@ class ApiController {
     Contract.findOne({ _id: req.params.id }).then((contract) => {
       // console.log(req.params.id);
       if (contract) {
-        Room.updateOne({ _id: contract.idRoom }, { isEmpty: true }).then(() => {
-          Contract.deleteOne({ _id: req.params.id }).then(() => {
-            res.redirect("back");
-          });
+        Promise.all([
+          Room.updateOne({ _id: contract.idRoom }, { isEmpty: true }),
+          Contract.deleteOne({ _id: req.params.id }),
+          DetailContract.deleteMany({ idContract: req.params.id }),
+        ]).then(() => {
+          res.redirect("back");
         });
       } else {
         console.log("Không tìm thấy hợp đồng");

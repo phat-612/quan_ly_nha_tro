@@ -222,7 +222,6 @@ class AdminController {
         },
       },
     ]).then((detailContracts) => {
-      // return res.json(detailContracts);
       res.render("admin/thanhToan", {
         layout: "admin",
         js: "thanhToan",
