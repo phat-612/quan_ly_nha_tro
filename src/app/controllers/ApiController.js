@@ -223,7 +223,6 @@ class ApiController {
           total,
           newElectric: data.newElectric,
           newWater: data.newWater,
-          paid: 0,
         },
         {
           new: true,
@@ -260,6 +259,17 @@ class ApiController {
           res.redirect("/admin/chotThang");
         });
       });
+    });
+  }
+  thanhToan(req, res) {
+    const idDetailContract = req.query.idDetailContract;
+    DetailContract.updateOne(
+      { _id: idDetailContract },
+      {
+        isPaid: true,
+      }
+    ).then(() => {
+      res.redirect("back");
     });
   }
 }

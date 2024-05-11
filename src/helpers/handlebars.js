@@ -1,6 +1,9 @@
 const moment = require("moment");
 
 module.exports = {
+  showNumber: function (value) {
+    return value.toLocaleString("vi-VN");
+  },
   showSTT: function (value) {
     return parseInt(value) + 1;
   },

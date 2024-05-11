@@ -15,6 +15,7 @@ router.get("/admin/themKhach", AdminController.themKhach);
 router.get("/admin/suaThongTinKhach/:id", AdminController.suaThongTinKhach);
 router.get("/admin/hopdong", AdminController.hopdong);
 router.get("/admin/chotThang", AdminController.chotThang);
+router.get("/admin/thanhToan", AdminController.thanhToan);
 router.get("/admin/showhopdong", AdminController.showhopdong);
 router.get("/admin/edithopdong/:id", AdminController.edithopdong);
 router.get("/admin/showTienNghi", AdminController.showTienNghi);
@@ -32,6 +33,7 @@ router.post("/api/suaTienNghi/:id", ApiController.suaTienNghi);
 router.post("/api/xoaTienNghi/:id", ApiController.xoaTienNghi);
 router.post("/api/updatehopdong/:id", ApiController.updatehopdong);
 router.post("/api/chotThang", ApiController.chotThang);
+router.post("/api/thanhToan", ApiController.thanhToan);
 router.post("/api/xoahopdong/:id", ApiController.xoahopdong);
 
 // test api

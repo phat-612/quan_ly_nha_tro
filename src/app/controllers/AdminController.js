@@ -178,6 +178,58 @@ class AdminController {
       });
     });
   }
+  thanhToan(req, res) {
+    DetailContract.aggregate([
+      {
+        $match: {
+          total: { $exists: true },
+          isPaid: false,
+        },
+      },
+      {
+        $lookup: {
+          from: "contracts",
+          localField: "idContract",
+          foreignField: "_id",
+          as: "contract",
+        },
+      },
+      {
+        $unwind: "$contract",
+      },
+      {
+        $lookup: {
+          from: "rooms",
+          localField: "contract.idRoom",
+          foreignField: "_id",
+          as: "room",
+        },
+      },
+      {
+        $unwind: "$room",
+      },
+      {
+        $project: {
+          roomNumber: "$room.roomNumber",
+          total: 1,
+          startDate: 1,
+          endDate: 1,
+          idContract: 1,
+          oldElectric: 1,
+          newElectric: 1,
+          oldWater: 1,
+          newWater: 1,
+        },
+      },
+    ]).then((detailContracts) => {
+      // return res.json(detailContracts);
+      res.render("admin/thanhToan", {
+        layout: "admin",
+        js: "thanhToan",
+        detailContracts,
+      });
+    });
+  }
   showTienNghi(req, res) {
     Amenity.find({}).then((amenities) => {
       amenities = amenities.map((amenitie) => amenitie.toObject());

@@ -1,0 +1,42 @@
+<div class="container">
+  <h1 class="text-center">
+    Thanh toán hoá đơn
+  </h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Phòng</th>
+        <th scope="col">Từ ngày</th>
+        <th scope="col">Đến ngày</th>
+        <th scope="col">Chỉ số điện cũ</th>
+        <th scope="col">Chỉ số điện mới</th>
+        <th scope="col">Chỉ số nước cũ</th>
+        <th scope="col">Chỉ số nước mới</th>
+        <th scope="col">Tổng tiền</th>
+        <th scope="col">Thanh toán</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each detailContracts}}
+        <tr>
+          <td>{{roomNumber}}</td>
+          <td>{{formatDate startDate "DD/MM/YYYY"}}</td>
+          <td>{{formatDate endDate "DD/MM/YYYY"}}</td>
+          <td>{{oldElectric}}</td>
+          <td>{{newElectric}}</td>
+          <td>{{oldWater}}</td>
+          <td>{{newWater}}</td>
+          <td>{{showNumber total}}</td>
+          <td>
+            <form
+              action="/api/thanhToan?idDetailContract={{_id}}"
+              method="post"
+            >
+              <button type="submit" class="btn btn-primary">Thanh toán</button>
+            </form>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

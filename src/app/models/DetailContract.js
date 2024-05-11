@@ -30,8 +30,9 @@ const DetailContractSchema = new Schema(
     total: {
       type: Number,
     },
-    paid: {
-      type: Number,
+    isPaid: {
+      type: Boolean,
+      default: false,
     },
     isLastDetail: {
       type: Boolean,
