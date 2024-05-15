@@ -1,8 +1,8 @@
 $(document).ready(function () {
   var btnDelete = $(".btn-delete");
   var deleteForm = $("form[name='hopdongDelete']");
-  var toBeDeleted;
   var deleteModal = $("#delete-hopdong-modal");
+  var toBeDeleted;
 
   btnDelete.on("click", function (event) {
     toBeDeleted = $(this).data("id");

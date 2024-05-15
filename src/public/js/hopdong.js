@@ -7,12 +7,13 @@ $(document).ready(function () {
 
   // Thêm khách
   $("#addGuest").click(function () {
-    var guestName = $("#form6Example1").val();
+    var guestName = $("#themkhach").val();
     var guestId = $("#guestNames option")
       .filter(function () {
         return $(this).html() === guestName;
       })
       .data("id");
+    // kiểm tra coi tên đã có chưa
     var isDuplicated = false;
 
     $(".guest-name span").each(function () {
@@ -32,9 +33,10 @@ $(document).ready(function () {
         '"></div>';
 
       $("#guestList").append(guestHTML);
-      $("#form6Example1").val("");
+      $("#themkhach").val("");
     } else if (isDuplicated) {
       alert("Khách đã được chọn!");
+      $("#themkhach").val("");
     } else {
       alert("Vui lòng chọn một khách");
     }
@@ -47,24 +49,27 @@ $(document).ready(function () {
     checkRequired(); // Kiểm tra lại thuộc tính 'required' khi xóa khách
   });
 
-  $("#form6Example1").on("input", checkRequired);
-
+  $("#themkhach").on("input", checkRequired);
+  // kiểm tra xem guestNames đã có hay chưa
   function checkRequired() {
-    var val = $("#form6Example1").val();
+    var val = $("#themkhach").val();
     var opts = $("#guestNames").children();
     for (var i = 0; i < opts.length; i++) {
       if (opts[i].value === val) {
-        $("#form6Example1").removeAttr("required");
+        $("#themkhach").removeAttr("required");
         break;
       } else {
-        $("#form6Example1").attr("required", true);
+        $("#themkhach").attr("required", true);
       }
     }
   }
   // Xử lý form khi nó được gửi
   $("#themHopdong").submit(function (e) {
-    e.preventDefault();
-
-    this.submit();
+    var guestName = $("#themkhach").val();
+    if (guestName) {
+      e.preventDefault();
+      alert("Chọn thêm khách");
+      $("#themkhach").val("");
+    }
   });
 });
