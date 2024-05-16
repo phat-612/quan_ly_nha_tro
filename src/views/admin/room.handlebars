@@ -19,7 +19,7 @@
         <th scope="col">Giá</th>
         <th scope="col">Diện Tích</th>
         <th scope="col" class="col-2">Tình Trạng</th>
-        <th scope="col">Hành Động</th>
+        <th scope="col" class="col-2">Hành Động</th>
       </tr>
     </thead>
     <tbody>
@@ -34,7 +34,8 @@
             {{showStatusRoom this.isEmpty}}
           </td> 
           <td>
-            <button
+            <div class="row w-75">
+              <div class="col-4"><button
               type="button"
               class="btn btn-primary btnXemRoom"
               data-bs-toggle="modal"
@@ -49,8 +50,8 @@
               data-bs-description="{{this.description}}"
               data-bs-idAmeniti_length="{{this.idAmenities.length}}"
               data-bs-idAmenities="{{this.idAmenities}}"
-            ><i class="bi bi-eye-fill"></i></button>
-            <button 
+            ><i class="bi bi-eye-fill"></i></button></div>
+              <div class="col-4"><button 
               type="button" 
               class="btn btn-warning updateRoomBtn"
               data-bs-toggle="modal"
@@ -67,14 +68,19 @@
               data-bs-idAmenities="{{this.idAmenities}}"
             ><i
                 class="bi bi-wrench"
-              ></i></button>
-            <button
+              ></i></button></div>
+              <div class="col-4"><form action="/api/xoaPhong" method="post">
+              <input type="text" name="_id" value="{{this._id}}" hidden>
+              <button
               class="btn btn-danger"
-              type="button"
+              type="submit"
               data-bs-id="{{this._id}}"
               ><i
                 class="bi bi-trash-fill"
               ></i></button>
+            </form></div>
+            </div>
+    
           </td>
         </tr>
       {{/each}}

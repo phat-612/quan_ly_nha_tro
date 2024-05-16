@@ -26,7 +26,9 @@ router.get("/", SiteController.index);
 router.post("/api/themKhachThue", ApiController.themKhachThue);
 router.post("/api/suaThongTinKhach/:id", ApiController.suaThongTinKhach);
 router.post("/api/xoaKhachThue/:id", ApiController.xoaKhachThue);
+// // api phong`
 router.post("/api/themPhong", ApiController.themPhong);
+router.post("/api/xoaPhong", ApiController.xoaPhong);
 router.post("/api/updatePhong", ApiController.updatePhong);
 router.post("/api/themTienNghi", ApiController.themTienNghi);
 router.post("/api/suaTienNghi/:id", ApiController.suaTienNghi);

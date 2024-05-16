@@ -7,7 +7,7 @@
           <label class="form-label" for="themkhach">Tên khách thuê</label>
           <input
             list="guestNames"
-            id="themkhach"
+            id="themkhach"  
             class="form-control"
           />
           <datalist name="idTenants" id="guestNames">
@@ -21,9 +21,9 @@
             class="btn btn-secondary btn-block mb-4"
           >Thêm khách</button>
         </div>
-        <div id="guestList"></div>
+            <div id="guestList"></div>
            {{#each contract.idTenants}}
-              <div id="khachdathem" class="row align-items-center">
+              <div class="dathemkhach row align-items-center">
                 <div class="col">
                   <input
                     type="text"
@@ -38,9 +38,9 @@
                     value="{{this._id}}"
                     readonly             
                   />
-              </div>
+                </div>
                 <div class="col-auto">
-                  <button type="button" class="btn btn-danger delete-tenant">Xóa</button>
+                  <button type="button" class="btn btn-danger khachdango ">Xóa</button>
                   </div>
                 </div>
           {{/each}}
@@ -185,6 +185,6 @@
         required
       />
     </div>
-    <button type="submit" class="btn btn-primary btn-block mb-4">Sửa hợp đồng</button>
+    <button type="submit" id="suahopdong" class="btn btn-primary btn-block mb-4">Sửa hợp đồng</button>
   </div>
 </form>

@@ -1,8 +1,11 @@
 $(document).ready(function () {
+  // Xử lý sự kiện khi chọn phòng
   $("#chonPhong").change(function () {
     var roomPrice = $("option:selected", this).data("price");
     $("#giaPhong").val(roomPrice);
   });
+
+  // Thêm khách
   $("#addGuest").click(function () {
     var guestName = $("#themkhach").val();
     var guestId = $("#guestNames option")
@@ -10,19 +13,20 @@ $(document).ready(function () {
         return $(this).html() === guestName;
       })
       .data("id");
+    // kiểm tra coi tên đã có chưa
     var isDuplicated = false;
 
-    $(".guest-name span").each(function () {
-      if ($(this).html() === guestName) {
+    $(".guest-name span, .dathemkhach input[type='text']").each(function () {
+      if ($(this).val() === guestName || $(this).html() === guestName) {
         isDuplicated = true;
         return false;
       }
     });
 
-    // if (!isDuplicated) {
-    //   alert("Khách đã được chọn!");
-    //   $("#themkhach").val("");
-    if (!guestName || !guestId) {
+    if (isDuplicated) {
+      alert("Khách đã được chọn!");
+      $("#themkhach").val("");
+    } else if (!guestName || !guestId) {
       alert("Vui lòng chọn một khách");
     } else {
       var guestHTML =
@@ -42,15 +46,26 @@ $(document).ready(function () {
   $(document).on("click", ".removeGuest", function (e) {
     e.preventDefault();
     $(this).closest(".guest-name").remove();
-    checkRequired(); // Kiểm tra lại thuộc tính 'required' khi xóa khách
   });
-  // xoa tên khách thuê
-  $(document).ready(function () {
-    $(".delete-tenant").on("click", function () {
-      $(this).closest(".row").find("input").val("");
-    });
+  // xoa khach da them
+  $(document).on("click", ".khachdango", function (e) {
+    e.preventDefault();
+
+    if ($(".dathemkhach").length <= 1) {
+      alert("Phải có ít nhất một khách trong phòng!");
+      return false;
+    }
+
+    $(this).closest(".dathemkhach").remove();
   });
-  $(".delete-tenant").on("click", function () {
-    $(this).closest(".row").remove();
+
+  // Xử lý form khi nó được gửi
+  $("#updatehopdong").submit(function (e) {
+    var guestName = $("#themkhach").val();
+    if (guestName) {
+      e.preventDefault();
+      alert("Chọn thêm khách");
+      $("#themkhach").val("");
+    }
   });
 });

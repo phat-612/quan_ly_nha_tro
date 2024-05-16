@@ -1,7 +1,9 @@
 const express = require("express");
+const session = require("express-session");
 const { engine } = require("express-handlebars");
 const mongoose = require("mongoose");
 const path = require("path");
+const flash = require("connect-flash");
 const app = express();
 
 mongoose
@@ -15,6 +17,24 @@ mongoose
     console.log("Cannot connect to the database!", err);
     process.exit();
   });
+
+app.use(
+  session({
+    secret: "yourSecretKey",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+// Set up flash middleware
+app.use(flash());
+
+// Set up a global variable for flash messages (optional)
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  next();
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

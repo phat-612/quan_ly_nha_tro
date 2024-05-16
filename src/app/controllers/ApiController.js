@@ -103,11 +103,20 @@ class ApiController {
   // api phong =======================================
   ///api them phong
   themPhong(req, res, next) {
-    const room = new Room(req.body);
-    room.save().then(() => {
-      res.redirect("back");
+    Room.findOne({ roomNumber: req.body.roomNumber }).then((room) => {
+      if (room) {
+        req.flash("error_msg", "Tên phòng đã tồn tại");
+        res.redirect("back");
+      } else {
+        const newRoom = new Room(req.body);
+        newRoom.save().then(() => {
+          req.flash("success_msg", "Phòng đã được thêm thành công");
+          res.redirect("back");
+        });
+      }
     });
   }
+
   ///api cap nhat phong
   updatePhong(req, res, next) {
     Room.updateOne(
@@ -125,6 +134,18 @@ class ApiController {
       }
     ).then(() => {
       res.redirect("back");
+    });
+  }
+  xoaPhong(req, res, next) {
+    Contract.findOne({ idRoom: req.body }).then((contract) => {
+      if (contract) {
+        req.flash("error_msg", "Phòng đã tồn tại trong hợp đồng");
+        res.redirect("back");
+      } else {
+        Room.deleteOne(req.body).then(() => {
+          res.redirect("back");
+        });
+      }
     });
   }
   // api test =========================================
