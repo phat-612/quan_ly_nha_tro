@@ -34,6 +34,9 @@ const DetailContractSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    isFirstDetail: {
+      type: Boolean,
+    },
     isLastDetail: {
       type: Boolean,
     },

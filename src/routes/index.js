@@ -6,23 +6,37 @@ const SiteController = require("../app/controllers/SiteController");
 const router = express.Router();
 
 // routes admin
-// /admin/room
 router.get("/admin", AdminController.home);
+
+// /admin/room
 router.get("/admin/room", AdminController.room);
+
+// //admin Khach
 router.get("/admin/quanlykhachthue", AdminController.quanLyKhachThue);
 router.get("/admin/xemThongTinKhach/:id", AdminController.xemThongTinKhach);
 router.get("/admin/themKhach", AdminController.themKhach);
 router.get("/admin/suaThongTinKhach/:id", AdminController.suaThongTinKhach);
+
+// //admin Hop Dong
 router.get("/admin/hopdong", AdminController.hopdong);
-router.get("/admin/chotThang", AdminController.chotThang);
-router.get("/admin/thanhToan", AdminController.thanhToan);
 router.get("/admin/showhopdong", AdminController.showhopdong);
 router.get("/admin/edithopdong/:id", AdminController.edithopdong);
+
+// //admin Chot Thang
+router.get("/admin/chotThang", AdminController.chotThang);
+
+// //admin Thanh Toan
+router.get("/admin/thanhToan", AdminController.thanhToan);
+
+// //admin Tien Nghi
 router.get("/admin/showTienNghi", AdminController.showTienNghi);
 
 // routes user
 router.get("/", SiteController.index);
-// routes api
+
+// routes api =================================================================================================================================
+
+// // api Khach
 router.post("/api/themKhachThue", ApiController.themKhachThue);
 router.post("/api/suaThongTinKhach/:id", ApiController.suaThongTinKhach);
 router.post("/api/xoaKhachThue/:id", ApiController.xoaKhachThue);
@@ -30,15 +44,19 @@ router.post("/api/xoaKhachThue/:id", ApiController.xoaKhachThue);
 router.post("/api/themPhong", ApiController.themPhong);
 router.post("/api/xoaPhong", ApiController.xoaPhong);
 router.post("/api/updatePhong", ApiController.updatePhong);
+// // api tien nghi
 router.post("/api/themTienNghi", ApiController.themTienNghi);
 router.post("/api/suaTienNghi/:id", ApiController.suaTienNghi);
 router.post("/api/xoaTienNghi/:id", ApiController.xoaTienNghi);
+// // api hopdong
+router.post("/api/themHopDong", ApiController.themHopDong);
 router.post("/api/updatehopdong/:id", ApiController.updatehopdong);
-router.post("/api/chotThang", ApiController.chotThang);
-router.post("/api/thanhToan", ApiController.thanhToan);
 router.post("/api/xoahopdong/:id", ApiController.xoahopdong);
+// // api chot thang
+router.post("/api/chotThang", ApiController.chotThang);
+// // api thanh toan
+router.post("/api/thanhToan", ApiController.thanhToan);
 
 // test api
-router.post("/api/themHopDong", ApiController.themHopDong);
 
 module.exports = router;

@@ -29,6 +29,8 @@ class AdminController {
       const promise = tenants.map((tenant) => {
         return Contract.find({
           idTenants: tenant._id,
+          startDate: { $lte: new Date() },
+          endDate: { $gte: new Date() },
         })
           .populate("idRoom", "roomNumber")
           .then((contracts) => {
@@ -71,6 +73,7 @@ class AdminController {
       .populate("idRoom", "roomNumber")
       .then((hopdong) => {
         res.render("admin/showhopdong", {
+          title: "Danh sách hợp đồng",
           layout: "admin",
           js: "showhopdong",
           hopdong: hopdong.map((hopdong) => hopdong.toObject()),

@@ -23,7 +23,7 @@ class ApiController {
     });
   }
   suaThongTinKhach(req, res) {
-    const id = req.params.id;
+    let id = req.params.id;
     let fullName = req.body.name;
     let addresss = req.body.address;
     let email = req.body.email;
@@ -51,10 +51,9 @@ class ApiController {
     });
   }
   xoaKhachThue(req, res) {
-    const id = req.params.id;
+    let id = req.params.id;
     Contract.findOne({ idTenants: id }).then((contract) => {
       if (contract) {
-        // thông báo không thể xóa
         return res.redirect("back");
       }
       Tenant.deleteOne({ _id: id }).then(() => {
@@ -138,6 +137,7 @@ class ApiController {
   }
   xoaPhong(req, res, next) {
     Contract.findOne({ idRoom: req.body }).then((contract) => {
+      console.log(contract);
       if (contract) {
         req.flash("error_msg", "Phòng đã tồn tại trong hợp đồng");
         res.redirect("back");
@@ -171,6 +171,7 @@ class ApiController {
           oldWater: data.oldWater,
           startDate: data.startDate,
           endDate,
+          isFirstDetail: true,
         });
         return newDetailContract.save();
       })
@@ -227,59 +228,82 @@ class ApiController {
     const oldWater = parseInt(data.oldWater);
     const newElectric = parseInt(data.newElectric);
     const newWater = parseInt(data.newWater);
-    Contract.findOne({
-      _id: idContract,
-    }).then((contract) => {
-      const total =
-        (newElectric - oldElectric) * contract.electricPrice +
-        (newWater - oldWater) * contract.waterPrice +
-        contract.roomPrice;
-      // cập nhật chi tiết hợp đồng
-      DetailContract.findOneAndUpdate(
-        {
-          _id: idDetailContract,
-        },
-        {
-          total,
-          newElectric: data.newElectric,
-          newWater: data.newWater,
-        },
-        {
-          new: true,
+    DetailContract.findOne({
+      _id: idDetailContract,
+    })
+      .populate(
+        "idContract",
+        "roomPrice idRoom electricPrice waterPrice endDate"
+      )
+      .then((detailContract) => {
+        let roomPrice = detailContract.idContract.roomPrice;
+        let electricPrice = detailContract.idContract.electricPrice;
+        let waterPrice = detailContract.idContract.waterPrice;
+        if (detailContract.isFirstDetail || detailContract.isLastDetail) {
+          let countDay = Math.ceil(
+            (detailContract.endDate.getTime() -
+              detailContract.startDate.getTime()) /
+              (1000 * 3600 * 24)
+          );
+          roomPrice = (roomPrice / 30) * countDay;
         }
-      ).then((updatedDocument) => {
-        // tạo chi tiết hợp đồng mới
-        const contractEndDate = contract.endDate;
-        const startDateDetail = updatedDocument.endDate;
-        if (startDateDetail >= contractEndDate) {
-          return res.redirect("/admin/chotThang");
-        }
-        let endDateDetailDay = updatedDocument.endDate.getDate();
-        let endDateDetailMonth = updatedDocument.endDate.getMonth();
-        let endDateDetailYear = updatedDocument.endDate.getFullYear();
-        let endDateDetail =
-          endDateDetailMonth === 11
-            ? new Date(endDateDetailYear + 1, 0, endDateDetailDay)
-            : new Date(
-                endDateDetailYear,
-                endDateDetailMonth + 1,
-                endDateDetailDay
-              );
-        endDateDetail =
-          endDateDetail >= contractEndDate ? contractEndDate : endDateDetail;
-        const newDetailContract = new DetailContract({
-          idContract: idContract,
-          oldElectric: newElectric,
-          oldWater: newWater,
-          startDate: updatedDocument.endDate,
-          endDate: endDateDetail,
-          isLastDetail: endDateDetail >= contractEndDate,
-        });
-        newDetailContract.save().then(() => {
-          res.redirect("/admin/chotThang");
+        const total =
+          (newElectric - oldElectric) * electricPrice +
+          (newWater - oldWater) * waterPrice +
+          roomPrice;
+        // cập nhật chi tiết hợp đồng
+        DetailContract.findOneAndUpdate(
+          {
+            _id: idDetailContract,
+          },
+          {
+            total,
+            newElectric: data.newElectric,
+            newWater: data.newWater,
+          },
+          {
+            new: true,
+          }
+        ).then((updatedDocument) => {
+          // tạo chi tiết hợp đồng mới
+          if (updatedDocument.isLastDetail) {
+            Room.updateOne(
+              { _id: detailContract.idContract.idRoom },
+              { isEmpty: true }
+            ).then(() => {});
+          }
+          const contractEndDate = detailContract.idContract.endDate;
+          const startDateDetail = updatedDocument.endDate;
+          if (startDateDetail >= contractEndDate) {
+            return res.redirect("/admin/chotThang");
+          }
+          let endDateDetailDay = updatedDocument.endDate.getDate();
+          let endDateDetailMonth = updatedDocument.endDate.getMonth();
+          let endDateDetailYear = updatedDocument.endDate.getFullYear();
+          let endDateDetail =
+            endDateDetailMonth === 11
+              ? new Date(endDateDetailYear + 1, 0, endDateDetailDay)
+              : new Date(
+                  endDateDetailYear,
+                  endDateDetailMonth + 1,
+                  endDateDetailDay
+                );
+          endDateDetail =
+            endDateDetail >= contractEndDate ? contractEndDate : endDateDetail;
+          const newDetailContract = new DetailContract({
+            idContract: idContract,
+            oldElectric: newElectric,
+            oldWater: newWater,
+            startDate: updatedDocument.endDate,
+            endDate: endDateDetail,
+            isLastDetail: endDateDetail >= contractEndDate,
+          });
+
+          newDetailContract.save().then(() => {
+            res.redirect("/admin/chotThang");
+          });
         });
       });
-    });
   }
   thanhToan(req, res) {
     const idDetailContract = req.query.idDetailContract;

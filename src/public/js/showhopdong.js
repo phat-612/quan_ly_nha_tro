@@ -6,6 +6,7 @@ $(document).ready(function () {
 
   btnDelete.on("click", function (event) {
     toBeDeleted = $(this).data("id");
+
     // Hiện modal xác nhận
     deleteModal.modal("show");
   });

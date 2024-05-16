@@ -103,7 +103,7 @@
                   id="inputBirthday"
                   type="date"
                   name="dayOfBirth"
-                  value="{{showDate tenant.dayOfBirth}}"
+                  value="{{formatDate tenant.dayOfBirth 'YYYY-MM-DD'}}"
                 />
               </div>
             </div>
@@ -130,7 +130,7 @@
                   class="form-control"
                   id="inputdateIDC"
                   type="date"
-                  value="{{showDate tenant.cccd.date}}"
+                  value="{{formatDate tenant.cccd.date 'YYYY-MM-DD'}}"
                   name="cccdDate"
                 />
               </div>

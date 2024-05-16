@@ -38,6 +38,7 @@ $(document).ready(function () {
 
       $("#guestList").append(guestHTML);
       $("#themkhach").val("");
+      checkRequired();
     }
   });
 
@@ -51,15 +52,10 @@ $(document).ready(function () {
   $("#themkhach").on("input", checkRequired);
   // kiểm tra xem guestNames đã có hay chưa
   function checkRequired() {
-    var val = $("#themkhach").val();
-    var opts = $("#guestNames").children();
-    for (var i = 0; i < opts.length; i++) {
-      if (opts[i].value === val) {
-        $("#themkhach").removeAttr("required");
-        break;
-      } else {
-        $("#themkhach").attr("required", true);
-      }
+    if ($("#guestList .guest-name").length === 0) {
+      $("#themkhach").attr("required", true);
+    } else {
+      $("#themkhach").removeAttr("required");
     }
   }
   // Xử lý form khi nó được gửi
