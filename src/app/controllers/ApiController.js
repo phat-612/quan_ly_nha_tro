@@ -135,15 +135,15 @@ class ApiController {
       .save()
       .then((response) => {
         const startDate = new Date(data.startDate);
+        // edndate ngày tháng năm kết thúc của tháng đầu tiên hợp đồng
         let endDateYear =
-          startDate.getMonth() == 11 ? 1 : 0 + startDate.getFullYear();
+          startDate.getMonth() == 11 && startDate.getDay() >= 15
+            ? 1
+            : 0 + startDate.getFullYear(); //ngày nhỏ hơn 15  của tháng 12
         let endDateMonth =
           startDate.getDate() >= 15 ? 1 : 0 + startDate.getMonth();
         endDateMonth = startDate.getMonth() == 11 ? 0 : endDateMonth;
-        const endDate =
-          startDate.getMonth() === 11
-            ? new Date(endDateYear, endDateMonth, 15)
-            : new Date(endDateYear, endDateMonth, 15);
+        const endDate = new Date(endDateYear, endDateMonth, 15);
         const newDetailContract = new DetailContract({
           idContract: response._id,
           oldElectric: data.oldElectric,
@@ -154,15 +154,12 @@ class ApiController {
         return newDetailContract.save();
       })
       .then(() => {
-        const roomPromise = Room.findById(data.idRoom);
-        return roomPromise.then((room) => {
+        Room.findById(data.idRoom).then((room) => {
           if (room) {
             room.isEmpty = false;
             return room.save();
           }
         });
-      })
-      .then(() => {
         res.redirect("/admin/showhopdong");
       });
   }

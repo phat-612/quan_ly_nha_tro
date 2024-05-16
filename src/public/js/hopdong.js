@@ -15,7 +15,6 @@ $(document).ready(function () {
       .data("id");
     // kiểm tra coi tên đã có chưa
     var isDuplicated = false;
-
     $(".guest-name span").each(function () {
       if ($(this).html() === guestName) {
         isDuplicated = true;
@@ -23,7 +22,12 @@ $(document).ready(function () {
       }
     });
 
-    if (guestName && guestId && !isDuplicated) {
+    if (isDuplicated) {
+      alert("Khách đã được chọn!");
+      $("#themkhach").val("");
+    } else if (!guestName || !guestId) {
+      alert("Vui lòng chọn một khách");
+    } else {
       var guestHTML =
         '<div class="guest-name d-flex align-items-center"><button type="button" class="btn btn-danger btn-sm removeGuest">Xóa</button> ' +
         '<span class="ml-2">' +
@@ -34,11 +38,6 @@ $(document).ready(function () {
 
       $("#guestList").append(guestHTML);
       $("#themkhach").val("");
-    } else if (isDuplicated) {
-      alert("Khách đã được chọn!");
-      $("#themkhach").val("");
-    } else {
-      alert("Vui lòng chọn một khách");
     }
   });
 
