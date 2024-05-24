@@ -23,14 +23,14 @@ const RoomSchema = new Schema(
       default: true,
     },
     // sức chứa
-    capacity: {
-      type: Number,
-      required: true,
-    },
-    idAmenities: [
+    // capacity: {
+    //   type: Number,
+    //   required: true,
+    // },
+    amenities: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Amenity",
+        idAmenitie: { type: Schema.Types.ObjectId, ref: "Amenitie" },
+        quantity: { type: Number },
       },
     ],
     description: {

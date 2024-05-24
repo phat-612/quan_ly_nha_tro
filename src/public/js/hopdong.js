@@ -49,7 +49,7 @@ $(document).ready(function () {
     checkRequired(); // Kiểm tra lại thuộc tính 'required' khi xóa khách
   });
 
-  $("#themkhach").on("input", checkRequired);
+  // $("#themkhach").on("input", checkRequired);
   // kiểm tra xem guestNames đã có hay chưa
   function checkRequired() {
     if ($("#guestList .guest-name").length === 0) {
