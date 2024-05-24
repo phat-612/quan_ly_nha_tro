@@ -44,7 +44,6 @@ $(document).ready(function () {
     inpXemroomNumber.value = roomNumber;
     inpXemfloor.value = floor;
     inpXemarea.value = area;
-    inpXemcapacity.value = capacity;
     inpXemprice.value = price;
     inpXemdescription.value = description;
 
@@ -62,7 +61,6 @@ $(document).ready(function () {
       inpXemarea.removeAttribute("disabled");
       inpXemprice.removeAttribute("disabled");
       inpXemdescription.removeAttribute("disabled");
-      inpXemcapacity.removeAttribute("disabled");
       $(".checkboxAmeniti").prop("disabled", false);
 
       updateBtninModal.setAttribute("hidden", "true");
@@ -79,7 +77,6 @@ $(document).ready(function () {
         inpXemarea.setAttribute("disabled", "true");
         inpXemprice.setAttribute("disabled", "true");
         inpXemdescription.setAttribute("disabled", "true");
-        inpXemcapacity.setAttribute("disabled", "true");
         $(".checkboxAmeniti").prop("disabled", true);
       });
     });
@@ -93,7 +90,6 @@ $(document).ready(function () {
     const floor = button.attr("data-bs-floor");
     const price = button.attr("data-bs-price");
     const area = button.attr("data-bs-area");
-    const capacity = button.attr("data-bs-capacity");
     const description = button.attr("data-bs-description");
 
     const idAmenities = button.attr("data-bs-idAmenities").split(",");
@@ -117,7 +113,6 @@ $(document).ready(function () {
     inpXemroomNumber.value = roomNumber;
     inpXemfloor.value = floor;
     inpXemarea.value = area;
-    inpXemcapacity.value = capacity;
     inpXemprice.value = price;
     inpXemdescription.value = description;
 
@@ -132,7 +127,6 @@ $(document).ready(function () {
     inpXemarea.removeAttribute("disabled");
     inpXemprice.removeAttribute("disabled");
     inpXemdescription.removeAttribute("disabled");
-    inpXemcapacity.removeAttribute("disabled");
     $(".checkboxAmeniti").prop("disabled", false);
     updateBtninModal.setAttribute("hidden", "true");
     updateRoomBtninModal.removeAttribute("hidden");

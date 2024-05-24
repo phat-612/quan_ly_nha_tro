@@ -22,11 +22,6 @@ const RoomSchema = new Schema(
       type: Boolean,
       default: true,
     },
-    // sức chứa
-    // capacity: {
-    //   type: Number,
-    //   required: true,
-    // },
     amenities: [
       {
         idAmenitie: { type: Schema.Types.ObjectId, ref: "Amenitie" },
