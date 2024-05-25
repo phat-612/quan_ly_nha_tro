@@ -1,4 +1,5 @@
-const puppeteer = require("puppeteer");
+var pdf = require("pdf-creator-node");
+var fs = require("fs");
 
 const Tenant = require("../models/Tenant");
 const Amenity = require("../models/Amenity");
@@ -309,33 +310,7 @@ class ApiController {
         });
       });
   }
-  thanhToan(req, res) {
-    const idDetailContract = req.query.idDetailContract;
-    DetailContract.updateOne(
-      { _id: idDetailContract },
-      {
-        isPaid: true,
-      }
-    ).then(() => {
-      res.redirect("back");
-    });
-  }
-  async exportBill(req, res) {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.setContent("<h1>Hello world</h1>");
-    await page.pdf({
-      path: "bill.pdf",
-      format: "A4",
-      margin: {
-        top: "20mm",
-        bottom: "40mm",
-        left: "20mm",
-        right: "20mm",
-      },
-    });
-    await browser.close();
-  }
+  thanhToan(req, res) {}
 }
 
 module.exports = new ApiController();
