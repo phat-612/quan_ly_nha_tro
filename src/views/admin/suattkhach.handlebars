@@ -1,15 +1,17 @@
 <div class="container-xxl ps-4 mt-4">
-  <h4 class="mb-3" style="color: brown; text-transform: uppercase;"><a
-      href="/admin/quanlykhachthue"
-      title="Quay lại trang quản lý"
-    ><i class="bi bi-chevron-double-left text-dark me-1"></i></a>
-    Sửa thông tin khách thuê</h4>
+  <h4 class="mb-3" style="color: brown; text-transform: uppercase;">
+    <a href="/admin/quanlykhachthue" title="Quay lại trang quản lý">
+      <i class="bi bi-chevron-double-left text-dark me-1"></i>
+    </a>
+    Sửa thông tin khách thuê
+  </h4>
   <hr class="mt-0 mb-4" />
   <div class="row">
     <div class="">
       <!-- Account details card-->
       <div class="card mb-4">
-        <div class="card-header">Thông tin khách thuê
+        <div class="card-header">
+          Thông tin khách thuê
         </div>
         <div class="card-body">
           <form action="/api/suaThongTinKhach/{{tenant._id}}" method="post">
@@ -17,7 +19,9 @@
             <div class="row gx-3 mb-2">
               <!-- Form Group (fullname)-->
               <div class="col-md-6 mb-2">
-                <label class="small mb-1" for="inputFirstName">Họ tên</label>
+                <label class="small mb-1" for="inputFirstName">
+                  Họ tên
+                </label>
                 <input
                   class="form-control"
                   id="inputFirstName"
@@ -29,7 +33,9 @@
               </div>
               <!-- Form Group (location)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputLocation">Địa chỉ thường trú</label>
+                <label class="small mb-1" for="inputLocation">
+                  Địa chỉ thường trú
+                </label>
                 <input
                   class="form-control"
                   id="inputLocation"
@@ -44,7 +50,9 @@
             <div class="row gx-3 mb-2">
               <!-- Form Group (email)-->
               <div class="col-md-6 mb-2">
-                <label class="small mb-1" for="inputEmailAddress">Email</label>
+                <label class="small mb-1" for="inputEmailAddress">
+                  Email
+                </label>
                 <input
                   class="form-control"
                   id="inputEmailAddress"
@@ -56,7 +64,9 @@
               </div>
               <!-- Form Group (phone number)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputPhone">Số điện thoại</label>
+                <label class="small mb-1" for="inputPhone">
+                  Số điện thoại
+                </label>
                 <input
                   class="form-control"
                   id="inputPhone"
@@ -72,26 +82,34 @@
             <div class="row gx-3 mb-2">
               <!-- Form Group (gender)-->
               <div class="col-md-6 mb-2">
-                <label class="small mb-1" for="selectGioiTinh">Giới tính</label>
+                <label class="small mb-1" for="selectGioiTinh">
+                  Giới tính
+                </label>
                 <select
                   class="form-select"
                   id="selectGioiTinh"
                   name="gender"
                   aria-label="Default select example"
                 >
-                  <option value="0" {{isSelected 0 tenant.gender}}>Nam</option>
-                  <option value="1" {{isSelected 1 tenant.gender}}>Nữ</option>
+                  <option value="0" {{isSelected 0 tenant.gender}}>
+                    Nam
+                  </option>
+                  <option value="1" {{isSelected 1 tenant.gender}}>
+                    Nữ
+                  </option>
                 </select>
               </div>
               <!-- Form Group (birthday)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputBirthday">Ngày sinh</label>
+                <label class="small mb-1" for="inputBirthday">
+                  Ngày sinh
+                </label>
                 <input
                   class="form-control"
                   id="inputBirthday"
                   type="date"
                   name="dayOfBirth"
-                  value="{{formatDate tenant.dayOfBirth 'YYYY-MM-DD'}}"
+                  value="{{formatDate tenant.dayOfBirth "YYYY-MM-DD"}}"
                 />
               </div>
             </div>
@@ -99,7 +117,9 @@
             <div class="row gx-3 mb-2">
               <!-- Form Group (IDC)-->
               <div class="col-md-6 mb-2">
-                <label class="small mb-1" for="inputCCCD">CCCD</label>
+                <label class="small mb-1" for="inputCCCD">
+                  CCCD
+                </label>
                 <input
                   class="form-control"
                   id="inputCCCD"
@@ -111,20 +131,26 @@
               </div>
               <!-- Form Group (cccddate)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputdateIDC">Ngày cấp</label>
+                <label class="small mb-1" for="inputdateIDC">
+                  Ngày cấp
+                </label>
                 <input
                   class="form-control"
                   id="inputdateIDC"
                   type="date"
-                  value="{{formatDate tenant.cccd.date 'YYYY-MM-DD'}}"
+                  value="{{formatDate tenant.cccd.date "YYYY-MM-DD"}}"
                   name="cccdDate"
                 />
               </div>
             </div>
             <!-- changes button-->
             <div class="mt-4">
-              <button class="btn btn-secondary me-2" type="reset">Hủy</button>
-              <button class="btn btn-primary" type="submit">Lưu</button>
+              <button class="btn btn-secondary me-2" type="reset">
+                Hủy
+              </button>
+              <button class="btn btn-primary" type="submit">
+                Lưu
+              </button>
             </div>
           </form>
         </div>
