@@ -17,7 +17,6 @@ mongoose
     console.log("Cannot connect to the database!", err);
     process.exit();
   });
-
 app.use(
   session({
     secret: "yourSecretKey",

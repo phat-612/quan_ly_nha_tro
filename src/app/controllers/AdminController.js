@@ -182,12 +182,17 @@ class AdminController {
     });
   }
   thanhToan(req, res) {
+    const filterStatus = req.query.status || "all";
+    let matchCondition = {
+      total: { $exists: true },
+    };
+    if (filterStatus !== "all") {
+      matchCondition.isPaid = filterStatus == "true" ? true : false;
+    }
+    console.log(matchCondition);
     DetailContract.aggregate([
       {
-        $match: {
-          total: { $exists: true },
-          isPaid: false,
-        },
+        $match: matchCondition,
       },
       {
         $lookup: {
@@ -222,6 +227,15 @@ class AdminController {
           newElectric: 1,
           oldWater: 1,
           newWater: 1,
+          isPaid: 1,
+          createdAt: 1,
+        },
+      },
+      {
+        $sort: {
+          isPaid: 1,
+          createdAt: -1,
+          roomNumber: 1,
         },
       },
     ]).then((detailContracts) => {
@@ -229,6 +243,7 @@ class AdminController {
         layout: "admin",
         js: "thanhToan",
         detailContracts,
+        filterStatus: filterStatus == "true" ? true : false,
       });
     });
   }

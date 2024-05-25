@@ -32,6 +32,9 @@ const TenantSchema = new Schema(
     gender: {
       type: Boolean,
     },
+    status: {
+      type: Boolean,
+    },
   },
   { timestamps: true }
 );

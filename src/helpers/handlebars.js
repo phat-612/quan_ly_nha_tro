@@ -1,6 +1,9 @@
 const moment = require("moment");
 
 module.exports = {
+  compare: (a, b) => {
+    return a == b;
+  },
   showNumber: function (value) {
     return value.toLocaleString("vi-VN");
   },
@@ -9,6 +12,9 @@ module.exports = {
   },
   showGioiTinh: function (gender) {
     return gender ? "Nữ" : "Nam";
+  },
+  hiddenElement: function (bool) {
+    return bool ? "hidden" : "";
   },
   isSelected: function (value, option) {
     return !!value == !!option ? "selected" : "";

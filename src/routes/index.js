@@ -58,5 +58,5 @@ router.post("/api/chotThang", ApiController.chotThang);
 router.post("/api/thanhToan", ApiController.thanhToan);
 
 // test api
-
+router.get("/api/taopdf", ApiController.exportBill);
 module.exports = router;

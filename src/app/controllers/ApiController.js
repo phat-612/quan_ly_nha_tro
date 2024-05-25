@@ -1,8 +1,11 @@
+const puppeteer = require("puppeteer");
+
 const Tenant = require("../models/Tenant");
 const Amenity = require("../models/Amenity");
 const Contract = require("../models/Contract");
 const DetailContract = require("../models/DetailContract");
 const Room = require("../models/Room");
+const { uploadImg, uploadImgs } = require("../../helpers/uploadImg");
 class ApiController {
   themKhachThue(req, res) {
     const data = {
@@ -102,6 +105,7 @@ class ApiController {
   // api phong =======================================
   ///api them phong
   themPhong(req, res, next) {
+    return res.send(req.body);
     Room.findOne({ roomNumber: req.body.roomNumber }).then((room) => {
       if (room) {
         req.flash("error_msg", "Tên phòng đã tồn tại");
@@ -315,6 +319,22 @@ class ApiController {
     ).then(() => {
       res.redirect("back");
     });
+  }
+  async exportBill(req, res) {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.setContent("<h1>Hello world</h1>");
+    await page.pdf({
+      path: "bill.pdf",
+      format: "A4",
+      margin: {
+        top: "20mm",
+        bottom: "40mm",
+        left: "20mm",
+        right: "20mm",
+      },
+    });
+    await browser.close();
   }
 }
 
