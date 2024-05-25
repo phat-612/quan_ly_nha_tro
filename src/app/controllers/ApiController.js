@@ -135,7 +135,7 @@ class ApiController {
         area: req.body.area,
         capacity: req.body.capacity,
         price: req.body.price,
-        idAmenities: req.body.idAmenities,
+        amenities: req.body.amenities,
         description: req.body.description,
       }
     ).then(() => {

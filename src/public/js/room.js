@@ -149,6 +149,7 @@ $(document).ready(function () {
   const inpXemisEmpty = document.querySelector(".inpXemisEmpty");
   const hiddenInpId = document.querySelector(".hiddenInpId");
   const updateRoomBtninModal = document.querySelector(".updateRoomBtninModal");
+  const quantityinput = document.querySelector(".quantity");
 
   $(".btnXemRoom").click((e) => {
     const button = $(e.currentTarget);
@@ -163,6 +164,17 @@ $(document).ready(function () {
 
     const quantity = quantityarr.trim().split(" ");
     console.log(quantity);
+    const inpQuantity = [];
+    $(".quantity").each(function () {
+      inpQuantity.push(this.id);
+    });
+    console.log(inpQuantity);
+
+    $(quantity).each(function (index, val) {
+      if (inpQuantity[index]) {
+        $("#" + inpQuantity[index]).val(val);
+      }
+    });
 
     hiddenInpId.value = id;
     inpXemroomNumber.value = roomNumber;
@@ -173,12 +185,24 @@ $(document).ready(function () {
 
     inpXemisEmpty.textContent = isEmpty == "true" ? "Phòng Trống" : "Đã Thuê";
 
+    updateBtninModal.removeAttribute("hidden");
+    cancelBtninModal.setAttribute("hidden", "true");
+    saveBtninModal.setAttribute("hidden", "true");
+    document.querySelector(".titleXCT").textContent = "Xem Chi Tiết";
+    inpXemroomNumber.setAttribute("disabled", "true");
+    inpXemfloor.setAttribute("disabled", "true");
+    inpXemarea.setAttribute("disabled", "true");
+    inpXemprice.setAttribute("disabled", "true");
+    $(".quantity").attr("disabled", "true");
+    inpXemdescription.setAttribute("disabled", "true");
+    $(".checkboxAmeniti").prop("disabled", true);
     updateBtninModal.addEventListener("click", () => {
       document.querySelector(".titleXCT").textContent = "Sửa Chi Tiết";
       inpXemroomNumber.removeAttribute("disabled");
       inpXemfloor.removeAttribute("disabled");
       inpXemarea.removeAttribute("disabled");
       inpXemprice.removeAttribute("disabled");
+      $(".quantity").removeAttr("disabled");
       inpXemdescription.removeAttribute("disabled");
       $(".checkboxAmeniti").prop("disabled", false);
 
@@ -195,6 +219,7 @@ $(document).ready(function () {
         inpXemfloor.setAttribute("disabled", "true");
         inpXemarea.setAttribute("disabled", "true");
         inpXemprice.setAttribute("disabled", "true");
+        $(".quantity").attr("disabled", "true");
         inpXemdescription.setAttribute("disabled", "true");
         $(".checkboxAmeniti").prop("disabled", true);
       });

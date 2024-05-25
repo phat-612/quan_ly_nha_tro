@@ -128,7 +128,7 @@
                         <td>
                           <input class="form-check-input" type="text" value="{{this._id}}" id="{{this.name}}"
                             name="amenities[{{@index}}][idAmenitie]" hidden/>
-                          <input type="number" class="form-control quantityinput" name="amenities[{{@index}}][quantity]" id="">
+                          <input type="number" class="form-control quantityinput" value="" name="amenities[{{@index}}][quantity]" id="">
                         </td>
                       </tr>
                       {{/each}}
@@ -219,13 +219,13 @@
                         <td>
                           <label class="form-check-label" for="{{this.name}}">
                             {{this.name}}
-                          </label>
+                          </label>  
                         </td>
                         <td>
                           <input class="form-check-input checkboxAmeniti" type="checkbox" value="{{this.idAmenitie}}"
                             id="{{this.amenities.idAmenitie}}" name="amenities[{{@index}}][idAmenities]" disabled  hidden/>
                           <input type="number" class="form-control quantity" name="amenities[{{@index}}][quantity]"
-                            id="" value="{{this.amenities.quantity}}" disabled>
+                            id="inpQuantity{{@index}}" value="" disabled>
                         </td>
                       </tr>
                       {{/each}}
