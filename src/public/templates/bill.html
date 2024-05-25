@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .left {
+        float: left;
+      }
+      .right {
+        float: right;
+      }
+      hr {
+        margin: 10px 0 0;
+      }
+      h3 {
+        margin: 10px 0 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="text-align: center">Hóa đơn tiền trọ</h1>
+    <h3 style="text-align: center">{{period}}</h3>
+    <p style="text-align: center; margin-bottom: 6px">
+      (Từ ngày {{startDate}} đến ngày {{endDate}})
+    </p>
+    <h2>Phòng: {{roomNumber}}</h2>
+    <hr />
+    <div>
+      <h3 class="left">Tiền phòng</h3>
+      <h3 class="right">{{roomPrice}}</h3>
+      <div style="clear: both"></div>
+    </div>
+    <div>
+      <h3 class="left">
+        Điện (số cũ: {{oldElectric}}, số mới: {{newElectric}}, đơn giá:
+        {{electricPrice}})
+      </h3>
+      <h3 class="right">{{totalElectric}}</h3>
+      <div style="clear: both"></div>
+    </div>
+    <div>
+      <h3 class="left">
+        Nước (số cũ: {{oldWater}}, số mới: {{newWater}}, đơn giá:
+        {{waterPrice}})
+      </h3>
+      <h3 class="right">{{totalWater}}</h3>
+      <div style="clear: both"></div>
+    </div>
+    <hr />
+    <div style="margin: 10px 0">
+      <h2 class="left">TỔNG CỘNG</h2>
+      <h2 class="right">{{total}}</h2>
+      <div style="clear: both"></div>
+    </div>
+    <p>
+      Đề nghị quý khách đóng đủ số tiền trên trong vòng 3 ngày kể từ ngày nhận
+      hóa đơn này.
+    </p>
+    <p>
+      Quý khách cần giữ lại hóa đơn để đối chiếu số điện và số nước tháng tiếp
+      theo.
+    </p>
+    <p>
+      <b
+        >Chúng tôi không chịu trách nhiệm cho các khoản thu và không thu bất kỳ
+        khoản nào nếu không có hóa đơn.</b
+      >
+    </p>
+    <p>Xin cảm ơn quý khách đã sử dụng dịch vụ của chúng tôi</p>
+    <div style="margin: 8px 15%">
+      <h2 class="left">Người thanh toán</h2>
+      <h2 class="right">Người nhận TT</h2>
+      <div style="clear: both"></div>
+    </div>
+  </body>
+</html>

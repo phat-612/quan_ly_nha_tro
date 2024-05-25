@@ -1,6 +1,9 @@
 const moment = require("moment");
 
 module.exports = {
+  consoleHbs: function (value) {
+    console.log(value);
+  },
   compare: (a, b) => {
     return a == b;
   },
@@ -15,6 +18,9 @@ module.exports = {
   },
   hiddenElement: function (bool) {
     return bool ? "hidden" : "";
+  },
+  selectedOption: function (value, option) {
+    return value == option ? "selected" : "";
   },
   isSelected: function (value, option) {
     return !!value == !!option ? "selected" : "";

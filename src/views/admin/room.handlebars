@@ -33,14 +33,14 @@
             <div class="col-4"><button type="button" class="btn btn-primary btnXemRoom" data-bs-toggle="modal"
                 data-bs-target="#modalXem" data-bs-id="{{this._id}}" data-bs-isEmpty="{{this.isEmpty}}"
                 data-bs-roomNumber="{{this.roomNumber}}" data-bs-floor="{{this.floor}}" data-bs-price="{{this.price}}"
-                data-bs-area="{{this.area}}" data-bs-description="{{this.description}}" data-bs-quantity="{{this.amenities.quantity}}"
-                data-bs-idAmeniti_length="{{this.idAmenities.length}}" data-bs-idAmenities="{{this.amenities.idAmenitie}}" ><i
-                  class="bi bi-eye-fill"></i></button></div>
+                data-bs-area="{{this.area}}" data-bs-description="{{this.description}}"
+                data-bs-quantity="{{#each this.amenities}}{{this.quantity}} {{/each}}"
+                data-bs-idAmenities="{{#each this.amenities}}{{this.idAmenitie}},{{/each}}"><i class="bi bi-eye-fill"></i></button></div>
             <div class="col-4"><button type="button" class="btn btn-warning updateRoomBtn" data-bs-toggle="modal"
                 data-bs-target="#modalXem" data-bs-id="{{this._id}}" data-bs-isEmpty="{{this.isEmpty}}"
                 data-bs-roomNumber="{{this.roomNumber}}" data-bs-floor="{{this.floor}}" data-bs-price="{{this.price}}"
-                data-bs-area="{{this.area}}" data-bs-description="{{this.description}}"
-                data-bs-idAmeniti_length="{{this.idAmenities.length}}" data-bs-idAmenities="{{this.idAmenities}}"><i
+                data-bs-area="{{this.area}}" data-bs-description="{{this.description}}" data-bs-quantity="{{#each this.amenities}}{{this.quantity}},{{/each}}"
+                 data-bs-idAmenities="{{#each this.amenities}}{{this.idAmenitie}},{{/each}}"><i
                   class="bi bi-wrench"></i></button></div>
             <div class="col-4">
               <form action="/api/xoaPhong" method="post">
@@ -110,9 +110,6 @@
                     <thead>
                       <tr>
                         <th scope="col">
-                          check
-                        </th>
-                        <th scope="col">
                           tên tiện ích
                         </th>
                         <th scope="col" class="col-3">
@@ -124,15 +121,13 @@
                       {{#each amenities}}
                       <tr>
                         <td>
-                          <input class="form-check-input" type="checkbox" value="{{this._id}}" id="{{this.name}}"
-                            name="amenities[{{@index}}][idAmenitie]" />
-                        </td>
-                        <td>
                           <label class="form-check-label" for="{{this.name}}">
                             {{this.name}}
                           </label>
                         </td>
                         <td>
+                          <input class="form-check-input" type="text" value="{{this._id}}" id="{{this.name}}"
+                            name="amenities[{{@index}}][idAmenitie]" hidden/>
                           <input type="number" class="form-control quantityinput" name="amenities[{{@index}}][quantity]" id="">
                         </td>
                       </tr>
@@ -211,9 +206,6 @@
                     <thead>
                       <tr>
                         <th scope="col">
-                          check
-                        </th>
-                        <th scope="col">
                           tên tiện ích
                         </th>
                         <th scope="col" class="col-3">
@@ -225,15 +217,13 @@
                       {{#each amenities}}
                       <tr>
                         <td>
-                          <input class="form-check-input checkboxAmeniti" type="checkbox" value="{{this.idAmenitie}}"
-                            id="{{this.amenities.idAmenitie}}" name="amenities[{{@index}}][idAmenities]" disabled />
-                        </td>
-                        <td>
                           <label class="form-check-label" for="{{this.name}}">
                             {{this.name}}
                           </label>
                         </td>
                         <td>
+                          <input class="form-check-input checkboxAmeniti" type="checkbox" value="{{this.idAmenitie}}"
+                            id="{{this.amenities.idAmenitie}}" name="amenities[{{@index}}][idAmenities]" disabled  hidden/>
                           <input type="number" class="form-control quantity" name="amenities[{{@index}}][quantity]"
                             id="" value="{{this.amenities.quantity}}" disabled>
                         </td>

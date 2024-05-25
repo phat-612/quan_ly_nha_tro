@@ -189,7 +189,6 @@ class AdminController {
     if (filterStatus !== "all") {
       matchCondition.isPaid = filterStatus == "true" ? true : false;
     }
-    console.log(matchCondition);
     DetailContract.aggregate([
       {
         $match: matchCondition,
@@ -243,7 +242,7 @@ class AdminController {
         layout: "admin",
         js: "thanhToan",
         detailContracts,
-        filterStatus: filterStatus == "true" ? true : false,
+        filterStatus,
       });
     });
   }

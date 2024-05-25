@@ -143,7 +143,6 @@ $(document).ready(function () {
   const inpXemarea = document.querySelector(".inpXemarea");
   const inpXemprice = document.querySelector(".inpXemprice");
   const inpXemdescription = document.querySelector(".inpXemdescription");
-  const inpXemcapacity = document.querySelector(".inpXemcapacity");
   const updateBtninModal = document.querySelector(".updateBtninModal");
   const cancelBtninModal = document.querySelector(".cancelBtninModal");
   const saveBtninModal = document.querySelector(".saveBtninModal");
@@ -159,25 +158,11 @@ $(document).ready(function () {
     const floor = button.attr("data-bs-floor");
     const price = button.attr("data-bs-price");
     const area = button.attr("data-bs-area");
-    const capacity = button.attr("data-bs-capacity");
     const description = button.attr("data-bs-description");
+    const quantityarr = button.attr("data-bs-quantity");
 
-    const idAmenities = button.attr("data-bs-idAmenities").split(",");
-    const defaultidAmenitiesArr = [];
-    $(".checkboxAmeniti").each(function () {
-      const checkboxAmenitis = $(this).val();
-      defaultidAmenitiesArr.push(checkboxAmenitis);
-    });
-    const checkAmenities = defaultidAmenitiesArr.filter((e) =>
-      idAmenities.includes(e)
-    );
-
-    // defaultidAmenitiesArr.forEach((e) => {
-    //   $(`#modalXem #${e}`).prop("checked", false);
-    // });
-    // checkAmenities.forEach((e) => {
-    //   $(`#modalXem #${e}`).prop("checked", true);
-    // });
+    const quantity = quantityarr.trim().split(" ");
+    console.log(quantity);
 
     hiddenInpId.value = id;
     inpXemroomNumber.value = roomNumber;
@@ -226,23 +211,6 @@ $(document).ready(function () {
     const area = button.attr("data-bs-area");
     const description = button.attr("data-bs-description");
 
-    const idAmenities = button.attr("data-bs-idAmenities").split(",");
-    const defaultidAmenitiesArr = [];
-    $(".checkboxAmeniti").each(function () {
-      const checkboxAmenitis = $(this).val();
-      defaultidAmenitiesArr.push(checkboxAmenitis);
-    });
-    const checkAmenities = defaultidAmenitiesArr.filter((e) =>
-      idAmenities.includes(e)
-    );
-
-    // defaultidAmenitiesArr.forEach((e) => {
-    //   $(`#modalXem #${e}`).prop("checked", false);
-    // });
-    // checkAmenities.forEach((e) => {
-    //   $(`#modalXem #${e}`).prop("checked", true);
-    // });
-
     hiddenInpId.value = id;
     inpXemroomNumber.value = roomNumber;
     inpXemfloor.value = floor;
@@ -262,15 +230,3 @@ $(document).ready(function () {
     updateRoomBtninModal.removeAttribute("hidden");
   });
 });
-
-document
-  .querySelector(".btnSubmitThem")
-  .addEventListener("click", function (event) {
-    event.preventDefault();
-    $(".quantityinput").each(function () {
-      if ($(this).val() == "") {
-        $(this).removeAttr("name");
-      }
-    });
-    document.querySelector("#formThem").submit();
-  });

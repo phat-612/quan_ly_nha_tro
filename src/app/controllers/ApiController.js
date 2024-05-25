@@ -1,12 +1,14 @@
 var pdf = require("pdf-creator-node");
 var fs = require("fs");
-
+const mongoose = require("mongoose");
+const moment = require("moment");
+const path = require("path");
 const Tenant = require("../models/Tenant");
 const Amenity = require("../models/Amenity");
 const Contract = require("../models/Contract");
 const DetailContract = require("../models/DetailContract");
 const Room = require("../models/Room");
-const { uploadImg, uploadImgs } = require("../../helpers/uploadImg");
+
 class ApiController {
   themKhachThue(req, res) {
     const data = {
@@ -167,9 +169,10 @@ class ApiController {
             ? 1
             : 0 + startDate.getFullYear(); //ngày nhỏ hơn 15  của tháng 12
         let endDateMonth =
-          startDate.getDate() >= 15 ? 1 : 0 + startDate.getMonth();
-        endDateMonth = startDate.getMonth() == 11 ? 0 : endDateMonth;
+          startDate.getDay() >= 15 ? 1 : 0 + startDate.getMonth();
+        endDateMonth = endDateMonth == 12 ? 0 : endDateMonth;
         const endDate = new Date(endDateYear, endDateMonth, 15);
+        console.log(endDateYear, endDateMonth, endDate);
         const newDetailContract = new DetailContract({
           idContract: response._id,
           oldElectric: data.oldElectric,
@@ -252,6 +255,7 @@ class ApiController {
           );
           roomPrice = (roomPrice / 30) * countDay;
         }
+        console.log(roomPrice, electricPrice, waterPrice);
         const total =
           (newElectric - oldElectric) * electricPrice +
           (newWater - oldWater) * waterPrice +
@@ -310,7 +314,115 @@ class ApiController {
         });
       });
   }
-  thanhToan(req, res) {}
+  thanhToan(req, res) {
+    const idDetailContract = req.query.idDetailContract;
+    DetailContract.updateOne(
+      { _id: idDetailContract },
+      {
+        isPaid: true,
+      }
+    ).then(() => {
+      res.redirect("back");
+    });
+  }
+  exportBill(req, res) {
+    const idDetailContract = req.query.idDetailContract;
+    DetailContract.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(idDetailContract),
+        },
+      },
+      {
+        $lookup: {
+          from: "contracts",
+          localField: "idContract",
+          foreignField: "_id",
+          as: "contract",
+        },
+      },
+      {
+        $unwind: "$contract",
+      },
+      {
+        $lookup: {
+          from: "rooms",
+          localField: "contract.idRoom",
+          foreignField: "_id",
+          as: "room",
+        },
+      },
+      {
+        $unwind: "$room",
+      },
+    ]).then((detailContract) => {
+      // return res.send(data);
+      detailContract = detailContract[0];
+      const timeNow = new Date().getTime();
+      const startDateMoment = moment(detailContract.startDate);
+      const endDateMoment = moment(detailContract.endDate);
+      var html = fs.readFileSync(
+        path.join(__dirname, "../../public/templates", "bill.html"),
+        "utf8"
+      );
+      var options = {
+        format: "A5",
+        orientation: "landscape",
+        border: "10mm",
+      };
+      let data = {
+        period: `Chu kỳ ${startDateMoment.format("MM/YYYY")}`,
+        roomNumber: detailContract.room.roomNumber,
+        startDate: startDateMoment.format("DD/MM/YYYY"),
+        endDate: endDateMoment.format("DD/MM/YYYY"),
+        oldElectric: detailContract.oldElectric,
+        newElectric: detailContract.newElectric,
+        oldWater: detailContract.oldWater,
+        newWater: detailContract.newWater,
+        electricPrice: detailContract.contract.electricPrice,
+        waterPrice: detailContract.contract.waterPrice,
+        totalElectric:
+          (detailContract.newElectric - detailContract.oldElectric) *
+          detailContract.contract.electricPrice,
+        totalWater:
+          (detailContract.newWater - detailContract.oldWater) *
+          detailContract.contract.waterPrice,
+        roomPrice: 1000000,
+        total: detailContract.total,
+      };
+      Object.keys(data).forEach((key) => {
+        if (typeof data[key] == "number") {
+          data[key] = data[key].toLocaleString("vi-VN");
+        }
+      });
+      var document = {
+        html: html,
+        data,
+        path: path.join(
+          __dirname,
+          "../../public/.download",
+          `${detailContract.room.roomNumber}-${timeNow}.pdf`
+        ),
+        type: "",
+      };
+      pdf
+        .create(document, options)
+        .then((resPdf) => {
+          res.download(resPdf.filename, (err) => {
+            if (err) {
+              console.error(err);
+            } else {
+              fs.unlink(resPdf.filename, (err) => {
+                if (err) throw err;
+              });
+            }
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+  }
 }
 
 module.exports = new ApiController();

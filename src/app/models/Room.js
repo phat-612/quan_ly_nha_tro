@@ -25,7 +25,7 @@ const RoomSchema = new Schema(
     amenities: [
       {
         idAmenitie: { type: Schema.Types.ObjectId, ref: "Amenitie" },
-        quantity: { type: Number },
+        quantity: { type: Number, default: 0 },
       },
     ],
     description: {

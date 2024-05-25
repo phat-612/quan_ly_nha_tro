@@ -1,10 +1,25 @@
 const express = require("express");
-
+const multer = require("multer");
+const path = require("path");
 const AdminController = require("../app/controllers/AdminController");
 const ApiController = require("../app/controllers/ApiController");
 const SiteController = require("../app/controllers/SiteController");
 const router = express.Router();
-
+// cấu hình multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "../public/uploads"));
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(
+      null,
+      file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
+    );
+  },
+});
+const upload = multer({ storage: storage });
+// end cấu hình multer
 // routes admin
 router.get("/admin", AdminController.home);
 
@@ -27,6 +42,7 @@ router.get("/admin/chotThang", AdminController.chotThang);
 
 // //admin Thanh Toan
 router.get("/admin/thanhToan", AdminController.thanhToan);
+router.get("/api/exportBill", ApiController.exportBill);
 
 // //admin Tien Nghi
 router.get("/admin/showTienNghi", AdminController.showTienNghi);
@@ -57,6 +73,4 @@ router.post("/api/chotThang", ApiController.chotThang);
 // // api thanh toan
 router.post("/api/thanhToan", ApiController.thanhToan);
 
-// test api
-router.get("/api/taopdf", ApiController.exportBill);
 module.exports = router;
