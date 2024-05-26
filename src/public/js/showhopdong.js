@@ -22,3 +22,16 @@ $(document).ready(function () {
     deleteModal.modal("hide");
   });
 });
+$(".btn-view").click(function () {
+  var images = $(this).data("image").split(",");
+  $(".modal-body").empty();
+  if (images[0] !== "") {
+    images.forEach(function (image) {
+      $(".modal-body").append(
+        `<img src="/uploads/${image}" alt="" style="width: 100%; height: auto;" />`
+      );
+    });
+  } else {
+    $(".modal-body").append("<p>Không có hình</p>");
+  }
+});

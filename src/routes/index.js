@@ -34,6 +34,8 @@ router.get("/admin/suaThongTinKhach/:id", AdminController.suaThongTinKhach);
 
 // //admin Hop Dong
 router.get("/admin/hopdong", AdminController.hopdong);
+router.get("/admin/xemhopdong/:id", AdminController.xemhopdong);
+
 router.get("/admin/showhopdong", AdminController.showhopdong);
 router.get("/admin/edithopdong/:id", AdminController.edithopdong);
 
@@ -65,9 +67,14 @@ router.post("/api/themTienNghi", ApiController.themTienNghi);
 router.post("/api/suaTienNghi/:id", ApiController.suaTienNghi);
 router.post("/api/xoaTienNghi/:id", ApiController.xoaTienNghi);
 // // api hopdong
-router.post("/api/themHopDong", ApiController.themHopDong);
+router.post(
+  "/api/themHopDong",
+  upload.array("images"),
+  ApiController.themHopDong
+);
 router.post("/api/updatehopdong/:id", ApiController.updatehopdong);
 router.post("/api/xoahopdong/:id", ApiController.xoahopdong);
+router.get("/api/exportContract", ApiController.exportContract);
 // // api chot thang
 router.post("/api/chotThang", ApiController.chotThang);
 // // api thanh toan

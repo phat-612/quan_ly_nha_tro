@@ -157,7 +157,15 @@ class ApiController {
   }
   // api test =========================================
   themHopDong(req, res) {
+    // return res.send(req.body);
     const data = req.body;
+    let images = [];
+    if (req.files && Array.isArray(req.files)) {
+      images = req.files.map((file) => {
+        return file.filename;
+      });
+    }
+    data.images = images;
     const newContract = new Contract(data);
     newContract
       .save()
@@ -324,6 +332,43 @@ class ApiController {
     ).then(() => {
       res.redirect("back");
     });
+  }
+  exportContract(req, res) {
+    const idContract = req.query.idContract;
+    const timeNow = new Date().getTime();
+    var html = fs.readFileSync(
+      path.join(__dirname, "../../public/templates", "contract.html"),
+      "utf8"
+    );
+    var options = {
+      format: "A4",
+      orientation: "portrait",
+      border: "10mm",
+    };
+    let data = {};
+
+    var document = {
+      html: html,
+      data,
+      path: path.join(__dirname, "../../public/.download", `${timeNow}.pdf`),
+      type: "",
+    };
+    pdf
+      .create(document, options)
+      .then((resPdf) => {
+        // res.download(resPdf.filename, (err) => {
+        //   if (err) {
+        //     console.error(err);
+        //   } else {
+        //     fs.unlink(resPdf.filename, (err) => {
+        //       if (err) throw err;
+        //     });
+        //   }
+        // });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
   exportBill(req, res) {
     const idDetailContract = req.query.idDetailContract;

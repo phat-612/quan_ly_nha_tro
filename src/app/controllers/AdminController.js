@@ -3,6 +3,7 @@ const Amenity = require("../models/Amenity");
 const Room = require("../models/Room");
 const Contract = require("../models/Contract");
 const DetailContract = require("../models/DetailContract");
+const { response } = require("express");
 class AdminController {
   home(req, res) {
     res.render("admin/home", { layout: "admin" });
@@ -72,6 +73,10 @@ class AdminController {
     Contract.find({})
       .populate("idRoom", "roomNumber")
       .then((hopdong) => {
+        hopdong.forEach((hd) => {
+          hd.images = hd.images.join(",");
+        });
+
         res.render("admin/showhopdong", {
           title: "Danh sách hợp đồng",
           layout: "admin",
@@ -89,6 +94,14 @@ class AdminController {
           tenants: tenants.map((tenant) => tenant.toObject()),
           rooms: rooms.map((room) => room.toObject()),
         });
+      });
+    });
+  }
+  xemhopdong(req, res) {
+    Contract.findById(req.params.id).then((contract) => {
+      res.render("admin/xemhopdong", {
+        layout: "admin",
+        contract: contract.toObject(),
       });
     });
   }

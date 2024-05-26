@@ -42,7 +42,7 @@ const ContractSchema = new Schema(
       type: Number,
       required: true,
     },
-    image: { type: String },
+    images: [String],
   },
   { timestamps: true }
 );

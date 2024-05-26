@@ -1,10 +1,5 @@
-<div class="container mt-4">
-  <form
-    id="themHopdong"
-    method="post"
-    action="/api/themHopDong"
-    enctype="multipart/form-data"
-  >
+<form id="updatehopdong" method="post" action="/api/updatehopdong/{{contract._id}}">
+  <div class="container mt-4">
     <div class="row mb-4">
       <div class="col">
         <h1 class="text-center">Hợp Đồng Thuê Trọ</h1>
@@ -12,9 +7,8 @@
           <label class="form-label" for="themkhach">Tên khách thuê</label>
           <input
             list="guestNames"
-            id="themkhach"
+            id="themkhach"  
             class="form-control"
-            required
           />
           <datalist name="idTenants" id="guestNames">
             {{#each tenants}}
@@ -27,7 +21,29 @@
             class="btn btn-secondary btn-block mb-4"
           >Thêm khách</button>
         </div>
-        <div id="guestList"></div>
+            <div id="guestList"></div>
+           {{#each contract.idTenants}}
+              <div class="dathemkhach row align-items-center">
+                <div class="col">
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="{{this.name}}" 
+                    readonly             
+                  />             
+                 <input
+                    type="hidden"
+                    name="idTenants"
+                    class="form-control"
+                    value="{{this._id}}"
+                    readonly             
+                  />
+                </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-danger khachdango ">Xóa</button>
+                  </div>
+                </div>
+          {{/each}}
       </div>
     </div>
     <div class="row mb-4">
@@ -35,11 +51,11 @@
         <div class="form-outline mb-4">
           <label class="form-label" for="chonPhong">Chọn phòng</label>
           <select id="chonPhong" name="idRoom" class="form-control" required>
-            <option value="" selected>Chọn phòng</option>
             {{#each rooms}}
               <option
-                value="{{this._id}}"
                 data-price="{{this.price}}"
+                value="{{this._id}}"
+                {{isSelectedObjectId this._id ../contract.idRoom._id}}
               >{{this.roomNumber}}</option>
             {{/each}}
           </select>
@@ -53,8 +69,9 @@
             name="roomPrice"
             id="giaPhong"
             class="form-control"
+            value="{{contract.roomPrice}}"
             required
-          />
+          />  
         </div>
       </div>
     </div>
@@ -62,26 +79,32 @@
     <div class="row mb-4">
 
       <div class="col">
-        <div class="form-group">
-          <label for="startDate">Ngày bắt đầu</label>
+        <div class="form-outline">
+          <label class="form-label" for="startDate">Ngày bắt đầu</label>
+          <span class="text-danger" style="font-size: 0.8rem;">*</span>
+          <span style="font-size: 0.8rem; color: red;">Đây là nội dung không
+            được chỉnh sửa</span>
           <input
-            type="date"
-            name="startDate"
-            id="startDate"
+            type="text"
+        
             class="form-control"
-            required
+            value="{{toLocaleString contract.startDate}}"
+            readonly
           />
         </div>
       </div>
       <div class="col">
         <div class="form-outline">
           <label class="form-label" for="endDate">Ngày kết thúc</label>
+          <span class="text-danger" style="font-size: 0.8rem;">*</span>
+          <span style="font-size: 0.8rem; color: red;">Đây là nội dung không
+            được chỉnh sửa</span>
           <input
-            type="date"
-            name="endDate"
+            type="text"
             id="endDate"
             class="form-control"
-            required
+            value="{{toLocaleString contract.endDate}}"
+            readonly
           />
         </div>
       </div>
@@ -96,6 +119,7 @@
             name="electricPrice"
             id="form6Example7"
             class="form-control"
+            value="{{contract.electricPrice}}"
             required
           />
         </div>
@@ -108,6 +132,7 @@
             name="waterPrice"
             id="form6Example8"
             class="form-control"
+            value="{{contract.waterPrice}}"
             required
           />
         </div>
@@ -118,54 +143,48 @@
       <div class="col">
         <div class="form-outline mb-4">
           <label class="form-label" for="form6Example9">Chỉ số điện cũ</label>
+          <span class="text-danger" style="font-size: 0.8rem;">*</span>
+          <span style="font-size: 0.8rem; color: red;">Đây là nội dung không
+            được chỉnh sửa</span>
           <input
             type="number"
-            name="oldElectric"
+            
             id="oldElectric"
             class="form-control"
-            required
+            value="{{detailcontract.oldElectric}}"
+            readonly
           />
         </div>
       </div>
       <div class="col">
         <div class="form-outline mb-4">
           <label class="form-label" for="form6Example10">Chỉ số nước cũ</label>
+          <span class="text-danger" style="font-size: 0.8rem;">*</span>
+          <span style="font-size: 0.8rem; color: red;">Đây là nội dung không
+            được chỉnh sửa</span>
           <input
             type="number"
-            name="oldWater"
+          
             id="oldWater"
             class="form-control"
-            required
+            value="{{detailcontract.oldWater}}"
+            readonly
           />
         </div>
       </div>
     </div>
-    <div class="row mb-4">
-      <div class="col">
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form6Example8">Tiền cọc</label>
-          <input
-            type="number"
-            name="deposit"
-            id="form6Example9"
-            class="form-control"
-            required
-          />
-        </div>
-      </div>
-      <div class="col">
-        <div class="form-outline mb-4">
-          <label for="formFile" class="form-label">Tình trạng trước khi thuê</label>
-          <input
-            class="form-control"
-            type="file"
-            id="images"
-            name="images"
-            multiple
-          />
-        </div>
-      </div>
+
+    <div class="form-outline mb-4">
+      <label class="form-label" for="form6Example8">Tiền cọc</label>
+      <input
+        type="number"
+        name="deposit"
+        id="form6Example9"
+        class="form-control"
+        value="{{contract.deposit}}"
+        required
+      />
     </div>
-    <button type="submit" class="btn btn-primary btn-block mb-4">Tạo hợp đồng</button>
-  </form>
-</div>
+    <button type="submit" id="suahopdong" class="btn btn-primary btn-block mb-4">Sửa hợp đồng</button>
+  </div>
+</form>

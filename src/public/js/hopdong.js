@@ -4,6 +4,17 @@ $(document).ready(function () {
     var roomPrice = $("option:selected", this).data("price");
     $("#giaPhong").val(roomPrice);
   });
+  // ngày bắt đàu
+  var currentDate = new Date().toISOString().split("T")[0];
+  $("#startDate").attr("min", currentDate);
+  // ngày kêt thúc
+  $("#endDate").on("change", function () {
+    var startDateValue = $("#startDate").val();
+    var endDateValue = $(this).val();
+    if (startDateValue && endDateValue < startDateValue) {
+      $(this).val(startDateValue);
+    }
+  });
 
   // Thêm khách
   $("#addGuest").click(function () {

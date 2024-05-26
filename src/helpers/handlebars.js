@@ -55,4 +55,13 @@ module.exports = {
     const dateMoment = moment(date);
     return dateMoment.format(format);
   },
+  showImgUpload: (img) => {
+    if (typeof img == "object") {
+      img = img[0];
+    }
+    if (img) {
+      return `/${process.env.PATH_IMG_UPLOAD}/${img}`;
+    }
+    return "";
+  },
 };

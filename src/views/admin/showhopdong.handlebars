@@ -1,5 +1,7 @@
 <div class="container mt-4"><table class="table">
+
     <a href="/admin/hopdong" class="btn btn-primary">Thêm hợp đồng</a>
+
     <thead>
       <tr>
         <th scope="col">STT</th>
@@ -8,6 +10,7 @@
         <th scope="col">Ngày bắt đầu</th>
         <th scope="col">Ngày kết thúc</th>
         <th scope="col">Đặt cọc</th>
+        <th scope="col">Hành động </th>
       </tr>
     </thead>
     <tbody>
@@ -20,6 +23,14 @@
           <td>{{toLocaleString this.endDate}}</td>
           <td>{{this.deposit}}</td>
           <td>
+            <button
+              data-id="{{this._id}}"
+              data-image="{{this.images}}"
+              type="button"
+              class="btn btn-primary btn-view"
+              data-bs-toggle="modal"
+              data-bs-target="#viewImageModal"
+            >Xem</button>
             <a
               href="/admin/edithopdong/{{this._id}}"
               type="button"
@@ -37,6 +48,28 @@
       {{/each}}
     </tbody>
   </table>
+</div>
+{{! view }}
+<div class="modal fade" id="viewImageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <img
+          id="viewImg"
+          src="/uploads/"
+          alt=""
+          style="width: 100%; height: auto;"
+        />
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >Đóng</button>
+      </div>
+    </div>
+  </div>
 </div>
 {{! xóa }}
 <div id="delete-hopdong-modal" class="modal" tabindex="-1">
