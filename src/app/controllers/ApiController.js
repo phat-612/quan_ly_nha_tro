@@ -337,7 +337,7 @@ class ApiController {
     const idContract = req.query.idContract;
     const timeNow = new Date().getTime();
     var html = fs.readFileSync(
-      path.join(__dirname, "../../public/templates", "contract.html"),
+      path.join(__dirname, "../../public/templates", "bill.html"),
       "utf8"
     );
     var options = {
