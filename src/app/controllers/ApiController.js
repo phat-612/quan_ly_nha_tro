@@ -8,6 +8,7 @@ const Amenity = require("../models/Amenity");
 const Contract = require("../models/Contract");
 const DetailContract = require("../models/DetailContract");
 const Room = require("../models/Room");
+const InfoHostel = require("../models/InfoHostel");
 
 class ApiController {
   themKhachThue(req, res) {
@@ -335,40 +336,117 @@ class ApiController {
   }
   exportContract(req, res) {
     const idContract = req.query.idContract;
-    const timeNow = new Date().getTime();
-    var html = fs.readFileSync(
-      path.join(__dirname, "../../public/templates", "bill.html"),
-      "utf8"
-    );
-    var options = {
-      format: "A4",
-      orientation: "portrait",
-      border: "10mm",
-    };
-    let data = {};
+    /*
+{{renter.name}}{{renter.birthday}}
+{{renter.idCard}} Ngày cấp: {{renter.idCardDate}}
+{{renter.phone}}
+{{tenant.name}} Sinh ngày: {{tenant.birthday}}
+{{tenant.idCard}} Ngày cấp: {{tenant.idCardDate}}
+{{tenant.phone}}
+{{roomPrice}}
+{{contract.electricPrice}}
+{{contract.waterPrice}}
+ {{contract.deposit}}
+  {{startDate}} đến ngày {{endDate}}
+    */
 
-    var document = {
-      html: html,
-      data,
-      path: path.join(__dirname, "../../public/.download", `${timeNow}.pdf`),
-      type: "",
-    };
-    pdf
-      .create(document, options)
-      .then((resPdf) => {
-        // res.download(resPdf.filename, (err) => {
-        //   if (err) {
-        //     console.error(err);
-        //   } else {
-        //     fs.unlink(resPdf.filename, (err) => {
-        //       if (err) throw err;
-        //     });
-        //   }
-        // });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const promiseContract = Contract.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(idContract),
+        },
+      },
+      {
+        $lookup: {
+          from: "tenants",
+          localField: "idTenants",
+          foreignField: "_id",
+          as: "tenant",
+        },
+      },
+      {
+        $lookup: {
+          from: "rooms",
+          localField: "idRoom",
+          foreignField: "_id",
+          as: "room",
+        },
+      },
+      {
+        $unwind: "$room",
+      },
+    ]);
+    const promiseInfoHostel = InfoHostel.findOne({});
+    Promise.all([promiseContract, promiseInfoHostel]).then(
+      ([contracts, infoHostel]) => {
+        let contract = contracts[0];
+        const timeNow = new Date().getTime();
+        var html = fs.readFileSync(
+          path.join(__dirname, "../../public/templates", "contract.html"),
+          "utf8"
+        );
+        var options = {
+          format: "A4",
+          orientation: "portrait",
+          border: "10mm",
+        };
+        let data = {
+          renter: {
+            name: infoHostel.nameRenter,
+            birthday: moment(infoHostel.birthday).format("DD/MM/YYYY"),
+            idCard: infoHostel.idCard,
+            idCardDate: moment(infoHostel.idCardDate).format("DD/MM/YYYY"),
+            phone: infoHostel.phone,
+          },
+          tenant: {
+            name: contract.tenant[0].name,
+            birthday: moment(contract.tenant[0].dayOfBirth).format(
+              "DD/MM/YYYY"
+            ),
+            idCard: contract.tenant[0].cccd.number,
+            idCardDate: moment(contract.tenant[0].cccd.date).format(
+              "DD/MM/YYYY"
+            ),
+            phone: contract.tenant[0].phone,
+          },
+          contract: {
+            roomPrice: contract.roomPrice.toLocaleString("vi-VN"),
+            electricPrice: contract.electricPrice.toLocaleString("vi-VN"),
+            oldElectric: contract.oldElectric,
+            newElectric: contract.newElectric,
+            waterPrice: contract.waterPrice.toLocaleString("vi-VN"),
+            deposit: contract.deposit.toLocaleString("vi-VN"),
+          },
+        };
+
+        var document = {
+          html: html,
+          data,
+          path: path.join(
+            __dirname,
+            "../../public/.download",
+            `${timeNow}.pdf`
+          ),
+          type: "",
+        };
+        pdf
+          .create(document, options)
+          .then((resPdf) => {
+            // res.download(resPdf.filename, (err) => {
+            //   if (err) {
+            //     console.error(err);
+            //   } else {
+            //     fs.unlink(resPdf.filename, (err) => {
+            //       if (err) throw err;
+            //     });
+            //   }
+            // });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    );
   }
   exportBill(req, res) {
     const idDetailContract = req.query.idDetailContract;

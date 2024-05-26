@@ -22,24 +22,26 @@
     </style>
   </head>
   <body>
-    <h1 style="text-align: center">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h1>
+    <h2 style="text-align: center">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h2>
     <h3 style="text-align: center">Độc lập - Tự do - Hạnh phúc</h3>
-    <h1 style="text-align: center">HỢP ĐỒNG THUÊ PHÒNG TRỌ</h1>
-    <h2>Chúng tôi gồm:</h2>
+    <h2 style="text-align: center">HỢP ĐỒNG THUÊ PHÒNG TRỌ</h2>
+    <h3>Chúng tôi gồm:</h3>
     <p>1. Đại diện bên cho thuê phòng trọ (Bên A):</p>
-    <p>Ông/bà: {{tenant.name}} Sinh ngày: {{tenant.birthday}}</p>
-    <p>CMND/CCCD số: {{tenant.idCard}} Ngày cấp: {{tenant.idCardDate}}</p>
-    <p>Số điện thoại: {{tenant.phone}}</p>
-    <p>2. Bên thuê phòng trọ (Bên B):</p>
     <p>Ông/bà: {{renter.name}} Sinh ngày: {{renter.birthday}}</p>
     <p>CMND/CCCD số: {{renter.idCard}} Ngày cấp: {{renter.idCardDate}}</p>
     <p>Số điện thoại: {{renter.phone}}</p>
+    <p>2. Bên thuê phòng trọ (Bên B):</p>
+    <p>Ông/bà: {{tenant.name}} Sinh ngày: {{tenant.birthday}}</p>
+    <p>CMND/CCCD số: {{tenant.idCard}} Ngày cấp: {{tenant.idCardDate}}</p>
+    <p>Số điện thoại: {{tenant.phone}}</p>
     <p>
       Sau khi bàn bạc trên tinh thần dân chủ, hai bên cùng có lợi, cùng thống
       nhất như sau:
     </p>
     <p>Bên A đồng ý cho bên B thuê 01 phòng:{{roomNumber}}</p>
-    <p>Giá thuê: {{roomPrice}} đ/tháng</p>
+    <p>Giá thuê: {{contract.roomPrice}} đ/tháng</p>
+    <p>Chỉ số công tơ điện lúc thuê: {{contract.oldElectric}}</p>
+    <p>Chỉ số công tơ nước lúc thuê: {{contract.oldWater}}</p>
     <p>
       Tiền điện: {{contract.electricPrice}} đ/kwh tính theo chỉ số công tơ,
       thanh toán vào cuối các tháng.
@@ -50,7 +52,7 @@
     </p>
     <p>Tiền đặt cọc: {{contract.deposit}} đồng</p>
     <p>Hợp đồng có giá trị kể từ ngày: {{startDate}} đến ngày {{endDate}}</p>
-    <h2>TRÁCH NHIỆM CỦA CÁC BÊN</h2>
+    <h3>TRÁCH NHIỆM CỦA CÁC BÊN</h3>
     <p>* Trách nhiệm của bên A:</p>
     <p>- Tạo mọi điều kiện thuận lợi cho bên B thực hiện theo hợp đồng</p>
     <p>- Cung cấp nguồn điện, nước cho bên B sử dụng</p>
@@ -77,7 +79,7 @@
       đồng thời phải chịu trách nhiệm về các hành vi vi phạm pháp luật của khách
       trong thời gian ở lại.
     </p>
-    <h2>TRÁCH NHIỆM CHUNG</h2>
+    <h3>TRÁCH NHIỆM CHUNG</h3>
     <p>- Hai bên phải tạo điều kiện cho nhau thực hiện hợp đồng.</p>
     <p>
       - Trong thời gian hợp đồng còn hiệu lực nếu bên nào vi phạm các điều khoản
@@ -99,8 +101,8 @@
       một bản.
     </p>
     <div style="margin: 8px 15%">
-      <h2 class="left">ĐẠI DIỆN BÊN B</h2>
-      <h2 class="right">ĐẠI DIỆN BÊN A</h2>
+      <h3 class="left">ĐẠI DIỆN BÊN B</h3>
+      <h3 class="right">ĐẠI DIỆN BÊN A</h3>
       <div style="clear: both"></div>
     </div>
   </body>
