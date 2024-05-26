@@ -2,6 +2,7 @@ const Tenant = require("../models/Tenant");
 const Amenity = require("../models/Amenity");
 const Room = require("../models/Room");
 const Contract = require("../models/Contract");
+const infoHostel = require("../models/InfoHostel");
 const DetailContract = require("../models/DetailContract");
 const { response } = require("express");
 class AdminController {
@@ -277,6 +278,16 @@ class AdminController {
           js: "showTienNghi",
           amenities: data,
         });
+      });
+    });
+  }
+
+  infoHostel(req, res, next) {
+    infoHostel.findOne({}).then((infohostel) => {
+      res.render("admin/infoHostel", {
+        layout: "admin",
+        js: "infoHostel",
+        infohostel: infohostel.toObject(),
       });
     });
   }

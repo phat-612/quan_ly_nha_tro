@@ -1,0 +1,109 @@
+<div class="d-flex justify-content-center">
+  <h1 class="mt-3" style="color: brown; text-transform: uppercase;">THÔNG TIN
+    NHÀ TRỌ</h1>
+</div>
+
+<div
+  class="container my-3 bg-info p-3"
+  style="width: 1000px; border-radius: 20px;"
+>
+
+  <form action="" method="">
+    <div class="mb-3 row pt-3">
+      <div class="mb-3 col-6">
+        <label for="exampleInputEmail1" class="form-label">Tên Nhà Trọ</label>
+        <input
+          type="text"
+          class="form-control inputDis"
+          value="{{infohostel.nameHostel}}"
+          disabled
+          name="nameHostel"
+        />
+      </div>
+      <div class="mb-3 col-6">
+        <label for="exampleInputEmail1" class="form-label">Chủ Sở Hữu</label>
+        <input
+          type="text"
+          class="form-control inputDis"
+          value="{{infohostel.nameRenter}}"
+          disabled
+          name="nameRenter"
+        />
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <div class="mb-3 col-6">
+        <label for="exampleInputEmail1" class="form-label">Số Điện Thoại</label>
+        <input
+          type="text"
+          class="form-control inputDis"
+          value="{{infohostel.phone}}"
+          disabled
+          name="phone"
+        />
+      </div>
+      <div class="mb-3 col-6">
+        <label for="exampleInputEmail1" class="form-label">Ngày Sinh</label>
+        <input
+          type="date"
+          class="form-control inputDis"
+          value="{{formatDate infohostel.birthday 'YYYY-MM-DD'}}"
+          disabled
+          name="birthday"
+        />
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Địa Chỉ Nhà Trọ</label>
+      <input
+        type="text"
+        class="form-control inputDis"
+        value="{{infohostel.address}}"
+        disabled
+        name="address"
+      />
+    </div>
+    <div class="mb-3 row">
+      <div class="mb-3 col-6">
+        <label for="exampleInputEmail1" class="form-label">Số Căn Cước Công Dân</label>
+        <input
+          type="text"
+          class="form-control inputDis"
+          value="{{infohostel.idCard}}"
+          disabled
+          name="idCard"
+        />
+      </div>
+      <div class="mb-3 col-6">
+        <label for="exampleInputEmail1" class="form-label">Ngày Cấp Căn Cước
+          Công Dân</label>
+        <input
+          type="date"
+          class="form-control inputDis"
+          value="{{formatDate infohostel.idCardDate 'YYYY-MM-DD'}}"
+          disabled
+          name="idCardDate"
+        />
+      </div>
+    </div>
+
+    <div class="d-flex flex-row-reverse bd-highlight">
+      <button
+        type="button"
+        style="width: 150px;"
+        class="btn btn-warning my-3 btn-sua"
+      >Sửa Thông Tin</button>
+      <button
+        hidden
+        type="submit"
+        style="width: 150px;"
+        class="btn btn-success my-3 couplebtn"
+      >Lưu</button>
+      <button
+        hidden
+        type="button"
+        class="btn btn-danger my-3 mx-3 couplebtn cancelbtn"
+      >Hủy</button>
+    </div>
+  </form>
+</div>

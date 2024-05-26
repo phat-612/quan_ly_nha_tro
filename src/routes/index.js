@@ -23,6 +23,9 @@ const upload = multer({ storage: storage });
 // routes admin
 router.get("/admin", AdminController.home);
 
+// /admin/infoHostel
+router.get("/admin/infoHostel", AdminController.infoHostel);
+
 // /admin/room
 router.get("/admin/room", AdminController.room);
 

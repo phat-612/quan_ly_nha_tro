@@ -9,7 +9,6 @@ const Contract = require("../models/Contract");
 const DetailContract = require("../models/DetailContract");
 const Room = require("../models/Room");
 const InfoHostel = require("../models/InfoHostel");
-
 class ApiController {
   themKhachThue(req, res) {
     const data = {
@@ -221,18 +220,37 @@ class ApiController {
     });
   }
   xoahopdong(req, res) {
+    const filePath = path.join(__dirname, "..", "..", "public", "uploads");
     Contract.findOne({ _id: req.params.id }).then((contract) => {
-      // console.log(req.params.id);
-      if (contract) {
-        Promise.all([
-          Room.updateOne({ _id: contract.idRoom }, { isEmpty: true }),
-          Contract.deleteOne({ _id: req.params.id }),
-          DetailContract.deleteMany({ idContract: req.params.id }),
-        ]).then(() => {
-          res.redirect("back");
-        });
+      if (!contract) {
+        res.send("không tìm thấy");
       } else {
-        console.log("Không tìm thấy hợp đồng");
+        // Kiểm tra xem contract.images có phải là mảng không
+        if (Array.isArray(contract.images)) {
+          contract.images.forEach((image) => {
+            const fullPath = path.join(filePath, image);
+            if (fs.existsSync(fullPath)) {
+              fs.unlinkSync(fullPath); // delete the file
+            }
+          });
+        } else {
+          const fullPath = path.join(filePath, contract.images);
+          if (fs.existsSync(fullPath)) {
+            fs.unlinkSync(fullPath); // delete the file
+          }
+        }
+
+        if (contract) {
+          Promise.all([
+            Room.updateOne({ _id: contract.idRoom }, { isEmpty: true }),
+            Contract.deleteOne({ _id: req.params.id }),
+            DetailContract.deleteMany({ idContract: req.params.id }),
+          ]).then(() => {
+            res.redirect("back");
+          });
+        } else {
+          console.log("Không tìm thấy hợp đồng");
+        }
       }
     });
   }
@@ -412,10 +430,15 @@ class ApiController {
           contract: {
             roomPrice: contract.roomPrice.toLocaleString("vi-VN"),
             electricPrice: contract.electricPrice.toLocaleString("vi-VN"),
-            oldElectric: contract.oldElectric,
-            newElectric: contract.newElectric,
+            oldElectric: contract.oldElectric.toLocaleString("vi-VN"),
+            oldWater: contract.oldWater.toLocaleString("vi-VN"),
             waterPrice: contract.waterPrice.toLocaleString("vi-VN"),
             deposit: contract.deposit.toLocaleString("vi-VN"),
+            startDate: moment(contract.startDate).format("DD/MM/YYYY"),
+            endDate: moment(contract.endDate).format("DD/MM/YYYY"),
+          },
+          room: {
+            roomNumber: contract.room.roomNumber,
           },
         };
 
@@ -432,15 +455,15 @@ class ApiController {
         pdf
           .create(document, options)
           .then((resPdf) => {
-            // res.download(resPdf.filename, (err) => {
-            //   if (err) {
-            //     console.error(err);
-            //   } else {
-            //     fs.unlink(resPdf.filename, (err) => {
-            //       if (err) throw err;
-            //     });
-            //   }
-            // });
+            res.download(resPdf.filename, (err) => {
+              if (err) {
+                console.error(err);
+              } else {
+                fs.unlink(resPdf.filename, (err) => {
+                  if (err) throw err;
+                });
+              }
+            });
           })
           .catch((error) => {
             console.error(error);

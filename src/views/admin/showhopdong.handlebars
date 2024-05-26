@@ -23,6 +23,7 @@
           <td>{{toLocaleString this.endDate}}</td>
           <td>{{this.deposit}}</td>
           <td>
+            <a href="/api/exportContract?idContract={{this._id}}" class="btn btn-primary">Xuất</a>
             <button
               data-id="{{this._id}}"
               data-image="{{this.images}}"
@@ -58,6 +59,7 @@
           id="viewImg"
           src="/uploads/"
           alt=""
+          class="mb-3" <!-- Thêm lớp này để tạo khoảng cách ở dưới hình ảnh -->
           style="width: 100%; height: auto;"
         />
       </div>

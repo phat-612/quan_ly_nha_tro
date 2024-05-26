@@ -26,6 +26,14 @@ const ContractSchema = new Schema(
       type: Boolean,
       default: true,
     },
+    oldWater: {
+      type: Number,
+      required: true,
+    },
+    oldElectric: {
+      type: Number,
+      required: true,
+    },
     waterPrice: {
       type: Number,
       required: true,

@@ -62,9 +62,12 @@
               class="d-inline-block"
               action="/api/thanhToan?idDetailContract={{_id}}"
               method="post"
-              {{hiddenElement (compare isPaid true)}}
             >
-              <button type="submit" class="btn btn-primary">Thanh toán</button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                {{hiddenElement (compare isPaid true)}}
+              >Thanh toán</button>
             </form>
           </td>
         </tr>
