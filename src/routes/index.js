@@ -83,4 +83,8 @@ router.post("/api/chotThang", ApiController.chotThang);
 // // api thanh toan
 router.post("/api/thanhToan", ApiController.thanhToan);
 
+// // api cap nhat thong tin phong` tro
+
+router.post("/api/updateInfoHostel", ApiController.updateInfoHostel);
+
 module.exports = router;

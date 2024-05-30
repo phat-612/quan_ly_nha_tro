@@ -569,6 +569,23 @@ class ApiController {
         });
     });
   }
+  updateInfoHostel(req, res, next) {
+    const formData = req.body;
+    InfoHostel.findOneAndUpdate(
+      { _id: formData._id },
+      {
+        nameHostel: formData.nameHostel,
+        address: formData.address,
+        birthday: formData.birthday,
+        idCard: formData.idCard,
+        idCardDate: formData.idCardDate,
+        nameRenter: formData.nameRenter,
+        phone: formData.phone,
+      }
+    ).then(() => {
+      res.redirect("back");
+    });
+  }
 }
 
 module.exports = new ApiController();
