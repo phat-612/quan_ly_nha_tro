@@ -90,6 +90,7 @@ class AdminController {
     Room.find({ isEmpty: true }).then((rooms) => {
       Tenant.find({}).then((tenants) => {
         res.render("admin/hopdong", {
+          title: "Tạo Hợp Đồng",
           layout: "admin",
           js: "hopdong",
           tenants: tenants.map((tenant) => tenant.toObject()),

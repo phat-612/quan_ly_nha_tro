@@ -1,8 +1,6 @@
 <div class="container-xxl ps-4 mt-4">
-  <h4 class="mb-3" style="color: brown; text-transform: uppercase;"><a
-      href="/admin/quanlykhachthue"
-      title="Quay lại trang quản lý"
-    ><i class="bi bi-chevron-double-left text-dark me-1"></i></a>Thêm khách thuê</h4>
+  <h4 class="mb-3" style="color: brown; text-transform: uppercase;"><a href="/admin/quanlykhachthue"
+      title="Quay lại trang quản lý"><i class="bi bi-chevron-double-left text-dark me-1"></i></a>Thêm khách thuê</h4>
   <hr class="mt-0 mb-4" />
   <div class="row">
     <div class="">
@@ -16,28 +14,14 @@
               <!-- Form Group (fullname)-->
               <div class="col-md-6 mb-2">
                 <label class="small mb-1" for="inputFirstName">Họ tên</label>
-                <input
-                  class="form-control"
-                  id="inputFirstName"
-                  type="text"
-                  placeholder="Nhập họ tên"
-                  value=""
-                  required
-                  name="name"
-                />
+                <input class="form-control" id="inputFirstName" type="text" placeholder="Nhập họ tên" value="" required
+                  name="name" />
               </div>
               <!-- Form Group (location)-->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputLocation">Địa chỉ thường trú</label>
-                <input
-                  class="form-control"
-                  id="inputLocation"
-                  type="text"
-                  placeholder="Nhập địa chỉ thường trú"
-                  value=""
-                  required
-                  name="address"
-                />
+                <input class="form-control" id="inputLocation" type="text" placeholder="Nhập địa chỉ thường trú"
+                  value="" required name="address" />
               </div>
             </div>
             <!-- Form Row-->
@@ -45,29 +29,14 @@
               <!-- Form Group (email)-->
               <div class="col-md-6 mb-2">
                 <label class="small mb-1" for="inputEmailAddress">Email</label>
-                <input
-                  class="form-control"
-                  id="inputEmailAddress"
-                  type="email"
-                  placeholder="Nhập địa chỉ email"
-                  value=""
-                  required
-                  name="email"
-                />
+                <input class="form-control" id="inputEmailAddress" type="email" placeholder="Nhập địa chỉ email"
+                  value="" required name="email" />
               </div>
               <!-- Form Group (phone number)-->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputPhone">Số điện thoại</label>
-                <input
-                  class="form-control"
-                  id="inputPhone"
-                  type="tel"
-                  placeholder="Nhập số điện thoại"
-                  value=""
-                  required
-                  name="phone"
-                  pattern="[0-9]{10}"
-                />
+                <input class="form-control" id="inputPhone" type="tel" placeholder="Nhập số điện thoại" value=""
+                  required name="phone" pattern="[0-9]{10}" />
               </div>
             </div>
             <!-- Form Row-->
@@ -75,13 +44,8 @@
               <!-- Form Group (gender)-->
               <div class="col-md-6 mb-2">
                 <label class="small mb-1" for="selectGioiTinh">Giới tính</label>
-                <select
-                  class="form-select"
-                  id="selectGioiTinh"
-                  name="gender"
-                  aria-label="Default select example"
-                  required
-                >
+                <select class="form-select" id="selectGioiTinh" name="gender" aria-label="Default select example"
+                  required>
                   <option selected>Chọn giới tính</option>
                   <option value="0">Nam</option>
                   <option value="1">Nữ</option>
@@ -90,14 +54,7 @@
               <!-- Form Group (birthday)-->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputBirthday">Ngày sinh</label>
-                <input
-                  class="form-control"
-                  id="inputBirthday"
-                  type="date"
-                  name="dayOfBirth"
-                  value=""
-                  required
-                />
+                <input class="form-control" id="inputBirthday" type="date" name="dayOfBirth" value="" required />
               </div>
             </div>
             <!-- Form Row-->
@@ -105,27 +62,28 @@
               <!-- Form Group (IDC)-->
               <div class="col-md-6 mb-2">
                 <label class="small mb-1" for="inputCCCD">CCCD</label>
-                <input
-                  class="form-control"
-                  id="inputCCCD"
-                  type="text"
-                  placeholder="Nhập số CCCD"
-                  value=""
-                  required
-                  name="cccdNumber"
-                />
+                <input class="form-control" id="inputCCCD" type="text" placeholder="Nhập số CCCD" value="" required
+                  name="cccdNumber" />
               </div>
               <!-- Form Group (cccddate)-->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputdateIDC">Ngày cấp</label>
-                <input
-                  class="form-control"
-                  id="inputdateIDC"
-                  type="date"
-                  value=""
-                  required
-                  name="cccdDate"
-                />
+                <input class="form-control" id="inputdateIDC" type="date" value="" required name="cccdDate" />
+              </div>
+            </div>
+
+            <div class="row g-3">
+              <div class="col">
+                <label for="formFile" class="form-label">CCCD Mặt trước</label>
+                <label for="formFile" class="form-label d-">
+                  <img src="" alt="Ảnh mặt trước">
+                </label>
+                <input class="form-control" type="file" id="formFile" hidden>
+              </div>
+              <div class="col">
+                <label for="formFile" class="form-label">CCCD Mặt sau</label>
+                <label for="formFile" class="form-label">CCCD Mặt sau</label>
+                <input class="form-control" type="file" id="formFile" hidden>
               </div>
             </div>
 

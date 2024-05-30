@@ -98,7 +98,7 @@ class ApiController {
       Room.updateMany(
         {},
         {
-          $pull: { idAmenities: id },
+          $pull: { "amenities.idAmenitie": id },
         }
       ).then(() => {
         return res.redirect("back");
@@ -108,7 +108,7 @@ class ApiController {
   // api phong =======================================
   ///api them phong
   themPhong(req, res, next) {
-    return res.send(req.body);
+    // return res.send(req.body);
     Room.findOne({ roomNumber: req.body.roomNumber }).then((room) => {
       if (room) {
         req.flash("error_msg", "Tên phòng đã tồn tại");
@@ -202,22 +202,33 @@ class ApiController {
       });
   }
   updatehopdong(req, res) {
-    // return res.send(req.body);
-    Contract.updateOne(
-      { _id: req.params.id },
-      {
-        $set: {
-          idTenants: req.body.idTenants,
-          idRoom: req.body.idRoom,
-          roomPrice: req.body.roomPrice,
-          electricPrice: req.body.electricPrice,
-          waterPrice: req.body.waterPrice,
-          deposit: req.body.deposit,
-        },
-      }
-    ).then(() => {
-      res.redirect("/admin/showhopdong");
-    });
+    Contract.findOne({ _id: req.params.id })
+      .then((contract) => {
+        if (contract.idRoom != req.body.idRoom) {
+          return Room.updateOne({ _id: contract.idRoom }, { isEmpty: true });
+        }
+      })
+      .then(() => {
+        return Contract.updateOne(
+          { _id: req.params.id },
+          {
+            idTenants: req.body.idTenants,
+            idRoom: req.body.idRoom,
+            roomPrice: req.body.roomPrice,
+            electricPrice: req.body.electricPrice,
+            waterPrice: req.body.waterPrice,
+            deposit: req.body.deposit,
+          }
+        );
+      })
+      .then(() => {
+        if (req.body.idRoom) {
+          return Room.updateOne({ _id: req.body.idRoom }, { isEmpty: false });
+        }
+      })
+      .then(() => {
+        res.redirect("/admin/showhopdong");
+      });
   }
   xoahopdong(req, res) {
     const filePath = path.join(__dirname, "..", "..", "public", "uploads");
@@ -581,6 +592,7 @@ class ApiController {
         idCardDate: formData.idCardDate,
         nameRenter: formData.nameRenter,
         phone: formData.phone,
+        email: formData.email,
       }
     ).then(() => {
       res.redirect("back");

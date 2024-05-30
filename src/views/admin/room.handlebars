@@ -39,7 +39,7 @@
             <div class="col-4"><button type="button" class="btn btn-warning updateRoomBtn" data-bs-toggle="modal"
                 data-bs-target="#modalXem" data-bs-id="{{this._id}}" data-bs-isEmpty="{{this.isEmpty}}"
                 data-bs-roomNumber="{{this.roomNumber}}" data-bs-floor="{{this.floor}}" data-bs-price="{{this.price}}"
-                data-bs-area="{{this.area}}" data-bs-description="{{this.description}}" data-bs-quantity="{{#each this.amenities}}{{this.quantity}},{{/each}}"
+                data-bs-area="{{this.area}}" data-bs-description="{{this.description}}" data-bs-quantity="{{#each this.amenities}}{{this.quantity}} {{/each}}"
                  data-bs-idAmenities="{{#each this.amenities}}{{this.idAmenitie}},{{/each}}"><i
                   class="bi bi-wrench"></i></button></div>
             <div class="col-4">
@@ -164,12 +164,12 @@
             <div class="col-6">
               <div class="mb-3">
                 <label for="" class="col-form-label">Số Phòng :</label>
-                <input type="text" class="form-control inpXemroomNumber" disabled="disabled" name="roomNumber"
+                <input type="text" class="form-control inpXemroomNumber disabledClass" disabled="disabled" name="roomNumber"
                   required />
               </div>
               <div class="mb-3">
                 <label for="floor" class="col-form-label">Số Tầng :</label>
-                <select class="form-select inpXemfloor" aria-label="Default select example" name="floor"
+                <select class="form-select inpXemfloor disabledClass" aria-label="Default select example" name="floor"
                   disabled="disabled" required>
                   <option value="Trệt">Trệt</option>
                   <option value="1">1</option>
@@ -181,15 +181,15 @@
               </div>
               <div class="mb-3">
                 <label for="" class="col-form-label">Diện Tích :</label>
-                <input type="text" class="form-control inpXemarea" disabled="disabled" name="area" required />
+                <input type="text" class="form-control inpXemarea disabledClass" disabled="disabled" name="area" required />
               </div>
               <div class="mb-3">
                 <label for="" class="col-form-label">Giá :</label>
-                <input type="text" class="form-control inpXemprice" disabled="disabled" name="price" required />
+                <input type="text" class="form-control inpXemprice disabledClass" disabled="disabled" name="price" required />
               </div>
               <div class="mb-3">
                 <label for="" class="col-form-label">Mô tả :</label>
-                <textarea class="form-control inpXemdescription" id="exampleFormControlTextarea1" rows="3"
+                <textarea class="form-control inpXemdescription disabledClass" id="exampleFormControlTextarea1" rows="3"
                   disabled="disabled" name="description"></textarea>
               </div>
               <div class="mb-3">
@@ -222,7 +222,7 @@
                           </label>  
                         </td>
                         <td>
-                          <input class="form-check-input checkboxAmeniti" type="checkbox" value="{{this.idAmenitie}}"
+                          <input class="form-check-input checkboxAmeniti disabledClass" type="checkbox" value="{{this.idAmenitie}}"
                             id="{{this.amenities.idAmenitie}}" name="amenities[{{@index}}][idAmenities]" disabled  hidden/>
                           <input type="number" class="form-control quantity" name="amenities[{{@index}}][quantity]"
                             id="inpQuantity{{@index}}" value="" disabled>

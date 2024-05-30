@@ -5,6 +5,7 @@ const InfoHostelSchema = new Schema(
     nameHostel: { type: String },
     address: { type: String },
     phone: { type: String },
+    email: { type: String },
     nameRenter: { type: String },
     birthday: { type: Date },
     idCard: { type: String },

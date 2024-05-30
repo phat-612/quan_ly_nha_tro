@@ -54,6 +54,7 @@ router.get("/admin/showTienNghi", AdminController.showTienNghi);
 
 // routes user
 router.get("/", SiteController.index);
+router.get("/home", SiteController.home);
 
 // routes api =================================================================================================================================
 
