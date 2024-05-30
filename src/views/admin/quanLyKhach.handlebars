@@ -30,7 +30,7 @@
           <a href="/admin/suaThongTinKhach/{{_id}}" type="button" title="Sửa thông tin" class="btn btn-success me-1"><i
               class="bi bi-wrench"></i>
           </a>
-          <form action="/api/xoaKhachThue/{{_id}}" method="post" class="d-inline-block m-0">
+          <form action="/api/xoaKhachThue/{{_id}}" method="post" class="d-inline-block m-0 formDelete">
             <button type="submit" title="Xóa" class="btn btn-danger me-1">
               <i class="bi bi-trash-fill"></i>
             </button>
@@ -41,3 +41,11 @@
     </tbody>
   </table>
 </div>
+<script>
+  $(".formDelete").on("submit", function (e) {
+    let isDelete = confirm("Bạn có chắc chắn muốn xóa không?");
+    if (!isDelete) {
+      e.preventDefault();
+    }
+  }) 
+</script>

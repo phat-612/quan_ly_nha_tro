@@ -171,6 +171,7 @@ class ApiController {
     newContract
       .save()
       .then((response) => {
+        console.log(response);
         const startDate = new Date(data.startDate);
         const endDateInitial = new Date(data.endDate);
 
@@ -180,7 +181,7 @@ class ApiController {
 
         // Tính chênh lệch số ngày (giờ đã được đặt thành nửa đêm)
         const diffDays = (endDateInitial - startDate) / (1000 * 60 * 60 * 24);
-        console.log(diffDays);
+        // console.log(diffDays);
         let endDateYear, endDateMonth, endDateDay;
 
         if (diffDays < 15) {
@@ -205,10 +206,6 @@ class ApiController {
           interimEndDate.getTime() < endDateInitial.getTime()
             ? interimEndDate
             : endDateInitial;
-        // const endDate = Math.min(
-        //   new Date(endDateYear, endDateMonth, endDateDay),
-        //   endDateInitial
-        // );
         console.log(endDateYear, endDateMonth, endDateDay, endDate);
 
         const newDetailContract = new DetailContract({
@@ -344,11 +341,18 @@ class ApiController {
           }
         ).then((updatedDocument) => {
           // tạo chi tiết hợp đồng mới
-          console.log(updatedDocument);
-          if (updatedDocument.isLastDetail) {
+          if (updatedDocument.isLastDetail || data.isEnd == "true") {
             Room.updateOne(
               { _id: detailContract.idContract.idRoom },
               { isEmpty: true }
+            ).then(() => {});
+            Contract.updateOne(
+              {
+                _id: detailContract.idContract._id,
+              },
+              {
+                status: false,
+              }
             ).then(() => {});
             return res.redirect("/admin/chotThang");
           }

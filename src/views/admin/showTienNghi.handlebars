@@ -1,14 +1,10 @@
 <div class="container">
   <div class="row">
+    <h1 class="mt-3 text-center" style="color: brown; text-transform: uppercase;">Danh sách tiện nghi</h1>
     <div class="col-md-12">
-      <h1 class="text-center">Danh sách tiện nghi</h1>
       <div class="text-right">
-        <button
-          class="btn btn-primary float-end my-2"
-          data-bs-toggle="modal"
-          data-bs-target="#qltnModal"
-          data-bs-action="add"
-        >Thêm tiện nghi</button>
+        <button class="btn btn-primary float-end my-2" data-bs-toggle="modal" data-bs-target="#qltnModal"
+          data-bs-action="add">Thêm tiện nghi</button>
       </div>
       <table class="table table-bordered table-hover">
         <thead>
@@ -20,30 +16,18 @@
         </thead>
         <tbody>
           {{#each amenities}}
-            <tr>
-              <td>{{showSTT @index}}</td>
-              <td>{{name}}</td>
-              <td>
-                <button
-                  class="btn btn-warning"
-                  data-bs-toggle="modal"
-                  data-bs-target="#qltnModal"
-                  data-bs-action="edit"
-                  data-bs-id="{{_id}}"
-                  data-bs-name="{{name}}"
-                >Sửa</button>
-                <form
-                  class="formXoaTienNghi d-inline-block"
-                  action="/api/xoaTienNghi/{{_id}}"
-                  method="post"
-                >
-                  <input type="text" value="{{isUsed}}" name="isUsed" hidden />
-                  <button
-                    type="submit"
-                    class="btn btn-danger"
-                  >Xóa</button></form>
-              </td>
-            </tr>
+          <tr>
+            <td>{{showSTT @index}}</td>
+            <td>{{name}}</td>
+            <td>
+              <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#qltnModal" data-bs-action="edit"
+                data-bs-id="{{_id}}" data-bs-name="{{name}}">Sửa</button>
+              <form class="formXoaTienNghi d-inline-block" action="/api/xoaTienNghi/{{_id}}" method="post">
+                <input type="text" value="{{isUsed}}" name="isUsed" hidden />
+                <button type="submit" class="btn btn-danger">Xóa</button>
+              </form>
+            </td>
+          </tr>
           {{/each}}
         </tbody>
       </table>
@@ -57,12 +41,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Thêm tiện nghi</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="" method="post">
@@ -71,11 +50,7 @@
             <input type="text" class="form-control" id="name" name="name" />
           </div>
           <div class="float-end">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Send message</button>
           </div>
         </form>

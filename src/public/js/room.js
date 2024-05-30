@@ -13,6 +13,12 @@ $(document).ready(function () {
   const updateRoomBtninModal = document.querySelector(".updateRoomBtninModal");
   const quantityinput = document.querySelector(".quantity");
 
+  $(".formDelete").on("submit", function (e) {
+    let isDelete = confirm("Bạn có chắc chắn muốn xóa không?");
+    if (!isDelete) {
+      e.preventDefault();
+    }
+  });
   // Xử lý sự kiện khi người dùng nhấn nút "Xem Room"
   $(".btnXemRoom").click((e) => {
     const button = $(e.currentTarget);

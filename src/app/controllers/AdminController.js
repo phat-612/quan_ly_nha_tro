@@ -32,8 +32,8 @@ class AdminController {
       const promise = tenants.map((tenant) => {
         return Contract.find({
           idTenants: tenant._id,
-          startDate: { $lte: new Date() },
           endDate: { $gte: new Date() },
+          status: true,
         })
           .populate("idRoom", "roomNumber")
           .then((contracts) => {
@@ -45,7 +45,6 @@ class AdminController {
           });
       });
       Promise.all(promise).then((data) => {
-        // console.log(data);
         res.render("admin/quanLyKhach", {
           layout: "admin",
           tenants: data,
@@ -73,6 +72,7 @@ class AdminController {
   }
   showhopdong(req, res) {
     Contract.find({})
+      .sort({ status: -1, createdAt: -1 })
       .populate("idRoom", "roomNumber")
       .then((hopdong) => {
         hopdong.forEach((hd) => {
@@ -101,12 +101,31 @@ class AdminController {
     });
   }
   xemhopdong(req, res) {
-    Contract.findById(req.params.id).then((contract) => {
-      res.render("admin/xemhopdong", {
-        layout: "admin",
-        contract: contract.toObject(),
+    Contract.findById(req.params.id)
+      .populate("idRoom", "roomNumber")
+      .then((contract) => {
+        DetailContract.findOne({
+          idContract: req.params.id,
+        }).then((detailcontract) => {
+          Room.find({
+            _id: contract.idRoom,
+          }).then((rooms) => {
+            Tenant.find({ _id: contract.idTenants }).then((tenants) => {
+              // truy vấn tất cả phòng
+              // console.log(tenants);
+              res.render("admin/xemhopdong", {
+                title: "Xem Hợp Đồng",
+                layout: "admin",
+                js: "suahopdong",
+                contract: contract.toObject(),
+                detailcontract: detailcontract.toObject(),
+                tenants: tenants.map((tenant) => tenant.toObject()),
+                rooms: rooms.map((room) => room.toObject()), // danh sách phòng
+              });
+            });
+          });
+        });
       });
-    });
   }
   edithopdong(req, res) {
     Contract.findById(req.params.id)

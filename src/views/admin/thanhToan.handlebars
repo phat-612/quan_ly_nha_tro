@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="text-center">
+  <h1 class="mt-3 text-center" style="color: brown; text-transform: uppercase;">
     Thanh toán hoá đơn
   </h1>
   <div class="d-flex gap-3">
@@ -8,21 +8,10 @@
         <label class="d-block w-75" for="status">Trạng thái</label>
         {{consoleHbs filterStatus}}
         <select class="form-control mx-2 text-capitalize" name="status" id="">
-          <option
-            class="text-capitalize"
-            value="all"
-            {{selectedOption filterStatus "all"}}
-          >tất cả</option>
-          <option
-            class="text-capitalize"
-            value="true"
-            {{selectedOption filterStatus "true"}}
-          >đã thanh toán</option>
-          <option
-            class="text-capitalize"
-            value="false"
-            {{selectedOption filterStatus "false"}}
-          >chưa thanh toán</option>
+          <option class="text-capitalize" value="all" {{selectedOption filterStatus "all" }}>tất cả</option>
+          <option class="text-capitalize" value="true" {{selectedOption filterStatus "true" }}>đã thanh toán</option>
+          <option class="text-capitalize" value="false" {{selectedOption filterStatus "false" }}>chưa thanh toán
+          </option>
         </select>
         <button type="submit" class="btn btn-primary">Lọc</button>
       </div>
@@ -44,33 +33,22 @@
     </thead>
     <tbody>
       {{#each detailContracts}}
-        <tr>
-          <td>{{roomNumber}}</td>
-          <td>{{formatDate startDate "DD/MM/YYYY"}}</td>
-          <td>{{formatDate endDate "DD/MM/YYYY"}}</td>
-          <td>{{oldElectric}}</td>
-          <td>{{newElectric}}</td>
-          <td>{{oldWater}}</td>
-          <td>{{newWater}}</td>
-          <td>{{showNumber total}}</td>
-          <td>
-            <a
-              class="btn btn-primary"
-              href="/api/exportBill?idDetailContract={{_id}}"
-            >Xuất hóa đơn</a>
-            <form
-              class="d-inline-block"
-              action="/api/thanhToan?idDetailContract={{_id}}"
-              method="post"
-            >
-              <button
-                type="submit"
-                class="btn btn-primary"
-                {{hiddenElement (compare isPaid true)}}
-              >Thanh toán</button>
-            </form>
-          </td>
-        </tr>
+      <tr>
+        <td>{{roomNumber}}</td>
+        <td>{{formatDate startDate "DD/MM/YYYY"}}</td>
+        <td>{{formatDate endDate "DD/MM/YYYY"}}</td>
+        <td>{{oldElectric}}</td>
+        <td>{{newElectric}}</td>
+        <td>{{oldWater}}</td>
+        <td>{{newWater}}</td>
+        <td>{{showNumber total}}</td>
+        <td>
+          <a class="btn btn-primary" href="/api/exportBill?idDetailContract={{_id}}">Xuất hóa đơn</a>
+          <form class="d-inline-block" action="/api/thanhToan?idDetailContract={{_id}}" method="post">
+            <button type="submit" class="btn btn-primary" {{hiddenElement (compare isPaid true)}}>Thanh toán</button>
+          </form>
+        </td>
+      </tr>
       {{/each}}
     </tbody>
   </table>

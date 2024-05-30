@@ -1,34 +1,40 @@
 <div class="container">
-  <h1 class="text-center">Chốt điện nước hàng tháng</h1>
+  <h1 class="mt-3 text-center" style="color: brown; text-transform: uppercase;">Chốt điện nước hàng tháng</h1>
   <table class="table">
     <thead>
       <tr>
-
-        <th scope="col"></th>
-        <th scope="col">Phòng</th>
-        <th scope="col">Từ ngày</th>
-        <th scope="col">Đến ngày</th>
-        <th scope="col">Chỉ số điện cũ</th>
-        <th scope="col">Chỉ số nước cũ</th>
+        <th class="text-center" scope="col">Phòng</th>
+        <th class="text-center" scope="col">Từ ngày</th>
+        <th class="text-center" scope="col">Đến ngày</th>
+        <th class="text-center" scope="col">Chỉ số điện cũ</th>
+        <th class="text-center" scope="col">Chỉ số nước cũ</th>
+        <th class="text-center" scope="col">Hành động</th>
       </tr>
     </thead>
     <tbody>
       {{#each detailContracts}}
       <tr>
-        <td class="text-center"><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chotThangModal"
-            data-bs-idDetailContract="{{_id}}" data-bs-idContract="{{idContract}}" data-bs-oldElectric="{{oldElectric}}"
-            data-bs-oldWater="{{oldWater}}">Chốt tháng</button></td>
-        <td class="align-content-center">{{roomNumber}}</td>
-        <td class="align-content-center">{{formatDate
+        <td class="align-content-center text-center">{{roomNumber}}</td>
+        <td class="align-content-center text-center">{{formatDate
           startDate
           "DD/MM/YYYY"
           }}</td>
-        <td class="align-content-center">{{formatDate
+        <td class="align-content-center text-center">{{formatDate
           endDate
           "DD/MM/YYYY"
           }}</td>
-        <td class="align-content-center">{{oldElectric}}</td>
-        <td class="align-content-center">{{oldWater}}</td>
+        <td class="align-content-center text-center">{{oldElectric}}</td>
+        <td class="align-content-center text-center">{{oldWater}}</td>
+        <td class="text-center">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chotThangModal"
+            data-bs-idDetailContract="{{_id}}" data-bs-idContract="{{idContract}}" data-bs-oldElectric="{{oldElectric}}"
+            data-bs-oldWater="{{oldWater}}" data-bs-isEnd="false">Chốt tháng
+          </button>
+          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#chotThangModal"
+            data-bs-idDetailContract="{{_id}}" data-bs-idContract="{{idContract}}" data-bs-oldElectric="{{oldElectric}}"
+            data-bs-oldWater="{{oldWater}}" data-bs-isEnd="true">Chốt tháng và kết thúc hợp đồng
+          </button>
+        </td>
       </tr>
       {{/each}}
     </tbody>
@@ -43,10 +49,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-
-        <form action="/api/chotThang" method="post">
+        <p class="text-danger error-message d-none">* Vui lòng nhập chỉ số lớn hơn chỉ số cũ</p>
+        <form action="/api/chotThang" method="post" id="formChotThang">
           <input type="text" name="idDetailContract" hidden />
           <input type="text" name="idContract" hidden />
+          <input type="text" name="isEnd" hidden />
           <div class="row">
             <div class="mb-3 col">
               <label for="recipient-name" class="col-form-label">Chỉ số điện cũ:</label>

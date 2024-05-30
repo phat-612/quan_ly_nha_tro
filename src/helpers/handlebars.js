@@ -64,4 +64,7 @@ module.exports = {
     }
     return "";
   },
+  statusContract: function (value) {
+    return value ? "Còn hạn" : "Hết hạn";
+  },
 };

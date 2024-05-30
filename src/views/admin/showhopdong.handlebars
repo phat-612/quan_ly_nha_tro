@@ -1,8 +1,9 @@
 <div class="container mt-4">
+  <h1 class="mt-3 text-center" style="color: brown; text-transform: uppercase;">Hợp Đồng Thuê Trọ</h1>
+  <div class="d-flex justify-content-end">
+    <a href="/admin/hopdong" class="btn btn-success">Thêm hợp đồng</a>
+  </div>
   <table class="table">
-
-    <a href="/admin/hopdong" class="btn btn-primary">Thêm hợp đồng</a>
-
     <thead>
       <tr>
         <th scope="col">STT</th>
@@ -11,7 +12,9 @@
         <th scope="col">Ngày bắt đầu</th>
         <th scope="col">Ngày kết thúc</th>
         <th scope="col">Đặt cọc</th>
-        <th scope="col">Hành động </th>
+        <th scope="col">Trạng thái</th>
+
+        <th scope="col" class="col-3">Hành động </th>
       </tr>
     </thead>
     <tbody>
@@ -23,11 +26,12 @@
         <td>{{toLocaleString this.startDate}}</td>
         <td>{{toLocaleString this.endDate}}</td>
         <td>{{this.deposit}}</td>
+        <td>{{statusContract this.status}}</td>
+
         <td>
-          <a href="/api/exportContract?idContract={{this._id}}" class="btn btn-primary">Xuất</a>
-          <button data-id="{{this._id}}" data-image="{{this.images}}" type="button" class="btn btn-primary btn-view"
-            data-bs-toggle="modal" data-bs-target="#viewImageModal">Xem</button>
-          <a href="/admin/edithopdong/{{this._id}}" type="button" id="editButton" class="btn btn-primary"
+          <a href="/admin/xemhopdong/{{this._id}}" type="button" id="editButton" class="btn btn-primary"
+            type="button">Xem</a>
+          <a href="/admin/edithopdong/{{this._id}}" type="button" id="editButton" class="btn btn-warning"
             type="button">Sửa</a>
           <button id="deleteButton" class="btn btn-danger btn-delete" type="submit" data-id="{{this._id}}">Xóa</button>
         </td>
