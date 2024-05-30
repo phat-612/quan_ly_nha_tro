@@ -14,50 +14,33 @@
     </thead>
     <tbody>
       {{#each detailContracts}}
-        <tr>
-          <td class="text-center"><button
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#chotThangModal"
-              data-bs-idDetailContract="{{_id}}"
-              data-bs-idContract="{{idContract}}"
-              data-bs-oldElectric="{{oldElectric}}"
-              data-bs-oldWater="{{oldWater}}"
-            >Chốt tháng</button></td>
-          <td class="align-content-center">{{roomNumber}}</td>
-          <td class="align-content-center">{{formatDate
-              startDate
-              "DD/MM/YYYY"
-            }}</td>
-          <td class="align-content-center">{{formatDate
-              endDate
-              "DD/MM/YYYY"
-            }}</td>
-          <td class="align-content-center">{{oldElectric}}</td>
-          <td class="align-content-center">{{oldWater}}</td>
-        </tr>
+      <tr>
+        <td class="text-center"><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chotThangModal"
+            data-bs-idDetailContract="{{_id}}" data-bs-idContract="{{idContract}}" data-bs-oldElectric="{{oldElectric}}"
+            data-bs-oldWater="{{oldWater}}">Chốt tháng</button></td>
+        <td class="align-content-center">{{roomNumber}}</td>
+        <td class="align-content-center">{{formatDate
+          startDate
+          "DD/MM/YYYY"
+          }}</td>
+        <td class="align-content-center">{{formatDate
+          endDate
+          "DD/MM/YYYY"
+          }}</td>
+        <td class="align-content-center">{{oldElectric}}</td>
+        <td class="align-content-center">{{oldWater}}</td>
+      </tr>
       {{/each}}
     </tbody>
   </table>
 </div>
 
-<div
-  class="modal fade"
-  id="chotThangModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="chotThangModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Chốt chỉ số tháng</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
@@ -67,58 +50,27 @@
           <div class="row">
             <div class="mb-3 col">
               <label for="recipient-name" class="col-form-label">Chỉ số điện cũ:</label>
-              <input
-                type="text"
-                class="form-control"
-                name="oldElectric"
-                id="recipient-name"
-                disabled
-              />
-              <input
-                type="text"
-                class="form-control"
-                name="oldElectric"
-                hidden
-              />
+              <input type="text" class="form-control" name="oldElectric" id="recipient-name" disabled />
+              <input type="text" class="form-control" name="oldElectric" hidden />
             </div>
             <div class="mb-3 col">
               <label for="recipient-name" class="col-form-label">Chỉ số điện cũ:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="recipient-name"
-                name="oldWater"
-                disabled
-              />
+              <input type="text" class="form-control" id="recipient-name" name="oldWater" disabled />
               <input type="text" class="form-control" name="oldWater" hidden />
             </div>
           </div>
           <div class="row">
             <div class="mb-3 col">
               <label for="newElectric" class="col-form-label">Chỉ số điện mới:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="newElectric"
-                name="newElectric"
-              />
+              <input type="number" class="form-control" id="newElectric" name="newElectric" required />
             </div>
             <div class="mb-3 col">
               <label for="newWater" class="col-form-label">Chỉ số nước mới:</label>
-              <input
-                id="newWater"
-                name="newWater"
-                type="text"
-                class="form-control"
-              />
+              <input id="newWater" name="newWater" type="number" class="form-control" required />
             </div>
           </div>
           <div class="float-end">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Chốt tháng</button>
           </div>
         </form>

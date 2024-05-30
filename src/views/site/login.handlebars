@@ -1,0 +1,65 @@
+{{!-- <div style="    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+    height:100vh;
+    " class="text-center">
+    <main style="    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;" class="form-signin">
+        <form action="/api/login" method="post">
+            <h1 class="h3 mb-3 fw-normal">Đăng nhập</h1>
+
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Tài khoản">
+                <label for="floatingInput">Tài khoản</label>
+            </div>
+            <div class="form-floating my-2">
+                <input type="password" class="form-control" name="password" id="floatingPassword"
+                    placeholder="Mật khẩu">
+                <label for="floatingPassword">Mật khẩu</label>
+            </div>
+
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Đăng nhập</button>
+        </form>
+    </main>
+</div> --}}
+{{!-- form 2 --}}
+<style>
+    input:focus+label {
+        top: 0px !important
+    }
+</style>
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="tab-content">
+                <h2 class="text-uppercase mb-4 fw-bolder text-center">đăng nhập</h2>
+                <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                    <form action="/api/login" method="post">
+                        <!-- Email input -->
+                        <div data-mdb-input-init class="form-outline mb-4 position-relative">
+                            <input type="text" id="loginName" class="form-control " name="username" required />
+                            <label class="form-label position-absolute px-3" for="loginName"
+                                style="top: 50%; transform: translateY(-50%); pointer-events: none">Tên đăng
+                                nhập</label>
+                        </div>
+
+                        <!-- Password input -->
+                        <div data-mdb-input-init class="form-outline mb-4 position-relative">
+                            <input type="password" id="loginPassword" class="form-control" name="password" required />
+                            <label class="form-label position-absolute px-3" for="loginPassword"
+                                style="top: 50%; transform: translateY(-50%); pointer-events: none;">Mật khẩu</label>
+                        </div>
+                        <!-- Submit button -->
+                        <button type="submit" class="btn w-100 mb-4 text-uppercase fw-bold text-light"
+                            style="font-size: 13px; background-color: #3b71ca;">đăng
+                            nhập</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -8,7 +8,7 @@
       <div class="card mb-4">
         <div class="card-header">Thông tin khách thuê</div>
         <div class="card-body">
-          <form action="/api/themKhachThue" method="post">
+          <form action="/api/themKhachThue" method="post" enctype="multipart/form-data">
             <!-- Form Row-->
             <div class="row gx-3 mb-2">
               <!-- Form Group (fullname)-->
@@ -62,8 +62,8 @@
               <!-- Form Group (IDC)-->
               <div class="col-md-6 mb-2">
                 <label class="small mb-1" for="inputCCCD">CCCD</label>
-                <input class="form-control" id="inputCCCD" type="text" placeholder="Nhập số CCCD" value="" required
-                  name="cccdNumber" />
+                <input class="form-control" id="inputCCCD" type="tel" placeholder="Nhập số CCCD" value="" required
+                  name="cccdNumber" pattern="[0-9]{12}" />
               </div>
               <!-- Form Group (cccddate)-->
               <div class="col-md-6">
@@ -71,19 +71,23 @@
                 <input class="form-control" id="inputdateIDC" type="date" value="" required name="cccdDate" />
               </div>
             </div>
-
+            {{!-- thêm cccd --}}
             <div class="row g-3">
               <div class="col">
-                <label for="formFile" class="form-label">CCCD Mặt trước</label>
-                <label for="formFile" class="form-label d-">
-                  <img src="" alt="Ảnh mặt trước">
+                <label for="frontInput" class="form-label">CCCD Mặt trước</label>
+                <label for="frontInput" class="form-label d-block m-auto w-75">
+                  <img src="/img/cccd.jpg" alt="Ảnh mặt trước" class="previewImage1 w-100 border border-3"
+                    style="height: 298; border-radius: 18px;">
                 </label>
-                <input class="form-control" type="file" id="formFile" hidden>
+                <input class="idcInput form-control" type="file" id="frontInput" name="idcs" multiple hidden required>
               </div>
               <div class="col">
-                <label for="formFile" class="form-label">CCCD Mặt sau</label>
-                <label for="formFile" class="form-label">CCCD Mặt sau</label>
-                <input class="form-control" type="file" id="formFile" hidden>
+                <label for="backInput" class="form-label">CCCD Mặt sau</label>
+                <label for="backInput" class="form-label d-block m-auto w-75">
+                  <img src="/img/cccd.jpg" alt="Ảnh mặt sau" class="previewImage2 w-100 border border-3"
+                    style="height: 298; border-radius: 18px;">
+                </label>
+                <input class="idcInput form-control" type="file" id="backInput" name="idcs" multiple hidden required>
               </div>
             </div>
 

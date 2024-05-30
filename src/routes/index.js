@@ -4,6 +4,9 @@ const path = require("path");
 const AdminController = require("../app/controllers/AdminController");
 const ApiController = require("../app/controllers/ApiController");
 const SiteController = require("../app/controllers/SiteController");
+
+const { isLogin, logined } = require("../app/middlewares/auth");
+
 const router = express.Router();
 // cấu hình multer
 const storage = multer.diskStorage({
@@ -20,6 +23,11 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 // end cấu hình multer
+
+// router login
+
+router.get("/login", logined, SiteController.login);
+
 // routes admin
 router.get("/admin", AdminController.home);
 
@@ -57,9 +65,14 @@ router.get("/", SiteController.index);
 router.get("/home", SiteController.home);
 
 // routes api =================================================================================================================================
-
+router.post("/api/login", ApiController.login);
+router.post("/api/changePassword", ApiController.changePassword);
 // // api Khach
-router.post("/api/themKhachThue", ApiController.themKhachThue);
+router.post(
+  "/api/themKhachThue",
+  upload.array("idcs"),
+  ApiController.themKhachThue
+);
 router.post("/api/suaThongTinKhach/:id", ApiController.suaThongTinKhach);
 router.post("/api/xoaKhachThue/:id", ApiController.xoaKhachThue);
 // // api phong`

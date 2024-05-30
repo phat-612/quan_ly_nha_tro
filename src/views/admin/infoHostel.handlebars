@@ -36,10 +36,6 @@
       <label for="exampleInputEmail1" class="form-label">Email</label>
       <input type="text" class="form-control inputDis" value="{{infohostel.email}}" disabled name="email" />
     </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Địa Chỉ Nhà Trọ</label>
-      <input type="text" class="form-control inputDis" value="{{infohostel.address}}" disabled name="address" />
-    </div>
     <div class="mb-3 row">
       <div class="mb-3 col-6">
         <label for="exampleInputEmail1" class="form-label">Số Căn Cước Công Dân</label>
@@ -57,6 +53,43 @@
       <button type="button" style="width: 150px;" class="btn btn-warning my-3 btn-sua">Sửa Thông Tin</button>
       <button hidden type="submit" style="width: 150px;" class="btn btn-success my-3 couplebtn">Lưu</button>
       <button hidden type="button" class="btn btn-danger my-3 mx-3 couplebtn cancelbtn">Hủy</button>
+      <button class="btn btn-danger my-3 mx-3" type="button" data-bs-toggle="modal" data-bs-target="#changePwModal">Đổi
+        mật
+        khẩu</button>
     </div>
   </form>
+
+</div>
+
+
+<div class="modal fade" id="changePwModal" tabindex="-1" aria-labelledby="changePwModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-uppercase" id="changePwModalLabel">Đổi mật khẩu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/api/changePassword" method="post">
+          <div class="mb-3">
+            <label for="oldPw" class="col-form-label">Mật khẩu hiện tại:</label>
+            <input type="password" class="form-control" name="oldPw" id="oldPw">
+          </div>
+          <div class="mb-3">
+            <label for="newPw1" class="col-form-label">Mật khẩu mới:</label>
+            <input type="password" class="form-control" name="newPw1" id="newPw1">
+          </div>
+          <div class="mb-3">
+            <label for="newPw2" class="col-form-label">Nhập lại mật khẩu:</label>
+            <input type="password" class="form-control" name="newPw2" id="newPw2">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-primary">Đổi mật khẩu</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
 </div>

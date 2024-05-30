@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@pdftron/pdfnet-node": "^10.9.0-1",
+    "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
     "connect-flash": "^0.1.1",
     "express": "^4.19.2",

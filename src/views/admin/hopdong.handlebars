@@ -1,31 +1,17 @@
 <div class="container mt-4">
-  <form
-    id="themHopdong"
-    method="post"
-    action="/api/themHopDong"
-    enctype="multipart/form-data"
-  >
+  <form id="themHopdong" method="post" action="/api/themHopDong" enctype="multipart/form-data">
     <div class="row mb-4">
       <div class="col">
         <h1 class="text-center">Hợp Đồng Thuê Trọ</h1>
         <div class="form-outline">
           <label class="form-label" for="themkhach">Tên khách thuê</label>
-          <input
-            list="guestNames"
-            id="themkhach"
-            class="form-control"
-            required
-          />
+          <input list="guestNames" id="themkhach" class="form-control" required />
           <datalist name="idTenants" id="guestNames">
             {{#each tenants}}
-              <option data-id="{{this._id}}">{{this.name}}</option>
+            <option data-id="{{this._id}}">{{this.name}}</option>
             {{/each}}
           </datalist>
-          <button
-            id="addGuest"
-            type="button"
-            class="btn btn-secondary btn-block mb-4"
-          >Thêm khách</button>
+          <button id="addGuest" type="button" class="btn btn-secondary btn-block mb-4">Thêm khách</button>
         </div>
         <div id="guestList"></div>
       </div>
@@ -37,10 +23,7 @@
           <select id="chonPhong" name="idRoom" class="form-control" required>
             <option value="" selected>Chọn phòng</option>
             {{#each rooms}}
-              <option
-                value="{{this._id}}"
-                data-price="{{this.price}}"
-              >{{this.roomNumber}}</option>
+            <option value="{{this._id}}" data-price="{{this.price}}">{{this.roomNumber}}</option>
             {{/each}}
           </select>
         </div>
@@ -48,13 +31,7 @@
       <div class="col">
         <div class="form-outline mb-4">
           <label class="form-label" for="giaPhong">Giá phòng</label>
-          <input
-            type="number"
-            name="roomPrice"
-            id="giaPhong"
-            class="form-control"
-            required
-          />
+          <input type="number" name="roomPrice" id="giaPhong" class="form-control" required />
         </div>
       </div>
     </div>
@@ -64,25 +41,13 @@
       <div class="col">
         <div class="form-group">
           <label for="startDate">Ngày bắt đầu</label>
-          <input
-            type="date"
-            name="startDate"
-            id="startDate"
-            class="form-control"
-            required
-          />
+          <input type="date" name="startDate" id="startDate" class="form-control" required />
         </div>
       </div>
       <div class="col">
         <div class="form-outline">
           <label class="form-label" for="endDate">Ngày kết thúc</label>
-          <input
-            type="date"
-            name="endDate"
-            id="endDate"
-            class="form-control"
-            required
-          />
+          <input type="date" name="endDate" id="endDate" class="form-control" required />
         </div>
       </div>
     </div>
@@ -91,25 +56,13 @@
       <div class="col">
         <div class="form-outline mb-4">
           <label class="form-label" for="form6Example6">Giá điện</label>
-          <input
-            type="number"
-            name="electricPrice"
-            id="form6Example7"
-            class="form-control"
-            required
-          />
+          <input type="number" name="electricPrice" id="form6Example7" class="form-control" required />
         </div>
       </div>
       <div class="col">
         <div class="form-outline mb-4">
           <label class="form-label" for="form6Example7">Giá nước</label>
-          <input
-            type="number"
-            name="waterPrice"
-            id="form6Example8"
-            class="form-control"
-            required
-          />
+          <input type="number" name="waterPrice" id="form6Example8" class="form-control" required />
         </div>
       </div>
     </div>
@@ -118,25 +71,13 @@
       <div class="col">
         <div class="form-outline mb-4">
           <label class="form-label" for="form6Example9">Chỉ số điện cũ</label>
-          <input
-            type="number"
-            name="oldElectric"
-            id="oldElectric"
-            class="form-control"
-            required
-          />
+          <input type="number" name="oldElectric" id="oldElectric" class="form-control" required />
         </div>
       </div>
       <div class="col">
         <div class="form-outline mb-4">
           <label class="form-label" for="form6Example10">Chỉ số nước cũ</label>
-          <input
-            type="number"
-            name="oldWater"
-            id="oldWater"
-            class="form-control"
-            required
-          />
+          <input type="number" name="oldWater" id="oldWater" class="form-control" required />
         </div>
       </div>
     </div>
@@ -144,27 +85,13 @@
       <div class="col">
         <div class="form-outline mb-4">
           <label class="form-label" for="form6Example8">Tiền cọc</label>
-          <input
-            type="number"
-            name="deposit"
-            id="form6Example9"
-            class="form-control"
-            required
-          />
+          <input type="number" name="deposit" id="form6Example9" class="form-control" required />
         </div>
       </div>
       <div class="col">
         <div class="form-outline mb-4">
           <label for="formFile" class="form-label">Tình trạng trước khi thuê</label>
-          <input
-            class="form-control"
-            type="file"
-            id="images"
-            name="images"
-            multiple
-            required
-
-          />
+          <input class="form-control" type="file" id="images" name="images" multiple required />
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Tenant = require("../models/Tenant");
 const Amenity = require("../models/Amenity");
 const Room = require("../models/Room");
@@ -22,7 +23,7 @@ class AdminController {
     });
   }
   themKhach(req, res) {
-    res.render("admin/themkhach", { layout: "admin" });
+    res.render("admin/themkhach", { layout: "admin", js: "themkhach" });
   }
   quanLyKhachThue(req, res) {
     Tenant.find({}).then((tenants) => {
@@ -121,6 +122,7 @@ class AdminController {
             Tenant.find().then((tenants) => {
               // truy vấn tất cả phòng
               res.render("admin/edithopdong", {
+                title: "Chi Tiết Hợp Đồng",
                 layout: "admin",
                 js: "suahopdong",
                 contract: contract.toObject(),
@@ -265,7 +267,14 @@ class AdminController {
     Amenity.find({}).then((amenities) => {
       amenities = amenities.map((amenitie) => amenitie.toObject());
       const arrPromise = amenities.map((amenity) => {
-        return Room.find({ idAmenities: amenity._id }).then((rooms) => {
+        return Room.find({
+          amenities: {
+            $elemMatch: {
+              idAmenitie: new mongoose.Types.ObjectId(amenity._id),
+              quantity: { $gt: 0 },
+            },
+          },
+        }).then((rooms) => {
           amenity.isUsed = false;
           if (rooms.length > 0) {
             amenity.isUsed = true;

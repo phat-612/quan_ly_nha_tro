@@ -1,5 +1,6 @@
 var pdf = require("pdf-creator-node");
 var fs = require("fs");
+const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const moment = require("moment");
 const path = require("path");
@@ -11,6 +12,8 @@ const Room = require("../models/Room");
 const InfoHostel = require("../models/InfoHostel");
 class ApiController {
   themKhachThue(req, res) {
+    // return console.log(req.files);
+    // console.log(req.files);
     const data = {
       name: req.body.name,
       address: req.body.address,
@@ -22,6 +25,8 @@ class ApiController {
       },
       dayOfBirth: req.body.dayOfBirth,
       gender: req.body.gender,
+      idcbefore: req.files[0].filename,
+      idcafter: req.files[1].filename,
     };
     const newTenant = new Tenant(data);
     newTenant.save().then(() => {
@@ -89,16 +94,12 @@ class ApiController {
   }
   xoaTienNghi(req, res) {
     const id = req.params.id;
-    const isUsed = req.body.isUsed;
     Amenity.deleteOne({ _id: id }).then(() => {
-      if (!isUsed) {
-        return res.redirect("back");
-      }
       // xóa tiện nghi khỏi phòng
       Room.updateMany(
         {},
         {
-          $pull: { "amenities.idAmenitie": id },
+          $pull: { amenities: { idAmenitie: id } },
         }
       ).then(() => {
         return res.redirect("back");
@@ -171,16 +172,45 @@ class ApiController {
       .save()
       .then((response) => {
         const startDate = new Date(data.startDate);
-        // edndate ngày tháng năm kết thúc của tháng đầu tiên hợp đồng
-        let endDateYear =
-          startDate.getMonth() == 11 && startDate.getDay() >= 15
-            ? 1
-            : 0 + startDate.getFullYear(); //ngày nhỏ hơn 15  của tháng 12
-        let endDateMonth =
-          startDate.getDay() >= 15 ? 1 : 0 + startDate.getMonth();
-        endDateMonth = endDateMonth == 12 ? 0 : endDateMonth;
-        const endDate = new Date(endDateYear, endDateMonth, 15);
-        console.log(endDateYear, endDateMonth, endDate);
+        const endDateInitial = new Date(data.endDate);
+
+        // Đặt thời gian thành 00:00:00
+        startDate.setHours(0, 0, 0, 0);
+        endDateInitial.setHours(0, 0, 0, 0);
+
+        // Tính chênh lệch số ngày (giờ đã được đặt thành nửa đêm)
+        const diffDays = (endDateInitial - startDate) / (1000 * 60 * 60 * 24);
+        console.log(diffDays);
+        let endDateYear, endDateMonth, endDateDay;
+
+        if (diffDays < 15) {
+          // Nếu ngày bắt đầu và ngày kết thúc ban đầu cách nhau ít hơn 15 ngày
+          endDateYear = endDateInitial.getFullYear();
+          endDateMonth = endDateInitial.getMonth();
+          endDateDay = endDateInitial.getDate();
+        } else {
+          endDateYear =
+            startDate.getMonth() == 11 && startDate.getDate() >= 15
+              ? startDate.getFullYear() + 1
+              : startDate.getFullYear();
+          endDateMonth =
+            startDate.getDate() >= 15
+              ? startDate.getMonth() + 1
+              : startDate.getMonth();
+          endDateMonth = endDateMonth == 12 ? 0 : endDateMonth; // chỗ này để đảm bảo tháng không quá 11
+          endDateDay = 15;
+        }
+        const interimEndDate = new Date(endDateYear, endDateMonth, endDateDay);
+        const endDate =
+          interimEndDate.getTime() < endDateInitial.getTime()
+            ? interimEndDate
+            : endDateInitial;
+        // const endDate = Math.min(
+        //   new Date(endDateYear, endDateMonth, endDateDay),
+        //   endDateInitial
+        // );
+        console.log(endDateYear, endDateMonth, endDateDay, endDate);
+
         const newDetailContract = new DetailContract({
           idContract: response._id,
           oldElectric: data.oldElectric,
@@ -188,6 +218,7 @@ class ApiController {
           startDate: data.startDate,
           endDate,
           isFirstDetail: true,
+          isLastDetail: endDate >= endDateInitial,
         });
         return newDetailContract.save();
       })
@@ -286,14 +317,14 @@ class ApiController {
         let electricPrice = detailContract.idContract.electricPrice;
         let waterPrice = detailContract.idContract.waterPrice;
         if (detailContract.isFirstDetail || detailContract.isLastDetail) {
-          let countDay = Math.ceil(
-            (detailContract.endDate.getTime() -
-              detailContract.startDate.getTime()) /
-              (1000 * 3600 * 24)
-          );
+          let countDay =
+            Math.ceil(
+              (detailContract.endDate.getTime() -
+                detailContract.startDate.getTime()) /
+                (1000 * 3600 * 24)
+            ) + 1;
           roomPrice = (roomPrice / 30) * countDay;
         }
-        console.log(roomPrice, electricPrice, waterPrice);
         const total =
           (newElectric - oldElectric) * electricPrice +
           (newWater - oldWater) * waterPrice +
@@ -313,17 +344,16 @@ class ApiController {
           }
         ).then((updatedDocument) => {
           // tạo chi tiết hợp đồng mới
+          console.log(updatedDocument);
           if (updatedDocument.isLastDetail) {
             Room.updateOne(
               { _id: detailContract.idContract.idRoom },
               { isEmpty: true }
             ).then(() => {});
+            return res.redirect("/admin/chotThang");
           }
           const contractEndDate = detailContract.idContract.endDate;
           const startDateDetail = updatedDocument.endDate;
-          if (startDateDetail >= contractEndDate) {
-            return res.redirect("/admin/chotThang");
-          }
           let endDateDetailDay = updatedDocument.endDate.getDate();
           let endDateDetailMonth = updatedDocument.endDate.getMonth();
           let endDateDetailYear = updatedDocument.endDate.getFullYear();
@@ -527,6 +557,12 @@ class ApiController {
         orientation: "landscape",
         border: "10mm",
       };
+      let totalElectric =
+        (detailContract.newElectric - detailContract.oldElectric) *
+        detailContract.contract.electricPrice;
+      let totalWater =
+        (detailContract.newWater - detailContract.oldWater) *
+        detailContract.contract.waterPrice;
       let data = {
         period: `Chu kỳ ${startDateMoment.format("MM/YYYY")}`,
         roomNumber: detailContract.room.roomNumber,
@@ -538,13 +574,9 @@ class ApiController {
         newWater: detailContract.newWater,
         electricPrice: detailContract.contract.electricPrice,
         waterPrice: detailContract.contract.waterPrice,
-        totalElectric:
-          (detailContract.newElectric - detailContract.oldElectric) *
-          detailContract.contract.electricPrice,
-        totalWater:
-          (detailContract.newWater - detailContract.oldWater) *
-          detailContract.contract.waterPrice,
-        roomPrice: 1000000,
+        totalElectric,
+        totalWater,
+        roomPrice: detailContract.total - totalElectric - totalWater,
         total: detailContract.total,
       };
       Object.keys(data).forEach((key) => {
@@ -582,6 +614,7 @@ class ApiController {
   }
   updateInfoHostel(req, res, next) {
     const formData = req.body;
+    // return res.send(formData);
     InfoHostel.findOneAndUpdate(
       { _id: formData._id },
       {
@@ -596,6 +629,39 @@ class ApiController {
       }
     ).then(() => {
       res.redirect("back");
+    });
+  }
+  login(req, res) {
+    let formData = req.body;
+    InfoHostel.findOne({ username: formData.username }).then((infoHostel) => {
+      if (!infoHostel) {
+        return res.redirect("/login");
+      }
+      let isMatch = bcrypt.compareSync(formData.password, infoHostel.password);
+      if (!isMatch) {
+        return res.redirect("/login");
+      }
+      req.session.isLogin = true;
+      return res.redirect("/admin");
+    });
+  }
+  changePassword(req, res) {
+    let formData = req.body;
+    InfoHostel.findOne({
+      username: "admin",
+    }).then((infoHostel) => {
+      let isMatch = bcrypt.compareSync(formData.oldPw, infoHostel.password);
+      if (!isMatch) {
+        return res.redirect("back");
+      }
+      if (formData.newPw1 != formData.newPw2) {
+        return res.redirect("back");
+      }
+      let hashPass = bcrypt.hashSync(formData.newPw1, 10);
+      infoHostel.password = hashPass;
+      return infoHostel.save().then(() => {
+        res.redirect("back");
+      });
     });
   }
 }

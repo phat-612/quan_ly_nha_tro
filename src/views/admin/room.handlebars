@@ -35,12 +35,14 @@
                 data-bs-roomNumber="{{this.roomNumber}}" data-bs-floor="{{this.floor}}" data-bs-price="{{this.price}}"
                 data-bs-area="{{this.area}}" data-bs-description="{{this.description}}"
                 data-bs-quantity="{{#each this.amenities}}{{this.quantity}} {{/each}}"
-                data-bs-idAmenities="{{#each this.amenities}}{{this.idAmenitie}},{{/each}}"><i class="bi bi-eye-fill"></i></button></div>
+                data-bs-idAmenities="{{#each this.amenities}}{{this.idAmenitie}},{{/each}}"><i
+                  class="bi bi-eye-fill"></i></button></div>
             <div class="col-4"><button type="button" class="btn btn-warning updateRoomBtn" data-bs-toggle="modal"
                 data-bs-target="#modalXem" data-bs-id="{{this._id}}" data-bs-isEmpty="{{this.isEmpty}}"
                 data-bs-roomNumber="{{this.roomNumber}}" data-bs-floor="{{this.floor}}" data-bs-price="{{this.price}}"
-                data-bs-area="{{this.area}}" data-bs-description="{{this.description}}" data-bs-quantity="{{#each this.amenities}}{{this.quantity}} {{/each}}"
-                 data-bs-idAmenities="{{#each this.amenities}}{{this.idAmenitie}},{{/each}}"><i
+                data-bs-area="{{this.area}}" data-bs-description="{{this.description}}"
+                data-bs-quantity="{{#each this.amenities}}{{this.quantity}} {{/each}}"
+                data-bs-idAmenities="{{#each this.amenities}}{{this.idAmenitie}},{{/each}}"><i
                   class="bi bi-wrench"></i></button></div>
             <div class="col-4">
               <form action="/api/xoaPhong" method="post">
@@ -127,8 +129,9 @@
                         </td>
                         <td>
                           <input class="form-check-input" type="text" value="{{this._id}}" id="{{this.name}}"
-                            name="amenities[{{@index}}][idAmenitie]" hidden/>
-                          <input type="number" class="form-control quantityinput" value="" name="amenities[{{@index}}][quantity]" id="">
+                            name="amenities[{{@index}}][idAmenitie]" hidden />
+                          <input type="number" class="form-control quantityinput" value=""
+                            name="amenities[{{@index}}][quantity]" id="">
                         </td>
                       </tr>
                       {{/each}}
@@ -158,14 +161,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/api/updatePhong" method="post">
+        <form action="/api/updatePhong" method="post" id="formSua">
           <input type="text" hidden class="hiddenInpId" value="" name="id">
           <div class="row">
             <div class="col-6">
               <div class="mb-3">
                 <label for="" class="col-form-label">Số Phòng :</label>
-                <input type="text" class="form-control inpXemroomNumber disabledClass" disabled="disabled" name="roomNumber"
-                  required />
+                <input type="text" class="form-control inpXemroomNumber disabledClass" disabled="disabled"
+                  name="roomNumber" required />
               </div>
               <div class="mb-3">
                 <label for="floor" class="col-form-label">Số Tầng :</label>
@@ -181,11 +184,13 @@
               </div>
               <div class="mb-3">
                 <label for="" class="col-form-label">Diện Tích :</label>
-                <input type="text" class="form-control inpXemarea disabledClass" disabled="disabled" name="area" required />
+                <input type="text" class="form-control inpXemarea disabledClass" disabled="disabled" name="area"
+                  required />
               </div>
               <div class="mb-3">
                 <label for="" class="col-form-label">Giá :</label>
-                <input type="text" class="form-control inpXemprice disabledClass" disabled="disabled" name="price" required />
+                <input type="text" class="form-control inpXemprice disabledClass" disabled="disabled" name="price"
+                  required />
               </div>
               <div class="mb-3">
                 <label for="" class="col-form-label">Mô tả :</label>
@@ -219,13 +224,14 @@
                         <td>
                           <label class="form-check-label" for="{{this.name}}">
                             {{this.name}}
-                          </label>  
+                          </label>
                         </td>
                         <td>
-                          <input class="form-check-input checkboxAmeniti disabledClass" type="checkbox" value="{{this.idAmenitie}}"
-                            id="{{this.amenities.idAmenitie}}" name="amenities[{{@index}}][idAmenities]" disabled  hidden/>
-                          <input type="number" class="form-control quantity" name="amenities[{{@index}}][quantity]"
-                            id="inpQuantity{{@index}}" value="" disabled>
+                          <input class="form-check-input checkboxAmeniti " type="checkbox" value="{{this.idAmenitie}}"
+                            id="{{this.amenities.idAmenitie}}" name="amenities[{{@index}}][idAmenities]" disabled
+                            hidden />
+                          <input type="number" class="form-control quantity disabledClass"
+                            name="amenities[{{@index}}][quantity]" id="inpQuantity{{@index}}" value="" disabled>
                         </td>
                       </tr>
                       {{/each}}
@@ -238,7 +244,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success updateBtninModal">Sửa</button>
-        <button type="submit" class="btn btn-success updateRoomBtninModal" hidden>Sửa</button>
         <button type="submit" class="btn btn-success saveBtninModal" hidden>Lưu</button>
         <button type="button" class="btn btn-danger cancelBtninModal" hidden>Hủy</button>
       </div>

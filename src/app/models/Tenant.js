@@ -35,6 +35,12 @@ const TenantSchema = new Schema(
     status: {
       type: Boolean,
     },
+    idcbefore: {
+      type: String,
+    },
+    idcafter: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

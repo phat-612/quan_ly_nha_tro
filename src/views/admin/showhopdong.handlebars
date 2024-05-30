@@ -1,4 +1,5 @@
-<div class="container mt-4"><table class="table">
+<div class="container mt-4">
+  <table class="table">
 
     <a href="/admin/hopdong" class="btn btn-primary">Thêm hợp đồng</a>
 
@@ -15,37 +16,22 @@
     </thead>
     <tbody>
       {{#each hopdong}}
-        <tr>
-          <th scope="row">1</th>
-          <td>{{this.idRoom.roomNumber}}</td>
-          <td>{{this.roomPrice}}</td>
-          <td>{{toLocaleString this.startDate}}</td>
-          <td>{{toLocaleString this.endDate}}</td>
-          <td>{{this.deposit}}</td>
-          <td>
-            <a href="/api/exportContract?idContract={{this._id}}" class="btn btn-primary">Xuất</a>
-            <button
-              data-id="{{this._id}}"
-              data-image="{{this.images}}"
-              type="button"
-              class="btn btn-primary btn-view"
-              data-bs-toggle="modal"
-              data-bs-target="#viewImageModal"
-            >Xem</button>
-            <a
-              href="/admin/edithopdong/{{this._id}}"
-              type="button"
-              id="editButton"
-              class="btn btn-primary"
-              type="button"
-            >Sửa</a>
-            <button
-              id="deleteButton"
-              class="btn btn-danger btn-delete"
-              type="submit"
-              data-id="{{this._id}}"
-            >Xóa</button></td>
-        </tr>
+      <tr>
+        <th scope="row">1</th>
+        <td>{{this.idRoom.roomNumber}}</td>
+        <td>{{this.roomPrice}}</td>
+        <td>{{toLocaleString this.startDate}}</td>
+        <td>{{toLocaleString this.endDate}}</td>
+        <td>{{this.deposit}}</td>
+        <td>
+          <a href="/api/exportContract?idContract={{this._id}}" class="btn btn-primary">Xuất</a>
+          <button data-id="{{this._id}}" data-image="{{this.images}}" type="button" class="btn btn-primary btn-view"
+            data-bs-toggle="modal" data-bs-target="#viewImageModal">Xem</button>
+          <a href="/admin/edithopdong/{{this._id}}" type="button" id="editButton" class="btn btn-primary"
+            type="button">Sửa</a>
+          <button id="deleteButton" class="btn btn-danger btn-delete" type="submit" data-id="{{this._id}}">Xóa</button>
+        </td>
+      </tr>
       {{/each}}
     </tbody>
   </table>
@@ -55,20 +41,10 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <img
-          id="viewImg"
-          src="/uploads/"
-          alt=""
-          class="mb-3" <!-- Thêm lớp này để tạo khoảng cách ở dưới hình ảnh -->
-          style="width: 100%; height: auto;"
-        />
+        <img id="viewImg" src="/uploads/" alt="" class="mb-3" style="width: 100%; height: auto;" />
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-        >Đóng</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
       </div>
     </div>
   </div>
@@ -79,23 +55,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Bộ bạn muốn xóa lắm à ?</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <p>Bạn chắc chắn muốn xóa ?</p>
       </div>
       <div class="modal-footer">
-        <button
-          id="btn-delete"
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-        >Xóa</button>
+        <button id="btn-delete" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Xóa</button>
         <button type="button" class="btn btn-danger">Hủy</button>
       </div>
     </div>
