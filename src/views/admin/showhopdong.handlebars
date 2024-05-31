@@ -20,7 +20,7 @@
     <tbody>
       {{#each hopdong}}
       <tr>
-        <th scope="row">1</th>
+        <th scope="row">{{showSTT @index}}</th>
         <td>{{this.idRoom.roomNumber}}</td>
         <td>{{this.roomPrice}}</td>
         <td>{{toLocaleString this.startDate}}</td>
@@ -31,8 +31,10 @@
         <td>
           <a href="/admin/xemhopdong/{{this._id}}" type="button" id="editButton" class="btn btn-primary"
             type="button">Xem</a>
+          {{#if this.status}}
           <a href="/admin/edithopdong/{{this._id}}" type="button" id="editButton" class="btn btn-warning"
             type="button">Sửa</a>
+          {{/if}}
           <button id="deleteButton" class="btn btn-danger btn-delete" type="submit" data-id="{{this._id}}">Xóa</button>
         </td>
       </tr>

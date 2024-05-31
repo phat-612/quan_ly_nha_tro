@@ -29,8 +29,22 @@
 </div> --}}
 {{!-- form 2 --}}
 <style>
-    input:focus+label {
-        top: 0px !important
+    input:focus {
+        border: 2px solid #1a73e8 !important;
+    }
+
+    input:focus+label,
+    input:valid+label {
+        top: 0px !important;
+        color: #1a73e8;
+
+    }
+
+    label {
+        transition: all 0.3 ease-in-out;
+        left: 20px;
+        padding: 0 5px !important;
+        background-color: #fff !important;
     }
 </style>
 <div class="container py-5 h-100">
@@ -42,17 +56,19 @@
                     <form action="/api/login" method="post">
                         <!-- Email input -->
                         <div data-mdb-input-init class="form-outline mb-4 position-relative">
-                            <input type="text" id="loginName" class="form-control " name="username" required />
-                            <label class="form-label position-absolute px-3" for="loginName"
-                                style="top: 50%; transform: translateY(-50%); pointer-events: none">Tên đăng
+                            <input type="text" id="loginName" class="form-control btn-outline-light border text-dark"
+                                name="username" required />
+                            <label class="form-label position-absolute rounded-3" for="loginName"
+                                style="top: 60%; transform: translateY(-70%); pointer-events: none">Tên đăng
                                 nhập</label>
                         </div>
 
                         <!-- Password input -->
                         <div data-mdb-input-init class="form-outline mb-4 position-relative">
-                            <input type="password" id="loginPassword" class="form-control" name="password" required />
-                            <label class="form-label position-absolute px-3" for="loginPassword"
-                                style="top: 50%; transform: translateY(-50%); pointer-events: none;">Mật khẩu</label>
+                            <input type="password" id="loginPassword"
+                                class="form-control btn-outline-light border  text-dark" name="password" required />
+                            <label class="form-label position-absolute" for="loginPassword"
+                                style="top: 60%; transform: translateY(-70%); pointer-events: none;">Mật khẩu</label>
                         </div>
                         <!-- Submit button -->
                         <button type="submit" class="btn w-100 mb-4 text-uppercase fw-bold text-light"

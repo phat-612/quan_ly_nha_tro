@@ -145,7 +145,7 @@ class ApiController {
   }
   xoaPhong(req, res, next) {
     Contract.findOne({ idRoom: req.body }).then((contract) => {
-      console.log(contract);
+      // console.log(contract);
       if (contract) {
         req.flash("error_msg", "Phòng đã tồn tại trong hợp đồng");
         res.redirect("back");
@@ -171,7 +171,7 @@ class ApiController {
     newContract
       .save()
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         const startDate = new Date(data.startDate);
         const endDateInitial = new Date(data.endDate);
 
@@ -198,16 +198,17 @@ class ApiController {
             startDate.getDate() >= 15
               ? startDate.getMonth() + 1
               : startDate.getMonth();
-          endDateMonth = endDateMonth == 12 ? 0 : endDateMonth; // chỗ này để đảm bảo tháng không quá 11
+          endDateMonth = endDateMonth == 12 ? 0 : endDateMonth; // đảm bảo tháng không quá 11
           endDateDay = 15;
         }
         const interimEndDate = new Date(endDateYear, endDateMonth, endDateDay);
+        // console.log(interimEndDate);
         const endDate =
           interimEndDate.getTime() < endDateInitial.getTime()
             ? interimEndDate
             : endDateInitial;
+        // console.log(endDate);
         console.log(endDateYear, endDateMonth, endDateDay, endDate);
-
         const newDetailContract = new DetailContract({
           idContract: response._id,
           oldElectric: data.oldElectric,

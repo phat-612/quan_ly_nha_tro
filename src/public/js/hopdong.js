@@ -40,12 +40,12 @@ $(document).ready(function () {
       alert("Vui lòng chọn một khách");
     } else {
       var guestHTML =
-        '<div class="guest-name col-6 row mt-3">' +
+        '<div class="guest-name col-6 d-flex mt-3">' +
         '<span style="width:80%;" class="form-control">' +
         guestName +
         '</span><input type="hidden" name="idTenants" value="' +
         guestId +
-        '"><button type="button" class="btn btn-danger col removeGuest">Xóa</button></div>';
+        '"><button type="button" class="btn btn-danger ms-2 col removeGuest">Xóa</button></div>';
 
       $("#guestList").append(guestHTML);
       $("#themkhach").val("");

@@ -22,6 +22,8 @@ $(document).ready(function () {
     deleteModal.modal("hide");
   });
 });
+
+// //////////////////////////////////////////////
 $(".btn-view").click(function () {
   var images = $(this).data("image").split(",");
   $(".modal-body").empty();

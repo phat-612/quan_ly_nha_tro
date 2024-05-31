@@ -20,6 +20,7 @@
   <table class="table">
     <thead>
       <tr>
+        <th class="text-center" scope="col">STT</th>
         <th scope="col">Phòng</th>
         <th scope="col">Từ ngày</th>
         <th scope="col">Đến ngày</th>
@@ -34,15 +35,16 @@
     <tbody>
       {{#each detailContracts}}
       <tr>
-        <td>{{roomNumber}}</td>
-        <td>{{formatDate startDate "DD/MM/YYYY"}}</td>
-        <td>{{formatDate endDate "DD/MM/YYYY"}}</td>
-        <td>{{oldElectric}}</td>
-        <td>{{newElectric}}</td>
-        <td>{{oldWater}}</td>
-        <td>{{newWater}}</td>
-        <td>{{showNumber total}}</td>
-        <td>
+        <th class="align-content-center text-center">{{showSTT @index}}</th>
+        <td class="align-content-center text-center">{{roomNumber}}</td>
+        <td class="align-content-center text-center">{{formatDate startDate "DD/MM/YYYY"}}</td>
+        <td class="align-content-center text-center">{{formatDate endDate "DD/MM/YYYY"}}</td>
+        <td class="align-content-center text-center">{{oldElectric}}</td>
+        <td class="align-content-center text-center">{{newElectric}}</td>
+        <td class="align-content-center text-center">{{oldWater}}</td>
+        <td class="align-content-center text-center">{{newWater}}</td>
+        <td class="align-content-center text-center">{{showNumber total}}</td>
+        <td class="align-content-center text-center">
           <a class="btn btn-primary" href="/api/exportBill?idDetailContract={{_id}}">Xuất hóa đơn</a>
           <form class="d-inline-block" action="/api/thanhToan?idDetailContract={{_id}}" method="post">
             <button type="submit" class="btn btn-primary" {{hiddenElement (compare isPaid true)}}>Thanh toán</button>

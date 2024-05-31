@@ -29,36 +29,44 @@ const upload = multer({ storage: storage });
 router.get("/login", logined, SiteController.login);
 
 // routes admin
-router.get("/admin", AdminController.home);
+router.get("/admin", isLogin, AdminController.home);
 
 // /admin/infoHostel
-router.get("/admin/infoHostel", AdminController.infoHostel);
+router.get("/admin/infoHostel", isLogin, AdminController.infoHostel);
 
 // /admin/room
-router.get("/admin/room", AdminController.room);
+router.get("/admin/room", isLogin, AdminController.room);
 
 // //admin Khach
-router.get("/admin/quanlykhachthue", AdminController.quanLyKhachThue);
-router.get("/admin/xemThongTinKhach/:id", AdminController.xemThongTinKhach);
-router.get("/admin/themKhach", AdminController.themKhach);
-router.get("/admin/suaThongTinKhach/:id", AdminController.suaThongTinKhach);
+router.get("/admin/quanlykhachthue", isLogin, AdminController.quanLyKhachThue);
+router.get(
+  "/admin/xemThongTinKhach/:id",
+  isLogin,
+  AdminController.xemThongTinKhach
+);
+router.get("/admin/themKhach", isLogin, AdminController.themKhach);
+router.get(
+  "/admin/suaThongTinKhach/:id",
+  isLogin,
+  AdminController.suaThongTinKhach
+);
 
 // //admin Hop Dong
-router.get("/admin/hopdong", AdminController.hopdong);
-router.get("/admin/xemhopdong/:id", AdminController.xemhopdong);
+router.get("/admin/hopdong", isLogin, AdminController.hopdong);
+router.get("/admin/xemhopdong/:id", isLogin, AdminController.xemhopdong);
 
-router.get("/admin/showhopdong", AdminController.showhopdong);
-router.get("/admin/edithopdong/:id", AdminController.edithopdong);
+router.get("/admin/showhopdong", isLogin, AdminController.showhopdong);
+router.get("/admin/edithopdong/:id", isLogin, AdminController.edithopdong);
 
 // //admin Chot Thang
-router.get("/admin/chotThang", AdminController.chotThang);
+router.get("/admin/chotThang", isLogin, AdminController.chotThang);
 
 // //admin Thanh Toan
-router.get("/admin/thanhToan", AdminController.thanhToan);
-router.get("/api/exportBill", ApiController.exportBill);
+router.get("/admin/thanhToan", isLogin, AdminController.thanhToan);
+router.get("/api/exportBill", isLogin, ApiController.exportBill);
 
 // //admin Tien Nghi
-router.get("/admin/showTienNghi", AdminController.showTienNghi);
+router.get("/admin/showTienNghi", isLogin, AdminController.showTienNghi);
 
 // routes user
 router.get("/", SiteController.index);
@@ -70,35 +78,42 @@ router.post("/api/changePassword", ApiController.changePassword);
 // // api Khach
 router.post(
   "/api/themKhachThue",
+  isLogin,
+  // multer nhận form có entype multipart/form-data lưu hình vào server
   upload.array("idcs"),
   ApiController.themKhachThue
 );
-router.post("/api/suaThongTinKhach/:id", ApiController.suaThongTinKhach);
-router.post("/api/xoaKhachThue/:id", ApiController.xoaKhachThue);
+router.post(
+  "/api/suaThongTinKhach/:id",
+  isLogin,
+  ApiController.suaThongTinKhach
+);
+router.post("/api/xoaKhachThue/:id", isLogin, ApiController.xoaKhachThue);
 // // api phong`
-router.post("/api/themPhong", ApiController.themPhong);
-router.post("/api/xoaPhong", ApiController.xoaPhong);
-router.post("/api/updatePhong", ApiController.updatePhong);
+router.post("/api/themPhong", isLogin, ApiController.themPhong);
+router.post("/api/xoaPhong", isLogin, ApiController.xoaPhong);
+router.post("/api/updatePhong", isLogin, ApiController.updatePhong);
 // // api tien nghi
-router.post("/api/themTienNghi", ApiController.themTienNghi);
-router.post("/api/suaTienNghi/:id", ApiController.suaTienNghi);
-router.post("/api/xoaTienNghi/:id", ApiController.xoaTienNghi);
+router.post("/api/themTienNghi", isLogin, ApiController.themTienNghi);
+router.post("/api/suaTienNghi/:id", isLogin, ApiController.suaTienNghi);
+router.post("/api/xoaTienNghi/:id", isLogin, ApiController.xoaTienNghi);
 // // api hopdong
 router.post(
   "/api/themHopDong",
+  isLogin,
   upload.array("images"),
   ApiController.themHopDong
 );
-router.post("/api/updatehopdong/:id", ApiController.updatehopdong);
-router.post("/api/xoahopdong/:id", ApiController.xoahopdong);
-router.get("/api/exportContract", ApiController.exportContract);
+router.post("/api/updatehopdong/:id", isLogin, ApiController.updatehopdong);
+router.post("/api/xoahopdong/:id", isLogin, ApiController.xoahopdong);
+router.get("/api/exportContract", isLogin, ApiController.exportContract);
 // // api chot thang
-router.post("/api/chotThang", ApiController.chotThang);
+router.post("/api/chotThang", isLogin, ApiController.chotThang);
 // // api thanh toan
-router.post("/api/thanhToan", ApiController.thanhToan);
+router.post("/api/thanhToan", isLogin, ApiController.thanhToan);
 
 // // api cap nhat thong tin phong` tro
 
-router.post("/api/updateInfoHostel", ApiController.updateInfoHostel);
+router.post("/api/updateInfoHostel", isLogin, ApiController.updateInfoHostel);
 
 module.exports = router;

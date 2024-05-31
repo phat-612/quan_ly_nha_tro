@@ -7,9 +7,11 @@
         <a href="/api/exportContract?idContract={{this._id}}"
           class="btn btn-primary position-absolute top-50 end-0 translate-middle-y">Xuất Hợp
           Đồng</a>
+        {{#if this.status}}
         <a href="/admin/edithopdong/{{this._id}}" style="right: 12%;" type="submit" id="suahopdong"
           class="btn btn-success position-absolute top-50 translate-middle-y">Sửa
           hợp đồng</a>
+        {{/if}}
       </div>
       <label class=" form-label h5" for="chonPhong">Tên Khách Thuê</label>
       {{#each tenants}}

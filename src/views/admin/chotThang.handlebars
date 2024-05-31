@@ -3,6 +3,8 @@
   <table class="table">
     <thead>
       <tr>
+
+        <th class="text-center" scope="col">STT</th>
         <th class="text-center" scope="col">Phòng</th>
         <th class="text-center" scope="col">Từ ngày</th>
         <th class="text-center" scope="col">Đến ngày</th>
@@ -14,6 +16,7 @@
     <tbody>
       {{#each detailContracts}}
       <tr>
+        <th class="align-content-center text-center">{{showSTT @index}}</th>
         <td class="align-content-center text-center">{{roomNumber}}</td>
         <td class="align-content-center text-center">{{formatDate
           startDate
